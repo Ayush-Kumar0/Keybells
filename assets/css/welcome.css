@@ -1,0 +1,106 @@
+#backpage-welcome{
+    width: 100%;
+    height: auto;
+    /*border: 2px solid black;*/
+    display: flex;
+    background-image: url("../images/welcome/for_backgroung.jpg");
+    filter: brightness(110%);
+    padding-bottom: 100px;
+    flex-direction: column;
+    align-items: center;
+}
+#heading-welcome{
+    margin-top: 50px;
+    font-size: 45px;
+    text-shadow: 2px 2px 5px;
+    color: white;
+}
+#transform-image-wel{
+    transform: rotateY(180deg);
+}
+#upper-div-welcome{
+    margin-top: 30px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    /*border: 2px solid black;*/
+}
+#lower-div-welcome{
+    width: 90%;
+    display: flex;
+    flex-direction: row-reverse;
+    /*border: 2px solid black;*/
+}
+.image-welcome{
+    /*border: 2px solid black;*/
+    width: 25%;
+    margin: 10px;
+}
+.text-img-welcome{
+    margin: 30px;
+    text-align: justify;
+    font-size: 20px;
+    font-weight: 600;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: 30%;
+    width: 30%;
+    border: 8px solid rgb(102, 89, 89);
+    padding: 5px 10px;
+    border-radius: 25px;
+    background-color: rgb(237, 226, 226);
+}
+#buttons-welcome{
+    border: 10px solid rgb(102, 89, 89);
+    background-color: rgb(237, 226, 226);
+    box-shadow: inset 4px 4px 4px rgb(73, 69, 69);
+    padding-bottom: 15px;
+    height: auto;
+    width: 30%;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.inner-div-welcome{
+    height: 50%;
+    width: 95%;
+    border-radius :6px; 
+    background-color: rgb(198, 225, 135);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.outer-div-welcome{
+    height: 50px;
+    width: 20%;
+    margin-top: 30px;
+    /*border: 2px solid black;*/
+    border-radius: 10px;
+    background-color: rgb(95, 200, 95);
+    display: flex;
+    justify-content: center;
+    padding-top: 3px;
+}
+.submit-welcome{
+    margin-bottom: -20px;
+    height: 50px;
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    font-size: 1.0rem;
+}
+#form-welcome{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
