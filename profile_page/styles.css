@@ -1,0 +1,54 @@
+body{
+    background-image: url("C:/Users/asus/Desktop/tying_sikh_lo/Typing_Sikh_Lo/home_page/images/img4.png"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: repeat; /* Do not repeat the image */
+    margin-top:20px;
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+.main{
+    padding:15px;
+    font-family:"";
+}
+.sidebar{
+    background-color: #3C4048;
+    color:white;
+    height:100%;
+}
+.sidebar a{
+    margin-left:10px;
+    display:block;
+    color:white;
+    padding-bottom:10px;
+    font-size:30px;
+    text-decoration: none;
+}
+.card{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+}
+.content{
+    background-color: whitesmoke;
+}
+.row{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top:10px;
+    padding-bottom:30px;
+}
+.side-head{
+    padding:10px;
+    font-family: "Montserrat-Bold";
+}
+.side{
+    padding:20px;
+    font-family: "Montserrat";
+}
+.side-2{
+    padding:15px;
+}
+.part2{
+    margin-top:0px;
+}
