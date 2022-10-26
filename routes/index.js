@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const homeController = require('../controllers/home_controller');
+const welcomeController = require('../controllers/welcome_controller');
 
-router.get('/', homeController.home);
+//For welcome screen
+router.get('/', welcomeController.home);
+
+//Login/Logout routes
+router.get('/sign-in', welcomeController.signIn);
+router.get('/sign-up', welcomeController.signUp);
 
 
 
-
+//For a user
+router.use('/user', require('./user'));
+//For a guest
+router.use('/guest', require('./guest'));
 
 
 //Exporting the router

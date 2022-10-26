@@ -1,0 +1,140 @@
+body {
+  background-image: url("images/profile_home/img4.png");
+  background-color: #cccccc;
+  background-size: cover;
+
+}
+
+
+.colored-section {
+  background-image: url("images/profile_home/img4.png");
+  /* The image used */
+  background-color: #cccccc;
+  /* Used if the image is unavailable */
+  height: 500px;
+  /* You must set a specified height */
+  background-position: center;
+  /* Center the image */
+  background-repeat: repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
+}
+
+.navbar {
+  margin-top: 30px;
+  font-weight: bolder;
+  font-family: "Montserrat-Bold";
+}
+
+.giantt {
+  /* width:auto;
+    height:400px; */
+  max-width: 40%;
+}
+
+#features {
+  position: relative;
+  background-color: #3C4048;
+  color: white;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+}
+
+.feature-box {
+  padding: 4.5%;
+}
+
+.icon {
+  color: #A8E890;
+  margin-bottom: 1rem;
+}
+
+.icon:hover {
+  color: #749F82;
+}
+
+#features {
+  padding: 40px;
+  text-align: center;
+}
+
+/* Testimonial Section */
+#testimonials {
+  text-align: center;
+}
+
+.testimonial-text {
+  padding-top: 120px;
+  font-size: 2rem;
+  line-height: 1.5;
+  margin-right: 100px;
+  margin-left: 100px;
+  /* font-family: "Montserrat-bold"; */
+  color: aliceblue;
+
+}
+
+.name {
+  font-size: larger;
+  font-weight: bolder;
+  /* margin-top: 15px; */
+  color: aliceblue;
+}
+
+.testimonial-image {
+
+  height: auto;
+  max-width: 10%;
+  border-radius: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  /* height:450px;
+    padding:50px; */
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.container-fluid {
+  padding-bottom: 0px;
+}
+
+/* call to action section */
+#cta {
+  padding: 80px;
+  text-align: center;
+  background-color: #f4eeee;
+}
+
+.big-heading {
+  padding: 30px;
+}
+
+
+/* Footer Section */
+
+#footer {
+  text-align: center;
+  height: fit-content;
+  padding: 30px;
+}
+
+.social-icon {
+  margin: 20px 10px;
+}
+
+@media (max-width: 1028px) {
+
+  #title {
+    text-align: center;
+  }
+
+  .title-image {
+    position: static;
+    transform: rotate(0);
+  }
+}
