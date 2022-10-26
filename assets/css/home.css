@@ -1,5 +1,5 @@
 body {
-  background-image: url("images/profile_home/img4.png");
+  background-image: url("../images/profile_home/img4.png");
   background-color: #cccccc;
   background-size: cover;
 
@@ -7,7 +7,7 @@ body {
 
 
 .colored-section {
-  background-image: url("images/profile_home/img4.png");
+  background-image: url("../images/profile_home/img4.png");
   /* The image used */
   background-color: #cccccc;
   /* Used if the image is unavailable */
