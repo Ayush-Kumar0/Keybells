@@ -24,7 +24,7 @@
     "url": "https://github.com/Ayush-Kumar0/Typing_Sikh_Lo/issues"
   },
   "homepage": "https://github.com/Ayush-Kumar0/Typing_Sikh_Lo#readme",
-  "dependencies": {
+ 
     "dependencies": {
       "connect-mongo": "^4.6.0",
       "cookie-parser": "^1.4.6",
@@ -41,5 +41,5 @@
       "passport-jwt": "^4.0.0",
       "passport-local": "^1.0.0"
     }
-  }
+  
 }

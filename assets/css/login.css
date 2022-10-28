@@ -102,3 +102,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.inline-block{
+    display: inline;
+}
+button{
+    display: inline-block;
+}

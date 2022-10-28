@@ -30,6 +30,7 @@
 }
 
 #lower-div-welcome {
+    margin: -80px;
     width: 90%;
     display: flex;
     flex-direction: row-reverse;
@@ -60,6 +61,7 @@
     border: 10px solid rgb(102, 89, 89);
     background-color: rgb(237, 226, 226);
     box-shadow: inset 4px 4px 4px rgb(73, 69, 69);
+    margin-top: 100px;
     padding-bottom: 15px;
     height: auto;
     width: 30%;
