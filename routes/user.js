@@ -6,6 +6,8 @@ const passport = require('passport');
 //For a user
 router.get('/', passport.checkAuthentication, userController.home);
 router.get('/profile', passport.checkAuthentication, userController.profile)
+router.get('/challenges', passport.checkAuthentication, userController.challenges);
+router.get('/ranking', passport.checkAuthentication, userController.ranking);
 
 // Sign-up
 router.post('/create', userController.create);
@@ -22,7 +24,7 @@ router.get('/sign-out', userController.destroySession);
 
 //Google authentication routes
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/sign-in' }), userController.createSession);
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/sign-in', failureMessage: true }), userController.createSession);
 
 
 //Exporting the router

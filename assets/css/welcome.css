@@ -1,8 +1,8 @@
-body{
+body {
     margin: 0px;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -11,7 +11,7 @@ a{
     height: auto;
     /*border: 2px solid black;*/
     display: flex;
-    background-image: url("Typing_Sikh_Lo\assets\images\profile_home\img4.png");
+    background-image: url("../images/profile_home/img4.png");
     filter: brightness(110%);
     padding-bottom: 100px;
     flex-direction: column;

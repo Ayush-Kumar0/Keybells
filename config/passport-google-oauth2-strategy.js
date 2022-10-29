@@ -8,7 +8,7 @@ const User = require('../models/user');
 passport.use(new googleStrategy({
     clientID: '1022641242763-mlknri416p5tt1l58cphj861pf07a7m0.apps.googleusercontent.com', // e.g. asdfghjkkadhajsghjk.apps.googleusercontent.com
     clientSecret: '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', // e.g. _ASDFA%KFJWIASDFASD#FAD-
-    callbackURL: "http://localhost:8000/user/auth/google/callback",
+    callbackURL: "https://localhost:8000/user/auth/google/callback",
 },
 
     function (accessToken, refreshToken, profile, done) {
@@ -20,6 +20,7 @@ passport.use(new googleStrategy({
 
             if (user) {
                 // If found, set this user as req.user
+                console.log(`Google user found`);
                 return done(null, user);
             }
             else {
@@ -27,12 +28,15 @@ passport.use(new googleStrategy({
                 User.create({
                     name: profile.displayName,
                     email: profile.emails[0].value,
-                    password: crypto.randomBytes(20).toString('hex')
-                }, function (err, user) {
-                    if (err) { console.log('Error while creating user after google auth : ', err); return done(err); }
+                    // password: crypto.randomBytes(20).toString('hex')
+                },
+                    User.setPassword(crypto.randomBytes(20).toString('hex')),
+                    function (err, user) {
+                        if (err) { console.log('Error while creating user after google auth : ', err); return done(err); }
 
-                    return done(null, user);
-                });
+                        console.log(`Google user created`);
+                        return done(null, user);
+                    });
             }
         });
     }
