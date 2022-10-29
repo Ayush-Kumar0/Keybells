@@ -1,0 +1,22 @@
+body{
+    background-image: url("C:/Users/asus/Desktop/tying_sikh_lo/Typing_Sikh_Lo/home_page/images/img4.png"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: repeat; /* Do not repeat the image */
+    margin-top:20px;
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 40vh;
+    object-fit: contain;
+    opacity: 0.8;
+}
+.row{
+    padding:50px;
+}
+.card-body{
+    align-self: center;
+}
