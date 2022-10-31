@@ -9,6 +9,10 @@ router.get('/profile', passport.checkAuthentication, userController.profile)
 router.get('/challenges', passport.checkAuthentication, userController.challenges);
 router.get('/ranking', passport.checkAuthentication, userController.ranking);
 
+router.get('/type', passport.checkAuthentication, userController.type);
+router.post('/typeRefresh', passport.checkAuthentication, userController.typeRefresh);
+router.post('/typeChanges', passport.checkAuthentication, userController.typeChanges);
+
 // Sign-up
 router.post('/create', userController.create);
 

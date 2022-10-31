@@ -1,0 +1,120 @@
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+.nav-btn img {
+    width: 28px;
+    height: 28px;
+}
+
+.left img {
+    width: 28px;
+    content: url('../images/type/bars.svg');
+    transition: all 100ms linear;
+}
+
+.left img:hover {
+    transform: rotateZ(45deg);
+    content: url('../images/type/arrow.svg');
+}
+
+#nav {
+    width: 100vw;
+    height: 35px;
+    padding: 3px 10px 3px 10px;
+    background-color: darkslategrey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1000;
+}
+
+
+.right {
+    width: 30%;
+}
+
+.right .options-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#content {
+    top: 41px;
+    height: calc(100% - 41px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#text {
+    /* TODO: Change height later */
+    height: 50vh;
+    overflow: scroll;
+}
+
+#text,
+#keyboard {
+    width: 80vw;
+    background-color: rgba(4, 188, 255, 0.568);
+}
+
+#keyboard span {
+    display: inline-block;
+}
+
+.envelope {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+}
+
+.unit {
+    width: fit-content;
+    height: fit-content;
+    padding: 0px;
+    font-size: 36px;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin: 1px;
+}
+
+.space {
+    visibility: hidden;
+    /* font-size: 16px; */
+}
+
+/* .next {
+    width: 95%;
+    height: 3px;
+    background-color: rgb(250, 192, 2);
+    visibility: hidden;
+} */
+
+.done {
+    background-color: aquamarine;
+}
+
+.wrongDone {
+    background-color: rgba(243, 2, 2, 0.507);
+}
+
+.next {
+    background-color: yellowgreen;
+}
+
+.nextKey {
+    background-color: red;
+}
