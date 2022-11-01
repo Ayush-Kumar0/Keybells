@@ -22,7 +22,7 @@
 
             <!-- Left -->
             <div class="left">
-                <a href=""><img src="/images/type/bars.svg" alt="back"></a>
+                <a href="/user"><img src="/images/type/bars.svg" alt="back"></a>
             </div>
 
 
@@ -33,7 +33,7 @@
                         <a class="nav-btn" href="#"><img src="/images/type/pause.svg" alt="pause"></a>
                     </li>
                     <li class="option">
-                        <a class="nav-btn" href="#"><img src="/images/type/reset.svg" alt="reset"></a>
+                        <a class="nav-btn" href="/user/type/refresh"><img src="/images/type/reset.svg" alt="reset"></a>
                     </li>
                     <!-- Toggle sound -->
                     <!-- <li class="options">
@@ -49,18 +49,31 @@
 
                 <div class="envelope">
                     <% for(let i=0;i<locals.para.length;i++){ %>
-                        <!-- "unit" can be "next" or "done" -->
-                        <div class="unit">
-                            <% if(para[i]!==' ' ){ %>
-                                <div class="letter">
-                                    <%= locals.para[i] %>
-                                </div>
-                                <% } else{ %>
-                                    <div class="space">i</div>
-                                    <% } %>
-                        </div>
+                        <% if(i===0){ %>
+                            <div class="word">
+                                <% } %>
+
+                                    <!-- "unit" can be "next" or "done" -->
+                                    <div class="unit">
+                                        <% if(para[i]!==' ' ){ %>
+                                            <div class="letter">
+                                                <%= locals.para[i] %>
+                                            </div>
+                                            <% } else{ %>
+                                                <div class="space">i</div>
+                                                <% } %>
+                                    </div> <!-- Unit ends -->
+
+                                    <% if(i==para.length-1){ %>
+                            </div> <!-- Unit ends -->
+                            <% } else if(para[i]==' ' ){ %>
+                </div>
+                <div class="word">
+                    <% } %>
                         <% } %>
                 </div>
+
+
                 <!-- Progress bar -->
                 <div id="progress-bar"></div>
 

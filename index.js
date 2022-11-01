@@ -5,6 +5,8 @@ const app = express();
 const mongoose = require('mongoose');
 const db = require('./config/mongoose');
 const User = require('./models/user');
+const Lesson = require('./models/lessons');
+const Challenge = require('./models/challenges');
 
 const cookieParser = require('cookie-parser');
 const session = require('express-session');

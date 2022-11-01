@@ -1,7 +1,40 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 
+const challengeSchema = new mongoose.Schema({
+    challenge: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'challenges'
+    },
+    grossSpeed: {
+        type: Number
+    },
+    netSpeed: {
+        type: Number
+    },
+    accuracy: {
+        type: Number
+    }
+});
+
+const lessonSchema = new mongoose.Schema({
+    lesson: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'lessons'
+    },
+    grossSpeed: {
+        type: Number
+    },
+    netSpeed: {
+        type: Number
+    },
+    accuracy: {
+        type: Number
+    }
+});
+
 const userSchema = new mongoose.Schema({
+    //Login fields
     email: {
         type: String,
         required: true,
@@ -17,6 +50,21 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
+    },
+    //Other fields
+    rank: {
+        type: Number
+    },
+    league: {
+        type: String
+    },
+    //Lessons
+    lessons: {
+        type: [lessonSchema]
+    },
+    //Challenges
+    challenges: {
+        type: [challengeSchema]
     }
 }, {
     timestamps: true
@@ -37,5 +85,4 @@ userSchema.methods.checkPassword = function (password) {
 
 
 const User = mongoose.model('users', userSchema);
-
 module.exports = User;

@@ -1,4 +1,6 @@
-var i = -1; // Indicates till which letter(index) typing has been done
+let i = -1; // Indicates till which letter(index) typing has been done
+let key = "";
+
 const envelope = document.getElementsByClassName('envelope')[0];
 const keyboard = document.getElementsByClassName('keyboard')[0];
 
@@ -6,23 +8,33 @@ const left = [`Q`, `W`, `E`, `R`, `T`, `A`, `S`, `D`, `F`, `G`, `Z`, `X`, `C`, `
 const right = [`Y`, `U`, `I`, `O`, `P`, `H`, `J`, `K`, `L`, `N`, `M`];
 
 
-highlightNext(i + 1);
-highlightNextKey(i + 1);
+let envelopeLetters = []; //Stores all the div of letters in type.ejs
 
-window.onload = function () {
+window.onload = event => {
     $.ajax({
-        type: 'post',
-        url: '/user/typeRefresh',
-        success: (result, status, xhr) => {
-            console.log('Window refreshed and reset');
-        },
-        error: (xhr, status, error) => {
-            console.log('Error while sending AJAX request on refresh:', error);
-        }
-    });
-}
+        url: '/user/type/refresh',
+        success: function () {
+            i = -1;
 
-let key = "";
+            for (let i = 0; i < envelope.childElementCount; i++) {
+                for (let j = 0; j < envelope.children.item(i).childElementCount; j++) {
+                    envelopeLetters.push(envelope.children.item(i).children.item(j));
+                    // console.log(envelope.children.item(i).children.item(j));
+                }
+            }
+
+            highlightNext(i + 1);
+            highlightNextKey(i + 1);
+        },
+        error: function (xhr, status, error) {
+            console.log("Error:", error);
+        }
+    })
+};
+
+
+
+//TODO: Use queue for checking valid typing , queue contails the keydown events
 window.addEventListener('keydown', (event) => {
     event.preventDefault();
     if (event.key == 'Shift' || event.key == 'Control' || event.key == 'Alt')
@@ -40,7 +52,7 @@ window.addEventListener('keydown', (event) => {
         // Sending AJAX request to the server
         $.ajax({
             type: 'post',
-            url: '/user/typeChanges',
+            url: '/user/type/changes',
             data: {
                 'keyPressed': key,
                 'indexPressed': (i + 1)
@@ -67,7 +79,7 @@ window.addEventListener('keydown', (event) => {
 
 //Highlighting the letter which is done typing
 function highlightDone(n, correct) {
-    let nthLetter = envelope.children.item(n);
+    let nthLetter = envelopeLetters.at(n);
     if (!nthLetter)
         return;
 
@@ -84,7 +96,7 @@ function highlightDone(n, correct) {
 
 //Highlighting the next letter which needs to be typed
 function highlightNext(n) {
-    let nthLetter = envelope.children.item(n);
+    let nthLetter = envelopeLetters.at(n);
     if (!nthLetter)
         return;
 
@@ -96,7 +108,7 @@ function highlightNext(n) {
 
 //Removing the highlight form the key which is already typed
 function dehighlightDoneKey(n) {
-    let nthLetter = envelope.children.item(n);
+    let nthLetter = envelopeLetters.at(n);
     if (!nthLetter)
         return;
 
@@ -127,7 +139,7 @@ function dehighlightDoneKey(n) {
 
 //Highlighting the key which needs to be typed next
 function highlightNextKey(n) {
-    let nthLetter = envelope.children.item(n);
+    let nthLetter = envelopeLetters.at(n);
     if (!nthLetter)
         return;
 
