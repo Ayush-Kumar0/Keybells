@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+      <%= locals.title %>
+    </title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
 
@@ -26,7 +28,7 @@
   <body>
     <section class="navv">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Typing_Sikh_Lo</a>
+        <a class="navbar-brand" href="/">Typing_Sikh_Lo</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,9 +39,6 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/user/challenges">Challenges</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Stats</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/user/ranking">Ranking</a>
@@ -54,20 +53,124 @@
               <i class="fa fa-user"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="/user/profile">Profile</a>
+              <a class="dropdown-item" href="/user/sign-out">Sign Out</a>
             </div>
           </li>
         </ul>
       </nav>
     </section>
+
+
+
+
+
+
+
+
+
+
     <section class="colored-section">
 
       <div class="giant_photo">
         <img class="giantt" src="https://static.wikia.nocookie.net/clashofclans/images/3/35/Giant_info.png/revision/latest/scale-to-width-down/500?cb=20170927232347">
       </div>
+
+
+
+      <!-- Div for custom para, random para and levels -->
+      <div class="main-section">
+
+        <!-- Custom and Random paragraphs -->
+        <div class="custAndRand">
+          <div class="custom"></div>
+          <div class="random"></div>
+        </div>
+
+        <!-- Levels -->
+        <div class="levels">
+
+          <div class="alphabet">
+            <h3>Alphabet</h3>
+            <% for(let i=0;i<locals['alphabet'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="advanced-level1">
+            <h3>Advanced Level 1 (Goal 30 WPM)</h3>
+            <% for(let i=0;i<locals['advanced-level1'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="shift">
+            <h3>The Shift Key</h3>
+            <% for(let i=0;i<locals['shift'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="advanced-level2">
+            <h3>Advanced Level 2 (Goal 35 WPM)</h3>
+            <% for(let i=0;i<locals['advanced-level2'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="numbers">
+            <h3>The Numbers</h3>
+            <% for(let i=0;i<locals['numbers'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="advanced-level3">
+            <h3>Advanced Level 3 (Goal 45 WPM)</h3>
+            <% for(let i=0;i<locals['advanced-level3'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="symbols">
+            <h3>The Symbols</h3>
+            <% for(let i=0;i<locals['symbols'];i++){ %>
+              <div class="box">
+                <%= i+1 %>
+              </div>
+              <% } %>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="aside-section">
+        <!-- Showing Progess, Dark Elixers, Stars, Avg WPM -->
+      </div>
+
     </section>
+
+
+
+
+
+
+
+
+
     <section class="white-section" id="features">
 
       <div class="container-fluid">

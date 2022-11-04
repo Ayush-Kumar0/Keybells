@@ -1,9 +1,51 @@
 const User = require('../models/user');
+const Lesson = require('../models/lessons');
+
 
 //Home page
 module.exports.home = function (req, res) {
-    res.render('home');
+    let options = {
+        title: "Home",
+        'alphabet': 0,
+        'advanced-level1': 0,
+        'shift': 0,
+        'advanced-level2': 0,
+        'numbers': 0,
+        'advanced-level3': 0,
+        'symbols': 0
+    };
+
+    //Getting number of documents of each type in lessons collection
+    let countDocs = function () {
+        Lesson.countDocuments({ 'paraType': 'alphabet' }, function (err, alphabet) {
+            options['alphabet'] = alphabet;
+            Lesson.countDocuments({ 'paraType': 'advanced-level1' }, function (err, advancedLevel1) {
+                options['advanced-level1'] = advancedLevel1;
+                Lesson.countDocuments({ 'paraType': 'shift' }, function (err, shift) {
+                    options['shift'] = shift;
+                    Lesson.countDocuments({ 'paraType': 'advanced-level2' }, function (err, advancedLevel2) {
+                        options['advanced-level2'] = advancedLevel2;
+                        Lesson.countDocuments({ 'paraType': 'numbers' }, function (err, numbers) {
+                            options['numbers'] = numbers;
+                            Lesson.countDocuments({ 'paraType': 'advanced-level3' }, function (err, advancedLevel3) {
+                                options['advanced-level3'] = advancedLevel3;
+                                Lesson.countDocuments({ 'paraType': 'symbols' }, function (err, symbols) {
+                                    options['symbols'] = symbols;
+
+                                    // Rendering the homepage
+                                    res.render('home', options);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    countDocs();
 }
+
 module.exports.profile = function (req, res) {
     res.render('profile');
 }
