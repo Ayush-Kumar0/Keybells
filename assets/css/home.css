@@ -33,6 +33,24 @@ body {
   max-width: 40%;
 }
 
+/*the main section*/
+.para{
+  margin:20px;
+  height:300px;
+  background-color: #3C4048;
+  color:white;
+  text-align: center;
+}
+ .aside{
+    margin:30px;
+    height:50px;
+ }
+ .below{
+    background-color: #cccccc;
+    height:100px;
+    margin:10px;
+ }
+
 #features {
   position: relative;
   background-color: #3C4048;
