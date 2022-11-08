@@ -6,8 +6,6 @@ let para = `Oops, Seems your database doesn't have any paragraphs !`;
 let paraLength = para.length;
 
 module.exports.lesson = function (req, res, next) {
-    // para = "This paragraph comes from lesson collection";
-    // console.log(para);
     let error = () => res.status(404).end('Page not found');
 
     Lesson.findOne({ level: req.query.level }, function (err, lesson) {

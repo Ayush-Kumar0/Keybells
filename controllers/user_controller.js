@@ -76,7 +76,8 @@ module.exports.create = function (req, res) {
             let newUser = new User();
             newUser.name = req.body.name;
             newUser.email = req.body.email;
-            newUser.setPassword(req.body.password);
+
+            newUser.setPassword((req.body.password).toString());
 
             newUser.save(function (err, user) {
                 if (err) { console.log(`Error while creating user`); return res.redirect('back'); }
