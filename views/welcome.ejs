@@ -2,70 +2,48 @@
 
     <head>
         <link rel="stylesheet" type="text/css" href="css/welcome.css">
+        <script defer src="scripts/welcome.js"></script>
     </head>
 
     <body>
+
         <div id="backpage-welcome">
+
+            <!-- Heading -->
             <h1 id="heading-welcome">WELCOME &ensp;! &ensp;MY &ensp;FELLOW &ensp;GIANTS...</h1>
+
+            <!-- Flash Text 1 -->
             <div id="upper-div-welcome">
                 <div class="image-welcome">
-                    <img src="images/welcome/villager.webp" height="400px" width="100%">
+                    <img src="images/welcome/villager.webp">
                 </div>
-
                 <div class="text-img-welcome">
-                    <p>Keeping in mind the recent upgrade , it is best that you be like a wizard in your typing speed .</p>
+                    <p id="upperPara">Keeping in mind the recent upgrade , it is best that you be like a wizard in your typing speed .</p>
                 </div>
+                <div class="image-welcome"></div>
             </div>
+
+            <!-- Flash Text 2 -->
             <div id="lower-div-welcome">
                 <div class="image-welcome" id="transform-image-wel">
-                    <img src="images/welcome/villager.webp" height="400px" width="100%">
+                    <img src="images/welcome/villager.webp">
                 </div>
                 <div class="text-img-welcome">
-                    <p>To begin the journey , login to your existing account , signup or continue to enter a giant name to proceed further . </p>
+                    <p id="lowerPara">To begin the journey , login to your existing account , signup or continue to enter a giant name to proceed further .</p>
                 </div>
+                <div class="image-welcome"></div>
             </div>
 
+            <!-- Login buttons -->
             <div id="buttons-welcome">
-                <div class="outer-div-welcome">
-                    <div class="inner-div-welcome">
-                        <!-- href="/sign-in" -->
-                        <a href="/sign-in"><button type="button" class="submit-welcome">LOG IN</button></a>
-                        <!--<input type="submit" class="submit-welcome" value="LOG IN">-->
-                    </div>
-                </div>
-                <div class="outer-div-welcome">
-                    <div class="inner-div-welcome">
-                        <!-- href="/sign-up" -->
-                        <a href="/sign-up"><button type="button" class="submit-welcome">SIGN UP</button></a>
-                        <!--<input type="submit" class="submit-welcome" value="SIGN UP">-->
-                    </div>
-                </div>
-                <div class="outer-div-welcome">
-                    <div class="inner-div-welcome">
-                        <!-- href="/guest" -->
-                        <a href="/guest"><button type="button" class="submit-welcome">CONTINUE AS GUEST</button></a>
-                        <!--<input type="submit" class="submit-welcome" value="CONTINUE AS GUEST">-->
-                    </div>
-                </div>
+                <a href="/sign-in"><button type="submit" class="buttons">Log In</button></a>
+
+                <a href="/sign-up"><button type="submit" class="buttons">Sign Up</button></a>
+
+                <a href="/guest"><button type="submit" class="buttons">Continue as Guest</button></a>
             </div>
         </div>
 
-
-
-        <!-- <script>
-            document.querySelector('input[value = "LOG IN"]').addEventListener('click', function (event) {
-                event.preventDefault();
-                window.location.replace('/sign-in');
-            });
-            document.querySelector('input[value = "SIGN UP"]').addEventListener('click', function (event) {
-                event.preventDefault();
-                window.location.replace('/sign-up');
-            });
-            document.querySelector('input[value = "CONTINUE"]').addEventListener('click', function (event) {
-                event.preventDefault();
-                window.location.replace('/guest');
-            });
-        </script> -->
     </body>
 
 </html>

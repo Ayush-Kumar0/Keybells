@@ -10,23 +10,18 @@
             <div id="input-login">
                 <form id="form-login" action="/user/create-session" method="post">
                     <label for="email" class="label-login">ENTER &ensp;EMAIL</label>
-                    <input type="email" name="email" id="email" placeholder="email" height="50px" class="input-border-login" required>
+                    <input type="email" name="email" id="email" placeholder="email" class="input-border-login" required>
                     <label for="password" class="label-login">ENTER &ensp;PASSWORD</label>
                     <input type="password" name="password" id="password" placeholder="password" class="input-border-login" required>
-                    <div id="outer-div-login">
-                        <div id="inner-div-login">
-                            <input type="submit" class="submit-login" value="LOG IN">
-                        </div>
-                    </div>
+                    <button type="submit" class="buttons">Log In</button>
                 </form>
-                <div id="outer-div-login">
-                    <div id="inner-div-login">
-                        <button type="button" class="submit-login">sign in with google</button>
-                    </div>
-                </div>
-                <div id="login-sinup-pass">
+
+                <a href="/user/auth/google"><button type="submit" class="buttons">Sign In with Google</button></a>
+
+                <div id="login-signup-pass">
                     <p id="signup-option-login">Don't have an account ? <a href="/sign-up">sign up</a></p>
                 </div>
+                
             </div>
 
         </div>

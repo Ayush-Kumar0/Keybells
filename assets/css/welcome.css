@@ -8,12 +8,15 @@ a {
 
 #backpage-welcome {
     width: 100%;
-    height: auto;
+    height: 100vh;
     /*border: 2px solid black;*/
     display: flex;
-    background-image: url("../images/profile_home/img4.png");
+    /* background-image: url("../images/profile_home/img4.png"); */
+    /* background-image: url("../images/background_image/bg1.jpg"); */
+    background-image: linear-gradient(45deg,#ff9100 80%,#dada2b);
+    background-size:contain;
     filter: brightness(110%);
-    padding-bottom: 100px;
+    /* padding-bottom: 100px; */
     flex-direction: column;
     align-items: center;
 }
@@ -29,17 +32,19 @@ a {
     transform: rotateY(180deg);
 }
 
-#upper-div-welcome {
+#upper-div-welcome, #lower-div-welcome {
     margin-top: 30px;
     width: 90%;
     display: flex;
+    align-items: center;
     flex-direction: row;
     /*border: 2px solid black;*/
+    justify-content: space-around;
 }
 
 #lower-div-welcome {
-    margin: -80px;
-    width: 90%;
+    /* margin: -80px;
+    width: 90%; */
     display: flex;
     flex-direction: row-reverse;
     /*border: 2px solid black;*/
@@ -50,6 +55,9 @@ a {
     width: 25%;
     margin: 10px;
 }
+.image-welcome img{
+    height: 400px;
+}
 
 .text-img-welcome {
     margin: 30px;
@@ -58,7 +66,7 @@ a {
     font-weight: 600;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     height: 30%;
-    width: 30%;
+    width: 50%;
     border: 8px solid rgb(102, 89, 89);
     padding: 5px 10px;
     border-radius: 25px;
@@ -79,49 +87,32 @@ a {
     justify-content: center;
     flex-direction: column;
 }
-
-.inner-div-welcome {
-    height: 50%;
-    width: 95%;
-    border-radius: 6px;
-    background-color: rgb(198, 225, 135);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+a[href="/sign-in"] {
+    margin-top: 17px;
 }
 
-.outer-div-welcome {
-    height: 50px;
-    width: 20%;
-    margin-top: 30px;
-    /*border: 2px solid black;*/
+.buttons {
+    background-image: linear-gradient(to right, #1CD8D2 0%, #67ecfd 51%, #1CD8D2 100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.1s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 10px #696969;
     border-radius: 10px;
-    background-color: rgb(95, 200, 95);
-    display: flex;
-    justify-content: center;
-    padding-top: 3px;
+    display: block;
+    border: none;
+  }
+
+.buttons:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+    cursor:pointer;
 }
 
-.submit-welcome {
-    margin-bottom: -20px;
-    height: 50px;
-    display: inline-block;
-    width: 100%;
-    outline: none;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 0px;
-    font-size: 1.0rem;
-}
-
-#form-welcome {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.visible{
+    display: none;
 }

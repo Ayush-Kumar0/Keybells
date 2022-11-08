@@ -18,6 +18,7 @@ let lessonOrChallenge = function (req, res, next) {
 router.get('/', passport.checkAuthentication, lessonOrChallenge, typeController.type);
 router.get('/refresh', passport.checkAuthentication, typeController.typeRefresh);
 router.post('/changes', passport.checkAuthentication, typeController.typeChanges);
+router.post('/pause', passport.checkAuthentication, typeController.typeToggler, typeController.typePause);
 
 
 

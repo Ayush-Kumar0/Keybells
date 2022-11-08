@@ -35,7 +35,7 @@ window.onload = event => {
 
 
 //TODO: Use queue for checking valid typing , queue contails the keydown events
-window.addEventListener('keydown', (event) => {
+function keydownHandler(event) {
     event.preventDefault();
     if (event.key == 'Shift' || event.key == 'Control' || event.key == 'Alt')
         key = event.key;
@@ -72,7 +72,12 @@ window.addEventListener('keydown', (event) => {
             }
         });
     }
+}
 
+let pause = false; // Checks if typing action is paused
+window.addEventListener('keydown', (event) => {
+    if (pause == false)
+        keydownHandler(event);
 });
 
 
@@ -258,3 +263,27 @@ function getKeysIds(nthLetter) {
             return [null, null];
     }
 }
+
+
+
+// Toggling the value of pause to enable or disable typing
+let pauseBtn = document.querySelector(`img[alt='pause']`);
+pauseBtn.addEventListener('click', async function (event) {
+    event.preventDefault();
+    if (pause == false)
+        pauseBtn.setAttribute('src', '/images/type/play.svg');
+    else
+        pauseBtn.setAttribute('src', '/images/type/pause.svg');
+
+    await $.ajax({
+        type: 'post',
+        url: '/user/type/pause',
+        data: { 'pause': pause },
+        success: (result, status, xhr) => {
+            pause = result.data.pause;
+        },
+        error: (xhr, status, error) => {
+            console.log('Error while pausing.');
+        }
+    });
+});

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/Typing_Sikh_Lo_DB');
+mongoose.connect('mongodb://0.0.0.0:27017/Typing_Sikh_Lo_DB');
 
 const db = mongoose.connection;
 

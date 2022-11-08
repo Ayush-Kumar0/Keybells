@@ -2,7 +2,7 @@ const User = require('../models/user');
 const Lesson = require('../models/lessons');
 
 // Typing page rendering, TODO: Change later
-let para = "Oops, Seems your database doesn't have any paragraphs !";
+let para = `Oops, Seems your database doesn't have any paragraphs !`;
 let paraLength = para.length;
 
 module.exports.lesson = function (req, res, next) {
@@ -52,6 +52,100 @@ module.exports.typeRefresh = function (req, res) {
     prevIndex = -1;
     res.redirect('back');
 }
+
+
+//Setting timers for users typing activity
+let timer = [], wrongCount = 0;
+let totalTimeToWritePara = 0;
+let accuracy, grossSpeed, netSpeed;
+
+//When user finishes typing the paragraph
+async function paraFinish() {
+    for (let i = 0; i < timer.length; i += 2) {
+        totalTimeToWritePara += timer[i + 1] - timer[i];
+    }
+    totalTimeToWritePara = totalTimeToWritePara / 1000 / 60.0;
+
+    //Calc Accuracy
+    accuracy = 1.0 * (paraLength - wrongCount) / paraLength * 100;
+
+
+    //Calc gross speed
+    grossSpeed = paraLength / 5.0 / totalTimeToWritePara;
+
+    //Calc net speed
+    netSpeed = grossSpeed - wrongCount / totalTimeToWritePara;
+
+    grossSpeed = Number.parseInt(grossSpeed);
+    netSpeed = Number.parseInt(netSpeed);
+    if (netSpeed < 0)
+        netSpeed = Number.parseInt(0);
+
+    console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
+
+    //for challenge, calc score
+    //Update rank
+    //Update and Congratulate on league change
+}
+
+
+let pause = false;
+module.exports.typeToggler = function (req, res, next) {
+    if (pause == true)
+        pause = false;
+    else
+        pause = true;
+    timer.push(Date.now());
+    next();
+}
+module.exports.typePause = function (req, res) {
+    if (req.xhr) {
+        res.status(200).json({
+            data: { 'pause': pause },
+            message: 'Pause button clicked'
+        });
+    }
+}
+
+module.exports.typeChanges = async function (req, res) {
+
+    if (req.xhr) {
+        // Validate typing
+        // if (prevIndex == req.body.indexPressed-1){
+        
+            prevIndex++;
+
+            let c = correct(req.body.keyPressed, req.body.indexPressed);
+            if (c == false)
+                wrongCount++;
+
+            if (prevIndex == 0) {
+                timer.push(Date.now());
+            }
+            if (prevIndex == paraLength - 1) {
+                timer.push(Date.now());
+                await paraFinish();
+            }
+
+            res.status(200).json({
+                data: {
+                    'indexDone': prevIndex,
+                    'correct': c
+                },
+                message: "Typed character catched"
+            });
+        }
+        // When user is trying to cheat by sending wrong indexPressed
+        // else {
+        //     res.end('You have been BANNED for trying to cheat.');
+        // }
+        // }
+}
+
+
+
+
+
 
 // This function enables features like Highlighting and Typing using AJAX
 let correct = function (key, index) {
@@ -113,56 +207,3 @@ let correct = function (key, index) {
     }
 }
 
-
-
-//Setting timers for users typing activity
-let beginTime, endTime;
-function startTimer() {
-    beginTime = Date.now();
-}
-function endTimer() {
-    endTime = Date.now();
-}
-
-//When user finishes typing the paragraph
-function paraFinish() {
-    console.log(beginTime, endTime);
-    console.log(endTime - beginTime);
-    //Calc gross speed
-    //Calc net speed
-    //Calc Acc
-
-    //for challenge, calc score
-    //Update rank
-    //Update and Congratulate on league change
-}
-
-module.exports.typeChanges = function (req, res) {
-
-    if (req.xhr) {
-        // Valid typing
-        if (prevIndex === req.body.indexPressed - 1) {
-            prevIndex++;
-
-            if (prevIndex == 0)
-                startTimer();
-            if (prevIndex == paraLength - 1) {
-                endTimer();
-                paraFinish();
-            }
-
-            res.status(200).json({
-                data: {
-                    'indexDone': prevIndex,
-                    'correct': correct(req.body.keyPressed, req.body.indexPressed)
-                },
-                message: "Message"
-            });
-        }
-
-        // When user is trying to cheat by sending wrong indexPressed
-        else {
-            res.end('You have been BANNED for trying to cheat.');
-        }
-    }
-}
