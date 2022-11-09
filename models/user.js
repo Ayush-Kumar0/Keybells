@@ -79,7 +79,7 @@ userSchema.methods.setPassword = function (password) {
 };
 
 userSchema.methods.checkPassword = function (pass) {
-    password = crypto.pbkdf2Sync(pass.toString('hex'), this.salt, 1000, 64, `sha512`).toString(`hex`);
+    password = crypto.pbkdf2Sync(pass.toString('hex'), (this.salt).toString('hex'), 1000, 64, `sha512`).toString(`hex`);
     return this.password == password;
 };
 

@@ -59,13 +59,15 @@ body {
 #text {
     /* TODO: Change height later */
     height: 50vh;
+    width: 80vw;
     overflow: scroll;
+    background-color: rgb(47 47 47);
+    color: rgb(189, 174, 174);
 }
 
-#text,
 #keyboard {
     width: 80vw;
-    background-color: rgba(4, 188, 255, 0.568);
+    background-color: black;
 }
 
 #keyboard span {
@@ -103,15 +105,16 @@ body {
 }
 
 .done {
-    background-color: aquamarine;
+    color: rgb(69, 193, 69);
 }
 
 .wrongDone {
-    background-color: rgba(243, 2, 2, 0.507);
+    color: red;
+    text-decoration: underline;
 }
 
 .next {
-    background-color: yellowgreen;
+    /*background-color: yellowgreen;*/
 }
 
 .nextKey {
@@ -121,3 +124,67 @@ body {
 /* ABOVE PROPERTIES SHOULD NOT BE MODIFIED */
 
 /* You can add other properties below */
+
+.row1,.row2,.row3,.row4,.row5{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /*display: inline-block;*/
+    border: 1px solid black;
+}
+.row1 span,.row2 span,.row3 span,.row4 span,.row5 span{
+    width: 10%;
+    border: 1px solid rgb(157, 148, 148); /*just remove this border for other layout*/
+    background-color: rgb(47 47 47);
+    text-align: center;
+    margin: 2px 2px;
+    box-shadow: 2px rgb(47 47 47);
+}
+.row2 span,.row3 span,.row4 span,.row5 span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.row1 span div,.row2 span div,.row3 span div,.row4 span div,.row5 span div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(189, 174, 174);
+    box-shadow: 2px rgb(47 47 47);
+    font-weight: 800;
+    font-size: 20px;
+}
+#backspace{
+    width: 20%;
+}
+#tab{
+    width: 15%;
+}
+#tab div{
+    display: flex;
+    flex-direction: column-reverse;
+}
+#l-control,#r-control{
+    width: 20%;
+    height: 35px;
+}
+#l-option,#r-option{
+    width: 17%;
+}
+#space{
+    width: 40%;
+}
+#caps-lock{
+    width: 19%;
+}
+#l-shift,#r-shift{
+    width: 23%;
+}
+#enter{
+    width: 19%;
+}
+/*.row1 span div{
+    height: auto;
+    border: 1px solid black;    
+}*/
