@@ -35,42 +35,87 @@ window.onload = event => {
 
 
 //TODO: Use queue for checking valid typing , queue contails the keydown events
-function keydownHandler(event) {
-    event.preventDefault();
-    if (event.key == 'Shift' || event.key == 'Control' || event.key == 'Alt')
-        key = event.key;
-    else {
-        if (key == "")
-            key = event.key;
-        else {
-            if (event.shiftKey || event.ctrlKey || event.altKey)
-                key += " " + event.key;
-            else
-                key = event.key;
-        }
-
-        // Sending AJAX request to the server
-        $.ajax({
+async function keydownHandler(event) {
+    if (i >= envelopeLetters.length-1)
+        return;
+    
+    // event.preventDefault();
+    if (event.key == 'CapsLock')
+        return;
+    else if (event.key == 'Backspace') {
+        await $.ajax({
             type: 'post',
-            url: '/user/type/changes',
+            url: '/user/type/backspace',
             data: {
-                'keyPressed': key,
-                'indexPressed': (i + 1)
+                // Sending the index which needs to be removed
+                indexDone: i,
+                prevCorrect: async function () {
+                    if (envelopeLetters.at(i).classList.contains('wrongDone'))
+                        return false;
+                    else if (envelopeLetters.at(i).classList.contains('done'))
+                        return true;
+                    else
+                        return true;
+                }
             },
-            success: (result, status, xhr) => {
+            success: (result, status, xhr)=>{
+                i = Number.parseInt(result.data.index); //i represents till which index typing has been done
                 console.log(result);
-                i = Number(result.data.indexDone);
-                highlightDone(i, result.data.correct);
-                highlightNext(i + 1);
-                dehighlightDoneKey(i);
-                highlightNextKey(i + 1);
-                key = key.split(' ', 1)[0];
+                if (i >= -1) {
+                    //Highlighting keyboard keys
+                    //Changes to be made in 'i+1' and 'i+2'
+                    dehighlightDoneKey(i + 2);
+                    highlightNextKey(i + 1);
+
+                    //Highlighting paragraph letters
+                    dehighlightNext(i + 2);
+                    dehighlightDone(i + 1);
+                    highlightNext(i + 1);
+                }
+                else
+                    i = -1;
             },
             error: (xhr, status, error) => {
-                console.log(`Some error while sending AJAX request : `, error);
-                key = key.split(' ', 1)[0];
+                console.log(`Some error while sending AJAX request of backspace : `, error);
             }
         });
+    }
+    else {
+        if (event.key == 'Shift' || event.key == 'Control' || event.key == 'Alt')
+            key = event.key;
+        else {
+            if (key == "")
+                key = event.key;
+            else {
+                if (event.shiftKey || event.ctrlKey || event.altKey)
+                    key += " " + event.key;
+                else
+                    key = event.key;
+            }
+
+            // Sending AJAX request to the server
+            $.ajax({
+                type: 'post',
+                url: '/user/type/changes',
+                data: {
+                    'keyPressed': key,
+                    'indexPressed': (i + 1)
+                },
+                success: (result, status, xhr) => {
+                    console.log(result);
+                    i = Number(result.data.indexDone);
+                    highlightDone(i, result.data.correct);
+                    highlightNext(i + 1);
+                    dehighlightDoneKey(i);
+                    highlightNextKey(i + 1);
+                    key = key.split(' ', 1)[0];
+                },
+                error: (xhr, status, error) => {
+                    console.log(`Some error while sending AJAX request : `, error);
+                    key = key.split(' ', 1)[0];
+                }
+            });
+        }
     }
 }
 
@@ -98,6 +143,18 @@ function highlightDone(n, correct) {
         nthLetter.classList.toggle('next'); //Remove "next class"
 }
 
+//Dehighlighting the done key
+function dehighlightDone(n) {
+    let nthLetter = envelopeLetters.at(n);
+    if (!nthLetter)
+        return;
+    
+    if (nthLetter.classList.contains('done'))
+        nthLetter.classList.toggle('done');
+    if (nthLetter.classList.contains('wrongDone'))
+        nthLetter.classList.toggle('wrongDone');
+}
+
 
 //Highlighting the next letter which needs to be typed
 function highlightNext(n) {
@@ -107,6 +164,17 @@ function highlightNext(n) {
 
     // console.log("highlightNext: ", nthLetter);
     nthLetter.classList.toggle('next'); //Make it next
+}
+
+//Dehighlighting the next key
+function dehighlightNext(n) {
+    let nthLetter = envelopeLetters.at(n);
+    if (!nthLetter)
+        return;
+
+    // console.log("highlightNext: ", nthLetter);
+    if(nthLetter.classList.contains('next'))
+        nthLetter.classList.toggle('next'); //Make it next
 }
 
 
@@ -148,17 +216,17 @@ function highlightNextKey(n) {
     if (!nthLetter)
         return;
 
-    if (nthLetter.children.item(0).classList.contains(`space`)) {
+    if (nthLetter.children.item(0).classList.contains(`space`) && !$("#space").hasClass('nextKey')) {
         //Space encountered
         $("#space").toggleClass('nextKey');
     } else {
         // Letter encountered
         let keys = getKeysIds(nthLetter);
-        if (keys[1])
+        if (keys[1] && !$(`#${keys[1]}`).hasClass('nextKey'))
             $(`#${keys[1]}`).toggleClass('nextKey');
 
         // For 'shift' and 'control'
-        if (keys[0])
+        if (keys[0] && !$(`#${keys[0]}`).hasClass('nextKey'))
             $(`#${keys[0]}`).toggleClass('nextKey');
     }
 }

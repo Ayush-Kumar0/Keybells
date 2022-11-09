@@ -2,7 +2,8 @@ const User = require('../models/user');
 const Lesson = require('../models/lessons');
 
 // Typing page rendering, TODO: Change later
-let para = `Oops, Seems your database doesn't have any paragraphs !`;
+// let para = `Oops, Seems your database doesn't have any paragraphs !`;
+let para = `Oops, Seems`;
 let paraLength = para.length;
 
 module.exports.lesson = function (req, res, next) {
@@ -45,17 +46,20 @@ module.exports.type = function (req, res) {
 
 
 let prevIndex = -1;
-// Reset everything on typing page
-module.exports.typeRefresh = function (req, res) {
-    prevIndex = -1;
-    res.redirect('back');
-}
-
-
+let wasBackspacePressed = false;
 //Setting timers for users typing activity
 let timer = [], wrongCount = 0;
 let totalTimeToWritePara = 0;
 let accuracy, grossSpeed, netSpeed;
+
+// Reset everything on typing page
+module.exports.typeRefresh = function (req, res) {
+    prevIndex = -1;
+    timer = [];
+    totalTimeToWritePara= wrongCount = accuracy = grossSpeed = netSpeed = 0;
+    res.redirect('back');
+}
+
 
 //When user finishes typing the paragraph
 async function paraFinish() {
@@ -63,6 +67,11 @@ async function paraFinish() {
         totalTimeToWritePara += timer[i + 1] - timer[i];
     }
     totalTimeToWritePara = totalTimeToWritePara / 1000 / 60.0;
+    if (totalTimeToWritePara < 0)
+        totalTimeToWritePara = Infinity;
+    
+    if (wrongCount < 0)
+        wrongCount = 0;
 
     //Calc Accuracy
     accuracy = 1.0 * (paraLength - wrongCount) / paraLength * 100;
@@ -105,11 +114,32 @@ module.exports.typePause = function (req, res) {
     }
 }
 
+
+module.exports.typeBackspace = function (req, res) {
+    if (req.xhr) {
+        if (req.body.prevCorrect && wrongCount>=1){
+            wrongCount--;
+            wasBackspacePressed = false;
+        }
+        else if(wrongCount>=2){
+            wrongCount -= 2;
+            wasBackspacePressed = true;
+        }
+        prevIndex = Number.parseInt(req.body.indexDone)-1;
+        res.status(200).json({
+            data: {
+                index: prevIndex
+            },
+            message:'backspace handled'
+        });
+        if (prevIndex < -1)
+            prevIndex = -1;
+    }
+}
+
 module.exports.typeChanges = async function (req, res) {
 
     if (req.xhr) {
-        // Validate typing
-        // if (prevIndex == req.body.indexPressed-1){
         
             prevIndex++;
 
@@ -133,11 +163,6 @@ module.exports.typeChanges = async function (req, res) {
                 message: "Typed character catched"
             });
         }
-        // When user is trying to cheat by sending wrong indexPressed
-        // else {
-        //     res.end('You have been BANNED for trying to cheat.');
-        // }
-        // }
 }
 
 
