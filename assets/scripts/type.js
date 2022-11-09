@@ -36,7 +36,10 @@ window.onload = event => {
 
 //TODO: Use queue for checking valid typing , queue contails the keydown events
 function keydownHandler(event) {
-    event.preventDefault();
+    // event.preventDefault();
+    if (event.key == 'CapsLock')
+        return;
+    
     if (event.key == 'Shift' || event.key == 'Control' || event.key == 'Alt')
         key = event.key;
     else {

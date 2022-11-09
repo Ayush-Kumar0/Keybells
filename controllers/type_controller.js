@@ -45,17 +45,19 @@ module.exports.type = function (req, res) {
 
 
 let prevIndex = -1;
-// Reset everything on typing page
-module.exports.typeRefresh = function (req, res) {
-    prevIndex = -1;
-    res.redirect('back');
-}
-
-
 //Setting timers for users typing activity
 let timer = [], wrongCount = 0;
 let totalTimeToWritePara = 0;
 let accuracy, grossSpeed, netSpeed;
+
+// Reset everything on typing page
+module.exports.typeRefresh = function (req, res) {
+    prevIndex = -1;
+    timer = [];
+    totalTimeToWritePara= wrongCount = accuracy = grossSpeed = netSpeed = 0;
+    res.redirect('back');
+}
+
 
 //When user finishes typing the paragraph
 async function paraFinish() {
@@ -108,8 +110,6 @@ module.exports.typePause = function (req, res) {
 module.exports.typeChanges = async function (req, res) {
 
     if (req.xhr) {
-        // Validate typing
-        // if (prevIndex == req.body.indexPressed-1){
         
             prevIndex++;
 
@@ -133,11 +133,6 @@ module.exports.typeChanges = async function (req, res) {
                 message: "Typed character catched"
             });
         }
-        // When user is trying to cheat by sending wrong indexPressed
-        // else {
-        //     res.end('You have been BANNED for trying to cheat.');
-        // }
-        // }
 }
 
 
