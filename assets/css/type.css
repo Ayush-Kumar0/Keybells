@@ -105,20 +105,23 @@ body {
 }
 
 .done {
-    color: rgb(69, 193, 69);
+    /* color: rgb(69, 193, 69); */
+    background-color: rgb(69, 193, 69);
 }
 
 .wrongDone {
-    color: red;
-    text-decoration: underline;
+    /* color: red; */
+    background-color: red;
+    /* text-decoration: underline; */
 }
 
 .next {
-    /*background-color: yellowgreen;*/
+    background-color: rgb(243, 255, 10);
+    color: blue;
 }
 
 .nextKey {
-    background-color: rgb(115, 0, 255);
+    background-color: rgb(115, 0, 255) !important;
 }
 
 /* ABOVE PROPERTIES SHOULD NOT BE MODIFIED */

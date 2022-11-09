@@ -2,7 +2,8 @@ const User = require('../models/user');
 const Lesson = require('../models/lessons');
 
 // Typing page rendering, TODO: Change later
-let para = `Oops, Seems your database doesn't have any paragraphs !`;
+// let para = `Oops, Seems your database doesn't have any paragraphs !`;
+let para = `Oops, Seems`;
 let paraLength = para.length;
 
 module.exports.lesson = function (req, res, next) {
@@ -45,6 +46,7 @@ module.exports.type = function (req, res) {
 
 
 let prevIndex = -1;
+let wasBackspacePressed = false;
 //Setting timers for users typing activity
 let timer = [], wrongCount = 0;
 let totalTimeToWritePara = 0;
@@ -65,6 +67,11 @@ async function paraFinish() {
         totalTimeToWritePara += timer[i + 1] - timer[i];
     }
     totalTimeToWritePara = totalTimeToWritePara / 1000 / 60.0;
+    if (totalTimeToWritePara < 0)
+        totalTimeToWritePara = Infinity;
+    
+    if (wrongCount < 0)
+        wrongCount = 0;
 
     //Calc Accuracy
     accuracy = 1.0 * (paraLength - wrongCount) / paraLength * 100;
@@ -104,6 +111,29 @@ module.exports.typePause = function (req, res) {
             data: { 'pause': pause },
             message: 'Pause button clicked'
         });
+    }
+}
+
+
+module.exports.typeBackspace = function (req, res) {
+    if (req.xhr) {
+        if (req.body.prevCorrect && wrongCount>=1){
+            wrongCount--;
+            wasBackspacePressed = false;
+        }
+        else if(wrongCount>=2){
+            wrongCount -= 2;
+            wasBackspacePressed = true;
+        }
+        prevIndex = Number.parseInt(req.body.indexDone)-1;
+        res.status(200).json({
+            data: {
+                index: prevIndex
+            },
+            message:'backspace handled'
+        });
+        if (prevIndex < -1)
+            prevIndex = -1;
     }
 }
 
