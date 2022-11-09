@@ -4,6 +4,7 @@ body {
     position: relative;
     height: 100vh;
     width: 100vw;
+    background-color: rgb(168, 149, 149);
 }
 
 .nav-btn img {
@@ -107,11 +108,13 @@ body {
 .done {
     /* color: rgb(69, 193, 69); */
     background-color: rgb(69, 193, 69);
+    color: white;
 }
 
 .wrongDone {
     /* color: red; */
     background-color: red;
+    color: white;
     /* text-decoration: underline; */
 }
 
@@ -191,3 +194,36 @@ body {
     height: auto;
     border: 1px solid black;    
 }*/
+.fade-in-down{
+    height: 290px;
+    width: 500px;
+    background-color: rgb(66, 57, 57);
+    border-radius: 25px;
+    position: absolute;
+    padding: 5px 30px;
+    font-size: 25px;
+    color: rgb(243, 255, 10);
+    font-weight: 900;
+    margin: auto;
+    left: 33%;
+    top: -29%;
+    border: 8px solid rgb(243, 255, 10);
+    /*border: 8px solid rgb(100 86 86);*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fade 3s forwards;
+    z-index: 2;
+}
+@keyframes fade {
+    0% {
+       transform: translateY(-150px);
+       scale: 0;
+    }
+    100% {
+       transform: translateY(0);
+       backdrop-filter: blur(40px);
+       top: 25%;
+       scale: 1;
+    }
+ }
