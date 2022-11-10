@@ -46,6 +46,30 @@ module.exports.home = function (req, res) {
     countDocs();
 }
 
+module.exports.countStars = async function (req, res) {
+    if (req.xhr) {
+        let stars = 0;
+        User.findById(req.user.id, function (err,user) {
+            if (user) {
+                for (let i = 0; i < user.lessons.length; i++){
+                    if (user.lessons[i].level == req.query.level) {
+                        stars = user.lessons[i].stars;
+                        // console.log(stars);
+                        break;
+                    }
+                }
+                res.status(200).json({
+                    data: {
+                        stars: stars
+                    },
+                    message: `Star count sent`
+                });
+                stars = 0;
+            }
+        });
+    }
+}
+
 module.exports.profile = function (req, res) {
     res.render('profile');
 }

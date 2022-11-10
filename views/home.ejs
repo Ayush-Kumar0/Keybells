@@ -15,17 +15,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- External CSS -->
     <link rel="stylesheet" href="/css/home.css" type="text/css">
+    <link rel="stylesheet" href="/css/navbar.css" type="text/css">
 
     <!-- Font Awesome -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
+    <!-- JQuery AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <!-- Bootstrap Scripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- External Scripts -->
+    <script defer src="/scripts/home.js"></script>
   </head>
 
   <body>
+
+    <!-- Navigation bar -->
     <section class="navv">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Typing_Sikh_Lo</a>
@@ -43,7 +52,6 @@
             <li class="nav-item">
               <a class="nav-link" href="/user/ranking">Ranking</a>
             </li>
-
           </ul>
         </div>
         <ul>
@@ -55,31 +63,15 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user"></i>
             </a>
-            
           </li>
         </ul>
       </nav>
     </section>
 
 
-
-
-
-
-
-
-
-
-    <section class="colored-section">
-
-      <!-- <div class="giant_photo">
-        <img class="giantt" src="https://static.wikia.nocookie.net/clashofclans/images/3/35/Giant_info.png/revision/latest/scale-to-width-down/500?cb=20170927232347">
-      </div> -->
-
-
-
+    <!-- Levels section -->
+    <section class="main-section">
       <!-- Div for custom para, random para and levels -->
-      <!-- <div class="main-section"> -->
 
         <!-- Custom and Random paragraphs -->
         <!-- <div class="custAndRand">
@@ -90,216 +82,194 @@
 
 
         <!-- Levels -->
-        <!-- <div class="levels">
+        <div class="levels">
 
+          <h3>Alphabet</h3>
           <div class="alphabet">
-            <h3>Alphabet</h3>
             <% for(let i=0;i<locals['alphabet'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
 
-          <div class="advanced-level1">
-            <h3>Advanced Level 1 (Goal 30 WPM)</h3>
-            <% for(let i=0;i<locals['advanced-level1'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
-
-          <div class="shift">
-            <h3>The Shift Key</h3>
-            <% for(let i=0;i<locals['shift'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
-
-          <div class="advanced-level2">
-            <h3>Advanced Level 2 (Goal 35 WPM)</h3>
-            <% for(let i=0;i<locals['advanced-level2'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
-
-          <div class="numbers">
-            <h3>The Numbers</h3>
-            <% for(let i=0;i<locals['numbers'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
-
-          <div class="advanced-level3">
-            <h3>Advanced Level 3 (Goal 45 WPM)</h3>
-            <% for(let i=0;i<locals['advanced-level3'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
-
-          <div class="symbols">
-            <h3>The Symbols</h3>
-            <% for(let i=0;i<locals['symbols'];i++){ %>
-              <div class="box">
-                <%= i+1 %>
-              </div>
-              <% } %>
-          </div>
-
-        </div>
-      </div>
-
-
-      <div class="aside-section">
-       
-      </div> -->
-
-      <div class="container">
-        <div class="row">
-          <div class="col-8">
-                <div class="row">
-                    <div class="col para">
-                        <h3 class="txt">Custom Paragraph</h3>
-                    </div>
-                    <div class="col para">
-                      <h3 class="txt">Random Paragraph</h3>
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
                   </div>
                 </div>
-                <div class="row heading">
-                  <h2>Heading</h2>
-                </div>
-                <div class="row bee">
-                    <div class="col below">
-                      1st
-                    </div>
-                    <div class="col below">
-                      2nd
-                    </div>
-                    <div class="col below">
-                      3rd
-                    </div>
-                </div>
-                
-                
+              </a>
+
+              <% } %>
           </div>
-          <div class="col-4 asidee">
-                <div class="aside">
-                  <i class="iconn fas fa-star fa-3x"></i>
-                  <h4 class="txt2">Dark Elixir</h4>
+
+          <h3>Advanced Level 1 (Goal 30 WPM)</h3>
+          <div class="advanced-level1">
+            <% for(let i=locals['alphabet'];i<locals['alphabet']+locals['advanced-level1'];i++){ %>
+
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                  </div>
                 </div>
-                <div class="aside">
-                  <i class="iconn fas fa-star fa-3x"></i>
-                  <h4 class="txt2"> Progress</h4>
-                </div>
-                <div class="aside">
-                  <i class="iconn fas fa-star fa-3x"></i>
-                  <h4 class="txt2">Stars</h4>
-                </div>
-                <div class="aside">
-                  <i class="iconn fas fa-star fa-3x"></i>
-                  <h4 class="txt2">Average Wpm</h4>
-                </div>
+              </a>
+
+              <% } %>
           </div>
+
+          <h3>The Shift Key</h3>
+          <div class="shift">
+            <% for(let i=locals['alphabet']+locals['advanced-level1'];i<locals['alphabet']+locals['advanced-level1']+locals['shift'];i++){ %>
+
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                  </div>
+                </div>
+              </a>
+
+              <% } %>
+          </div>
+
+          <h3>Advanced Level 2 (Goal 35 WPM)</h3>
+          <div class="advanced-level2">
+            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2'];i++){ %>
+
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                  </div>
+                </div>
+              </a>
+
+              <% } %>
+          </div>
+
+          <h3>The Numbers</h3>
+          <div class="numbers">
+            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers'];i++){ %>
+
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                  </div>
+                </div>
+              </a>
+
+              <% } %>
+          </div>
+
+          <h3>Advanced Level 3 (Goal 45 WPM)</h3>
+          <div class="advanced-level3">
+            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3'];i++){ %>
+
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                  </div>
+                </div>
+              </a>
+
+              <% } %>
+          </div>
+
+          <h3>The Symbols</h3>
+          <div class="symbols">
+            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3']+locals['symbols'];i++){ %>
+
+              <a>
+                <div class="box">
+                  <h1>
+                    <%= i+1 %>
+                  </h1>
+                  <div class="stars-container">
+                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                  </div>
+                </div>
+              </a>
+
+              <% } %>
+          </div>
+
         </div>
-      </div>
+
+
 
     </section>
 
 
+    <!-- Aside section -->
+    <section class="asidee">
 
-
-
-
-
-
-
-    <section class="white-section" id="features">
-
-      <div class="container-fluid">
-
-        <div class="row">
-          <div class="feature-box col-lg-4">
-            <i class="icon fas fa-check-circle fa-3x"></i>
-            <h3 class="feature-title">Easy to use.</h3>
-            <p>So easy to use, even the barbarian can do it.</p>
-          </div>
-
-          <div class="feature-box col-lg-4">
-            <i class="icon fas fa-dollar-sign fa-3x"></i>
-            <h3 class="feature-title">Free to play</h3>
-            <p>Service before Self is our motive</p>
-          </div>
-
-          <div class="feature-box col-lg-4">
-            <i class="fa-solid icon fas fa-3x fa-bolt"></i>
-            <h3 class="feature-title">Improves your speed for sure</h3>
-            <p>The site's smooth as butter,even the giants dont stutter.</p>
-          </div>
-        </div>
-
-
+      <div class="aside">
+        <i class="iconn fas fa-star fa-3x"></i>
+        <h4 class="txt2">Dark Elixir</h4>
       </div>
-    </section>
-    <section class="colored-section" id="testimonials">
-      <div id="testimonial-carousel" class="carousel slide" data-ride="false">
-        <div class="carousel-inner">
-          <div class="carousel-item active container-fluid">
-            <h2 class="testimonial-text">This site works wonders.My wpm went up to 40 from 20 within 2 weeks.Worth your time!</h2>
-            <img class="testimonial-image" src="/images/profile_home/test1.jpg" alt="dog-profile">
-            <em class="name">Bert</em>
-          </div>
-          <div class="carousel-item container-fluid">
-            <h2 class="testimonial-text">It is as the builder said..."You shall play or you shall pay"</h2>
-            <img class="testimonial-image" src="/images/profile_home/test2.jpg" alt="lady-profile">
-            <em class="name">William</em>
-          </div>
-          <div class="carousel-item container-fluid">
-            <h2 class="testimonial-text">Earlier I was clumsy with my hands,now even the wizard cant beat me at this dance!</h2>
-            <img class="testimonial-image" src="/images/profile_home/test3.jpg" alt="lady-profile">
-            <em class="name">Tom</em>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </a>
+
+      <div class="aside">
+        <i class="iconn fas fa-star fa-3x"></i>
+        <h4 class="txt2"> Progress</h4>
+      </div>
+
+      <div class="aside">
+        <i class="iconn fas fa-star fa-3x"></i>
+        <h4 class="txt2">Stars</h4>
+      </div>
+
+      <div class="aside">
+        <i class="iconn fas fa-star fa-3x"></i>
+        <h4 class="txt2">Average Wpm</h4>
       </div>
 
     </section>
-    <!-- Call to Action -->
-
-    <section class="white-section" id="cta">
-
-      <div class="container-fluid">
-
-        <h3 class="big-heading">Act before its too late!</h3>
-      </div>
-    </section>
-
-
-    <!-- Footer -->
-
-    <footer class="colored-section" id="footer">
-      <p>Contact Us</p>
-      <div class="container-fluid">
-        <i class="social-icon fab fa-facebook-f"></i>
-        <i class="social-icon fab fa-twitter"></i>
-        <i class="social-icon fab fa-instagram"></i>
-        <i class="social-icon fas fa-envelope"></i>
-
-      </div>
-    </footer>
+        
 
   </body>
 

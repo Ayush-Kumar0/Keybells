@@ -1,0 +1,27 @@
+.dropdown{
+  /* padding-right: 80px; */
+  /* padding-top:30px; */
+
+}
+.navv ul{
+  list-style-type: none;
+  padding: 0px;
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.navbar {
+  margin-top: 0px;
+  font-weight: bolder;
+  font-family: "Montserrat-Bold";
+}
+
+button[aria-expanded="false"]~ul>li>.dropdown-menu{
+  right: 0px;
+  left: initial;
+}
+button[aria-expanded="true"]~ul>li>.dropdown-menu{
+  right: initial;
+  left: 0px;
+}

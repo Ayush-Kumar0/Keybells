@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 
 const lessonsSchema = new mongoose.Schema({
-    paraType: {
-        type: String,
-        required: true,
-        unique: true
-    },
     paragraph: {
         type: String,
         required: true,
         unique: true
+    },
+    paraType: {
+        type: String,
+        required: true,
     },
     level: {
         type: Number

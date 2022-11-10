@@ -31,6 +31,13 @@ const lessonSchema = new mongoose.Schema({
     },
     accuracy: {
         type: Number
+    },
+    stars: {
+        type: Number
+    },
+    level: {
+        type: Number,
+        unique: true
     }
 });
 

@@ -6,7 +6,7 @@ let currentUser;
 // let para = `Oops, Seems your database doesn't have any paragraphs !`;
 let para = `Oops, Seems`;
 let paraLength = para.length;
-let lessonId;
+let lessonId, lessonLvl;
 
 module.exports.lesson = function (req, res, next) {
     let error = () => res.status(404).end('Page not found');
@@ -17,6 +17,7 @@ module.exports.lesson = function (req, res, next) {
             para = lesson.paragraph;
             paraLength = para.length;
             lessonId = lesson.id; //Storing the id of the lesson
+            lessonLvl = req.query.level;
             return next();
         }
         else {
@@ -100,8 +101,15 @@ async function paraFinish() {
             lesson: lessonId,
             grossSpeed: grossSpeed,
             netSpeed: netSpeed,
-            accuracy: accuracy
+            accuracy: accuracy,
+            level: lessonLvl,
+            stars:calcStars()
         };
+
+        // Function to calculate number of stars for typing
+        function calcStars() {
+            return 2;
+        }
 
 
         //Saving the lesson progress
@@ -115,6 +123,8 @@ async function paraFinish() {
             existingLesson.grossSpeed = lessonDetails.grossSpeed;
             existingLesson.netSpeed = lessonDetails.netSpeed;
             existingLesson.accuracy = lessonDetails.accuracy;
+            existingLesson.level = lessonDetails.level;
+            existingLesson.stars = lessonDetails.stars;
             // console.log(existingLesson);
         }
         //Create lesson if user is attempting for first time
