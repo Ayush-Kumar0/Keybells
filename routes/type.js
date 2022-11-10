@@ -20,6 +20,7 @@ router.get('/refresh', passport.checkAuthentication, typeController.typeRefresh)
 router.post('/changes', passport.checkAuthentication, typeController.typeChanges);
 router.post('/pause', passport.checkAuthentication, typeController.typeToggler, typeController.typePause);
 router.post('/backspace', passport.checkAuthentication, typeController.typeBackspace);
+router.post('/getUserLessonInfo', passport.checkAuthentication, typeController.getUserLessonInfo);
 
 
 

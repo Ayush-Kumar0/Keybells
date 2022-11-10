@@ -105,6 +105,7 @@ async function paraFinish() {
 
 
         //Saving the lesson progress
+
         let existingLesson = await currentUser.lessons.find(function (value, index) { 
             return value.lesson == lessonId;
         });
@@ -267,3 +268,21 @@ let correct = function (key, index) {
     }
 }
 
+
+module.exports.getUserLessonInfo =async function (req, res) {
+    if (req.xhr) {
+        let existingLesson = await currentUser.lessons.find(function (value, index) { 
+            return value.lesson == lessonId;
+        });
+
+        res.status(200).json({
+            data: {
+                grossSpeed: existingLesson.grossSpeed,
+                netSpeed: existingLesson.netSpeed,
+                accuracy: existingLesson.accuracy,
+                stars: existingLesson.stars
+            },
+            message:'Lesson data sent'
+        });
+    }
+}

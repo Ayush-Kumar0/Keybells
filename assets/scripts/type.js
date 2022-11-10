@@ -109,6 +109,8 @@ async function keydownHandler(event) {
                     dehighlightDoneKey(i);
                     highlightNextKey(i + 1);
                     key = key.split(' ', 1)[0];
+                    if (i == envelopeLetters.length - 1)
+                        popupAction();
                 },
                 error: (xhr, status, error) => {
                     console.log(`Some error while sending AJAX request : `, error);
@@ -117,6 +119,32 @@ async function keydownHandler(event) {
             });
         }
     }
+}
+
+function popupAction() {
+    let popup = document.getElementsByClassName('fade-in-down')[0];
+
+    $.ajax({
+        type: 'POST',
+        url: '/user/type/getUserLessonInfo',
+        data: '',
+        success: (result, status, xhr) => {
+            console.log(result.data);
+            popup.children.item(0).innerHTML ='Gross Speed : '+ result.data.grossSpeed;
+            popup.children.item(1).innerHTML ='Net Speed : '+ result.data.netSpeed;
+            popup.children.item(2).innerHTML ='Accuracy : '+ result.data.accuracy.toFixed();
+            popup.children.item(3).innerHTML = 'Stars : ' + result.data.stars;
+            
+            popup.classList.add('animate');
+            let blurStyle = document.createElement('style');
+            blurStyle.innerText = ` body> *:not(.popup, #nav){ filter: blur(5px); } `;
+            // document.head.append(`<style> body> *:not(.popup){ filter: blur(5px); } </style>`);
+            document.head.appendChild(blurStyle);
+        },
+        error: (xhr, status, err) => {
+            console.log(`Some error while sending AJAX request to get UserLessonInfo : `, error);
+        }
+    });
 }
 
 let pause = false; // Checks if typing action is paused

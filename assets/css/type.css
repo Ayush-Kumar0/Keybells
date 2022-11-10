@@ -194,36 +194,64 @@ body {
     height: auto;
     border: 1px solid black;    
 }*/
+
 .fade-in-down{
-    height: 290px;
-    width: 500px;
+    /* height: 290px;
+    width: 500px; */
+    /* height: 100%;
+    width: 100%; */
     background-color: rgb(66, 57, 57);
     border-radius: 25px;
-    position: absolute;
+    position: relative;
     padding: 5px 30px;
     font-size: 25px;
     color: rgb(243, 255, 10);
     font-weight: 900;
-    margin: auto;
-    left: 33%;
-    top: -29%;
+    /* top: -50%;
+    left: -50%; */
+    top: 0%;
+    transform:translateY(-50%);
+    scale: 0;
     border: 8px solid rgb(243, 255, 10);
-    /*border: 8px solid rgb(100 86 86);*/
+    /* border: 8px solid rgb(100 86 86); */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    animation: fade 3s forwards;
+    align-items: center;
+
+
+    /* animation: fade 1s forwards; */
+
+
     z-index: 2;
 }
 @keyframes fade {
     0% {
-       transform: translateY(-150px);
+       transform:translateY(-50%);
        scale: 0;
     }
     100% {
-       transform: translateY(0);
+       transform:translateY(0%);
        backdrop-filter: blur(40px);
-       top: 25%;
        scale: 1;
     }
  }
+
+.popup{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0%;
+    left: 0%;
+    transform: translate(50%,50%);
+    z-index: 2;
+}
+
+.animate{
+    animation: fade 1s forwards;
+}
+
+
+/* body> *:not(.popup){
+    filter: blur(5px);
+} */
