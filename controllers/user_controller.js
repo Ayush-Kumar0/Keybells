@@ -1,9 +1,9 @@
 const User = require('../models/user');
 const Lesson = require('../models/lessons');
 
-
 //Home page
 module.exports.home = function (req, res) {
+
     let options = {
         title: "Home",
         'alphabet': 0,
@@ -83,7 +83,7 @@ module.exports.create = function (req, res) {
                 if (err) { console.log(`Error while creating user`); return res.redirect('back'); }
                 console.log(`Created new user`);
                 return res.redirect('/sign-in');
-            })
+            });
         }
         else {
             console.log(`Already a user`);
@@ -101,7 +101,9 @@ module.exports.createSession = function (req, res) {
 
 module.exports.destroySession = function (req, res) {
     req.logout(function () {
+        currentUser = undefined;
         console.log(`User signed-out`);
         res.redirect('/');
     })
 }
+

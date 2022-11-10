@@ -1,10 +1,12 @@
 const User = require('../models/user');
 const Lesson = require('../models/lessons');
+let currentUser;
 
 // Typing page rendering, TODO: Change later
 // let para = `Oops, Seems your database doesn't have any paragraphs !`;
 let para = `Oops, Seems`;
 let paraLength = para.length;
+let lessonId;
 
 module.exports.lesson = function (req, res, next) {
     let error = () => res.status(404).end('Page not found');
@@ -14,6 +16,7 @@ module.exports.lesson = function (req, res, next) {
         if (lesson) {
             para = lesson.paragraph;
             paraLength = para.length;
+            lessonId = lesson.id; //Storing the id of the lesson
             return next();
         }
         else {
@@ -31,6 +34,8 @@ module.exports.challenge = function (req, res, next) {
 
 
 module.exports.type = function (req, res) {
+    currentUser = req.user; //Storing the current logged user
+
     let options = {
         para: para
     }
@@ -88,7 +93,39 @@ async function paraFinish() {
     if (netSpeed < 0)
         netSpeed = Number.parseInt(0);
 
-    console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
+    // console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
+    
+    if (lessonId) {
+        let lessonDetails = {
+            lesson: lessonId,
+            grossSpeed: grossSpeed,
+            netSpeed: netSpeed,
+            accuracy: accuracy
+        };
+
+
+        //Saving the lesson progress
+        let existingLesson = await currentUser.lessons.find(function (value, index) { 
+            return value.lesson == lessonId;
+        });
+
+        //Update if user is attempting a lesson again
+        if (existingLesson) {
+            existingLesson.grossSpeed = lessonDetails.grossSpeed;
+            existingLesson.netSpeed = lessonDetails.netSpeed;
+            existingLesson.accuracy = lessonDetails.accuracy;
+            // console.log(existingLesson);
+        }
+        //Create lesson if user is attempting for first time
+        else {
+            currentUser.lessons.push(lessonDetails);
+        }
+
+        await currentUser.save(function (err, user) {
+            if (err) { console.log(`Error while saving lesson progress`); return; }
+            console.log(`Saved lesson progress`);
+        });
+    }
 
     //for challenge, calc score
     //Update rank

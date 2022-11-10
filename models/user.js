@@ -20,7 +20,8 @@ const challengeSchema = new mongoose.Schema({
 const lessonSchema = new mongoose.Schema({
     lesson: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'lessons'
+        ref: 'lessons',
+        unique: true
     },
     grossSpeed: {
         type: Number
