@@ -69,6 +69,7 @@ module.exports.typeRefresh = function (req, res) {
 
 //When user finishes typing the paragraph
 async function paraFinish() {
+    console.log(currentUser);
     for (let i = 0; i < timer.length; i += 2) {
         totalTimeToWritePara += timer[i + 1] - timer[i];
     }
@@ -145,8 +146,16 @@ async function paraFinish() {
             currentUser.lessons.push(lessonDetails);
         }
 
-        currentUser.avgWPM = (Number.parseInt(currentUser.avgWPM) + Number.parseInt(lessonDetails.grossSpeed)) / 2.0;
-        currentUser.netScore = Number.parseInt(currentUser.netScore) + Number.parseInt(lessonDetails.netScore);
+        if(Number.parseInt(currentUser.avgWPM)!=0)
+            currentUser.avgWPM = (Number.parseInt(currentUser.avgWPM) + Number.parseInt(lessonDetails.grossSpeed)) / 2.0;
+        else
+            currentUser.avgWPM = Number.parseInt(lessonDetails.grossSpeed);
+            
+        if(Number.parseInt(currentUser.netScore)!=0)
+            currentUser.netScore = Number.parseInt(currentUser.netScore) + Number.parseInt(lessonDetails.netScore);
+        else
+            currentUser.netScore =Number.parseInt(lessonDetails.netScore);
+
         console.log(currentUser.avgWPM,currentUser.netScore);
 
         await currentUser.save(function (err, user) {

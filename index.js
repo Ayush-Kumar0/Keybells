@@ -1,7 +1,15 @@
 const port = 8000;
 const express = require('express');
+const fs = require('fs');
 // const expressLayouts = require('express-ejs-layouts');
-const app = express();
+
+
+const app= express();
+const key = fs.readFileSync('C:/Users/Ayush Kumar/Desktop/key.pem');
+const cert = fs.readFileSync('C:/Users/Ayush Kumar/Desktop/cert.pem');
+const https = require('https');
+
+
 const mongoose = require('mongoose');
 const db = require('./config/mongoose');
 const User = require('./models/user');
@@ -69,8 +77,11 @@ app.set('views', './views');
 //Setting up routes
 app.use('/', require('./routes'));
 
+
+const server = https.createServer({ key: key, cert: cert }, app);
+
 //Connecting the server
-app.listen(port, 'localhost', function (err) {
+server.listen(port, 'localhost', function (err) {
     if (err) {
         return console.log(`Error while connecting to server on port : ${port}`);
     }

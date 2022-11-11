@@ -21,7 +21,6 @@ const lessonSchema = new mongoose.Schema({
     lesson: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'lessons',
-        unique: true
     },
     grossSpeed: {
         type: Number
@@ -37,7 +36,6 @@ const lessonSchema = new mongoose.Schema({
     },
     level: {
         type: Number,
-        unique: true
     }
 });
 

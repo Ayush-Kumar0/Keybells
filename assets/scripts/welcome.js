@@ -101,7 +101,7 @@ window.onload = event => {
     upperPara.innerHTML = '';
     lowerPara.innerHTML = '';
     
-    if (document.referrer.match('http://localhost:8000/user')){
+    if (document.referrer.match('https://localhost:8000/user') || document.referrer.match('http://localhost:8000/user')){
         upperFlash.style.display = 'none';
         lowerFlash.style.display = 'none';
         login.style.display = null;

@@ -25,12 +25,17 @@ passport.use(new googleStrategy({
             }
             else {
                 // If not found, create the user and set it as req.user
+                let password = crypto.randomBytes(8).toString('hex');
+                let salt = crypto.randomBytes(20).toString('hex');
                 User.create({
                     name: profile.displayName,
                     email: profile.emails[0].value,
-                    // password: crypto.randomBytes(20).toString('hex')
+                    salt: salt,
+                    password: crypto.pbkdf2Sync(password.toString('hex'), salt, 1000, 64, `sha512`).toString(`hex`),
+                    avgWPM: 0,
+                    netScore:0
                 },
-                    User.setPassword(crypto.randomBytes(20).toString('hex')),
+                    // User.setPassword(crypto.randomBytes(20).toString('hex')),
                     function (err, user) {
                         if (err) { console.log('Error while creating user after google auth : ', err); return done(err); }
 
