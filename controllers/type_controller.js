@@ -103,12 +103,16 @@ async function paraFinish() {
             netSpeed: netSpeed,
             accuracy: accuracy,
             level: lessonLvl,
-            stars:calcStars()
+            stars: calcStars(),
+            netScore: calcScore()
         };
 
         // Function to calculate number of stars for typing
         function calcStars() {
             return 2;
+        }
+        function calcScore() {
+            return 1;
         }
 
 
@@ -120,20 +124,33 @@ async function paraFinish() {
 
         //Update if user is attempting a lesson again
         if (existingLesson) {
-            existingLesson.grossSpeed = lessonDetails.grossSpeed;
-            existingLesson.netSpeed = lessonDetails.netSpeed;
-            existingLesson.accuracy = lessonDetails.accuracy;
-            existingLesson.level = lessonDetails.level;
-            existingLesson.stars = lessonDetails.stars;
-            // console.log(existingLesson);
+            if(existingLesson.stars<=lessonDetails.stars){
+                existingLesson.grossSpeed = lessonDetails.grossSpeed;
+                existingLesson.netSpeed = lessonDetails.netSpeed;
+                existingLesson.accuracy = lessonDetails.accuracy;
+                existingLesson.level = lessonDetails.level;
+                existingLesson.stars = lessonDetails.stars;
+                // console.log(existingLesson);
+            }
+            else if (existingLesson.accuracy <= lessonDetails.accuracy) {
+                existingLesson.grossSpeed = lessonDetails.grossSpeed;
+                existingLesson.netSpeed = lessonDetails.netSpeed;
+                existingLesson.accuracy = lessonDetails.accuracy;
+                existingLesson.level = lessonDetails.level;
+                existingLesson.stars = lessonDetails.stars;
+            }
         }
         //Create lesson if user is attempting for first time
         else {
             currentUser.lessons.push(lessonDetails);
         }
 
+        currentUser.avgWPM = (Number.parseInt(currentUser.avgWPM) + Number.parseInt(lessonDetails.grossSpeed)) / 2.0;
+        currentUser.netScore = Number.parseInt(currentUser.netScore) + Number.parseInt(lessonDetails.netScore);
+        console.log(currentUser.avgWPM,currentUser.netScore);
+
         await currentUser.save(function (err, user) {
-            if (err) { console.log(`Error while saving lesson progress`); return; }
+            if (err) { console.log(`Error while saving lesson progress`,err); return; }
             console.log(`Saved lesson progress`);
         });
     }

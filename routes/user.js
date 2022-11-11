@@ -12,7 +12,8 @@ router.get('/ranking', passport.checkAuthentication, userController.ranking);
 //For typing page
 router.use('/type', require('./type'));
 
-router.get('/countLessonStars',passport.checkAuthentication,userController.countStars);
+router.get('/countLessonStars', passport.checkAuthentication, userController.countStars);
+router.post('/getScoreAndWPM', passport.checkAuthentication, userController.getScoreAndWPM);
 
 // Sign-up
 router.post('/create', userController.create);

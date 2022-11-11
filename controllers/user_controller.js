@@ -70,6 +70,27 @@ module.exports.countStars = async function (req, res) {
     }
 }
 
+module.exports.getScoreAndWPM =async function (req, res) {
+    if (req.xhr) {
+        User.findById(req.user.id, function (err, user) {
+            if (err) { console.log(`Error while sending netScore and avgWPM`); return; }
+            if (user) {
+                res.status(200).json({
+                    data: {
+                        score: user.netScore,
+                        avgWPM: user.avgWPM
+                    },
+                    message: 'Score and WPM sent'
+                });
+            }
+            else {
+                console.log(`User was not found`);
+                return;
+            }
+        });
+    }
+}
+
 module.exports.profile = function (req, res) {
     res.render('profile');
 }
@@ -100,7 +121,9 @@ module.exports.create = function (req, res) {
             let newUser = new User();
             newUser.name = req.body.name;
             newUser.email = req.body.email;
-
+            newUser.avgWPM = Number.parseInt(0);
+            newUser.netScore = Number.parseInt(0);
+            
             newUser.setPassword((req.body.password).toString());
 
             newUser.save(function (err, user) {

@@ -12,6 +12,8 @@ body {
     margin-top: 20px;
     background-size: cover;
     /* Resize the background image to cover the entire container */
+
+    margin-top: 0px;
 }
 
 .main {
@@ -49,6 +51,8 @@ body {
     padding-right: 40px;
     padding-top: 10px;
     padding-bottom: 30px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .side-head {

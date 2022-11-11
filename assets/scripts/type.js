@@ -149,8 +149,9 @@ function popupAction() {
 
 let pause = false; // Checks if typing action is paused
 window.addEventListener('keydown', (event) => {
-    if (pause == false)
+    if (pause == false){
         keydownHandler(event);
+    }
 });
 
 
@@ -162,10 +163,18 @@ function highlightDone(n, correct) {
         return;
 
     // console.log("highlightDone: ", nthLetter);
-    if (correct === true)
+    if (correct === true){
         nthLetter.classList.toggle('done'); //Make it done
-    else
+        let audio= new Audio(`/music/key2.ogg`);
+        audio.loop = false;
+        audio.play();
+    }
+    else{
         nthLetter.classList.toggle('wrongDone'); //Incorrect key pressed
+        let audio= new Audio(`/music/key1.ogg`);
+        audio.loop = false;
+        audio.play();
+    }
 
     if (nthLetter.classList.contains('next'))
         nthLetter.classList.toggle('next'); //Remove "next class"

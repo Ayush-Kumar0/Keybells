@@ -53,7 +53,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     salt: {
-        type: String
+        type: String,
+        required: true
     },
     name: {
         type: String,
@@ -69,6 +70,14 @@ const userSchema = new mongoose.Schema({
     //Lessons
     lessons: {
         type: [lessonSchema]
+    },    
+    avgWPM: {
+        type: Number,
+        required: true
+    },
+    netScore: {
+        type: Number, 
+        required: true
     },
     //Challenges
     challenges: {

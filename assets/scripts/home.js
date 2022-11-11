@@ -1,7 +1,7 @@
 let boxes = document.getElementsByClassName('box');
 // console.log(boxes);
 
-let i = 0;
+let totalStars=0, progress=0;
 
 async function completeHome(index){
     let box = boxes[index];
@@ -35,7 +35,14 @@ async function completeHome(index){
         success:async (result, status, xhr) => {
             // console.log(result.data);
             countStars = result.data.stars;
-            glowStars(box, stars);
+            glowStars(box, countStars);
+
+            totalStars += Number.parseInt(countStars);
+            if (level == boxes.length) {
+                displayStar();
+                displayProgress();
+                displayScoreAndWPM();
+            }
         },
         error: (xhr, status, err) => {
             console.log('Error while sending ajax request to count stars');
@@ -48,6 +55,46 @@ for (let i = 0; i < boxes.length;i++)
 
 
 
-function glowStars(box,stars) {
-    let one = document.querySelector(``);
+function glowStars(box, stars) {
+    let starsContainer = box.children.item(1);
+
+    for (let i = 0; i < stars; i++) {
+        let star = starsContainer.children.item(i);
+        star.style.color = 'gold';
+    }
+}
+
+
+function displayStar() {
+    let ele = document.getElementById('stars');
+    
+    ele.innerText += ' : ' + totalStars;
+}
+
+
+function displayProgress() {
+    let ele = document.getElementById('progress');
+
+    let progress = 1.0 * totalStars /( boxes.length * 5) * 100;
+    progress = progress.toFixed(2);
+    ele.innerText += ' : ' + progress+'%';
+}
+
+
+function displayScoreAndWPM(){
+    $.ajax({
+        type: 'post',
+        url: '/user/getScoreAndWPM',
+        data: {},
+        success: function (result, status, xhr) {
+            let eleScore = document.getElementById('score');
+            let eleWPM = document.getElementById('avgwpm');
+
+            eleScore.innerText += ' : ' + result.data.score;
+            eleWPM.innerText += ' : ' + result.data.avgWPM;
+        },
+        error: function (xhr, status, err) {
+            console.log(`Error while sending score and wpm request`);
+        }
+    });
 }

@@ -61,9 +61,13 @@ body {
     /* TODO: Change height later */
     height: 50vh;
     width: 80vw;
-    overflow: scroll;
+    overflow-y: scroll;
     background-color: rgb(47 47 47);
-    color: rgb(189, 174, 174);
+    color: rgb(250, 244, 244);
+    font-family:  Courier, monospace;
+    font-weight:500;
+    padding: 7px;
+    box-sizing: border-box;
 }
 
 #keyboard {

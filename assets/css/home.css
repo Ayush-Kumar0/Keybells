@@ -19,16 +19,23 @@ body {
   padding:20px;
   font-family: "Montserrat-Bold";
 }
- .aside{
-    margin:50px;
-    height:50px;
-    text-align: center;
-    font-family: "Montserrat-Bold";
- }
+.aside{
+  margin:20px;
+  height:50px;
+  text-align: center;
+  font-family: "Montserrat-Bold";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.aside h4{
+  margin: 0px;
+}
 .asidee{
   background-color: #f4eeee;
-  margin-top:20px;
-  margin-bottom:20px;
+  /* margin-top:20px; */
+  /* margin-bottom:20px; */
 }
 
 
@@ -38,10 +45,15 @@ body {
   width: 35%;
   min-width: 300px;
   height: 100vh;
-  margin-top: 76px;
+  padding-top: 76px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   right: 0%;
   background-color: palegreen;
   border-left: rgb(68, 68, 68) solid 0.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .navv{
