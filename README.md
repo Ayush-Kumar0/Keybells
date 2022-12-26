@@ -1,4 +1,4 @@
-# Typing_Sikh_Lo
+# Keybells
   WebApp on the theme 'Swift Key' of Webster (Avishkar 2022).  
 
 
@@ -10,8 +10,8 @@
 ## How to run locally:
 
 ### Run following commands on command-line :
-    1. git clone https://github.com/Ayush-Kumar0/Typing_Sikh_Lo.git  
-    2. cd Typing_Sikh_Lo
+    1. git clone https://github.com/Ayush-Kumar0/Keybells.git  
+    2. cd Keybells
     3. npm install  
     4. npm start  
 
