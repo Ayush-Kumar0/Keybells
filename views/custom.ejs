@@ -33,6 +33,7 @@
         <script defer src="/scripts/home.js"></script>
         <script defer src="/scripts/custom.js"></script>
         <script defer src="/scripts/aside.js"></script>
+        <script defer src="/scripts/clearLocalStorage.js"></script>
     </head>
 
     <body>
@@ -102,11 +103,11 @@
                         </div>
                         <div>
                             <label for="min-word-count">Min</label>
-                            <input type="number" name="minCount" min="5" max="500" value="20" />
+                            <input type="number" name="minCount" min="5" max="500" value="15" />
                         </div>
                         <div>
                             <label for="max-word-count">Max</label>
-                            <input type="number" name="maxCount" min="5" max="500" value="30" />
+                            <input type="number" name="maxCount" min="5" max="500" value="20" />
                         </div>
                     </div>
                 </form>
@@ -119,7 +120,7 @@
                     <input type="submit" value="Generate Facts"><br>
                     <div>
                         <label for="count">Count:</label>
-                        <input type="number" name="count" min="1" max="15" value="4" />
+                        <input type="number" name="count" min="1" max="15" value="3" />
                     </div>
                 </form>
             </div>
@@ -134,10 +135,9 @@
                 <h4 class="" id="score">Score</h4>
             </div>
 
-            <div class="aside">
-                <!-- <i class="iconn fas fa-star fa-3x"></i> -->
+            <!-- <div class="aside">
                 <h4 class="" id="progress">Progress</h4>
-            </div>
+            </div> -->
 
             <div class="aside">
                 <!-- <i class="iconn fas fa-star fa-3x"></i> -->

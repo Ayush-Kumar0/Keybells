@@ -392,3 +392,21 @@ pauseBtn.addEventListener('click', async function (event) {
         }
     });
 });
+
+
+let resetBtn = document.querySelector(`img[alt='reset']`);
+resetBtn.addEventListener('click', async function (event) {
+    event.preventDefault();
+    window.location.reload();
+});
+
+
+let backBtn = document.querySelector(`img[alt='back']`);
+backBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    const prev = localStorage.getItem('previousPage');
+    if (prev)
+        window.location.assign(prev);
+    else
+        window.location.assign('/user');
+});

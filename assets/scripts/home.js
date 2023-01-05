@@ -1,3 +1,7 @@
+window.onload = function (event) {
+    localStorage.setItem(`previousPage`, '/user');
+}
+
 let boxes = document.getElementsByClassName('box');
 // console.log(boxes);
 

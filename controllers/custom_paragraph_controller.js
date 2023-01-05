@@ -23,7 +23,7 @@ module.exports.generateParagraph = async function (req, res, next) {
                 let len = data.length;
                 numberOfWords -= len;
                 await Array.from(data).forEach(async element => {
-                    await words.push(element.word);
+                    await words.push(element.word.trim());
                 });
             })
             .catch(err => {
@@ -51,14 +51,14 @@ module.exports.generateFacts = async function (req, res, next) {
                     return res2.json();
                 })
                 .then(data => {
-                    facts.push(data.text);
+                    facts.push(data.text.trim());
                 }).catch(err => {
                     return res.status(404).redirect('back');
                 });
         }
         // console.log(facts);
-        await typeController.setCustomParagraph(facts.join(" "));
-        return next();
+        await typeController.setCustomParagraph(facts.join(" "), next);
+        return;
     }
     else {
         return res.redirect('back');

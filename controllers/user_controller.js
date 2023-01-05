@@ -77,8 +77,8 @@ module.exports.getScoreAndWPM = async function (req, res) {
             if (user) {
                 res.status(200).json({
                     data: {
-                        score: user.netScore,
-                        avgWPM: user.avgWPM
+                        score: user.netLessonScore,
+                        avgWPM: user.avgLessonWPM
                     },
                     message: 'Score and WPM sent'
                 });
@@ -124,8 +124,12 @@ module.exports.create = function (req, res) {
             let newUser = new User();
             newUser.name = req.body.name;
             newUser.email = req.body.email;
-            newUser.avgWPM = Number.parseInt(0);
-            newUser.netScore = Number.parseInt(0);
+            newUser.avgLessonWPM = Number.parseInt(0);
+            newUser.netLessonScore = Number.parseInt(0);
+            newUser.avgRandomWPM = Number.parseInt(0);
+            newUser.netRandomScore = Number.parseInt(0);
+            newUser.lessonStars = Number.parseInt(0);
+            newUser.randomStars = Number.parseInt(0);
 
             newUser.setPassword((req.body.password).toString());
 

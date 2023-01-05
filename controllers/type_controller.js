@@ -7,6 +7,7 @@ let currentUser;
 let para = `Oops, Seems there is no paragraph.`;
 let paraLength = para.length;
 let lessonId, lessonLvl;
+let randomId;
 
 module.exports.lesson = function (req, res, next) {
     let error = () => res.status(404).end('Page not found');
@@ -35,7 +36,7 @@ module.exports.challenge = function (req, res, next) {
 module.exports.setCustomParagraph = function (paragraph, next) {
     para = paragraph;
     paraLength = para.length;
-    console.log(para.substring(0, 15));
+    randomId = 'random paragraph available';
     next();
 }
 
@@ -63,21 +64,20 @@ let wasBackspacePressed = false;
 //Setting timers for users typing activity
 let timer = [], wrongCount = 0;
 let totalTimeToWritePara = 0;
-let accuracy, grossSpeed, netSpeed;
+let accuracy = 0, grossSpeed = 0, netSpeed = 0;
 
 // Reset everything on typing page
 module.exports.typeRefresh = function (req, res) {
     prevIndex = -1;
     timer = [];
     totalTimeToWritePara = wrongCount = accuracy = grossSpeed = netSpeed = 0;
-    // res.redirect('back');
-    res.status(200).send({});
+    res.status(200).render('type', { para: para });
 }
 
 
 //When user finishes typing the paragraph
 async function paraFinish() {
-    console.log(currentUser);
+    // console.log(currentUser);
     for (let i = 0; i < timer.length; i += 2) {
         totalTimeToWritePara += timer[i + 1] - timer[i];
     }
@@ -103,9 +103,18 @@ async function paraFinish() {
     if (netSpeed < 0)
         netSpeed = Number.parseInt(0);
 
-    // console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
+    console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
+
+    // Function to calculate number of stars for typing
+    function calcStars() {
+        return 2;
+    }
+    function calcScore() {
+        return 1;
+    }
 
     if (lessonId) {
+        // Save details in Lesson
         let lessonDetails = {
             lesson: lessonId,
             grossSpeed: grossSpeed,
@@ -113,17 +122,8 @@ async function paraFinish() {
             accuracy: accuracy,
             level: lessonLvl,
             stars: calcStars(),
-            netScore: calcScore()
+            netLessonScore: calcScore()
         };
-
-        // Function to calculate number of stars for typing
-        function calcStars() {
-            return 2;
-        }
-        function calcScore() {
-            return 1;
-        }
-
 
         //Saving the lesson progress
 
@@ -134,6 +134,7 @@ async function paraFinish() {
         //Update if user is attempting a lesson again
         if (existingLesson) {
             if (existingLesson.stars <= lessonDetails.stars) {
+                currentUser.lessonStars += lessonDetails.stars - existingLesson.stars;
                 existingLesson.grossSpeed = lessonDetails.grossSpeed;
                 existingLesson.netSpeed = lessonDetails.netSpeed;
                 existingLesson.accuracy = lessonDetails.accuracy;
@@ -142,6 +143,7 @@ async function paraFinish() {
                 // console.log(existingLesson);
             }
             else if (existingLesson.accuracy <= lessonDetails.accuracy) {
+                currentUser.lessonStars += lessonDetails.stars - existingLesson.stars;
                 existingLesson.grossSpeed = lessonDetails.grossSpeed;
                 existingLesson.netSpeed = lessonDetails.netSpeed;
                 existingLesson.accuracy = lessonDetails.accuracy;
@@ -152,23 +154,87 @@ async function paraFinish() {
         //Create lesson if user is attempting for first time
         else {
             currentUser.lessons.push(lessonDetails);
+            currentUser.lessonStars += lessonDetails.stars;
         }
 
-        if (Number.parseInt(currentUser.avgWPM) != 0)
-            currentUser.avgWPM = (Number.parseInt(currentUser.avgWPM) + Number.parseInt(lessonDetails.grossSpeed)) / 2.0;
+        if (Number.parseInt(currentUser.avgLessonWPM) != 0)
+            currentUser.avgLessonWPM = (Number.parseInt(currentUser.avgLessonWPM) + Number.parseInt(lessonDetails.grossSpeed)) / 2.0;
         else
-            currentUser.avgWPM = Number.parseInt(lessonDetails.grossSpeed);
+            currentUser.avgLessonWPM = Number.parseInt(lessonDetails.grossSpeed);
 
-        if (Number.parseInt(currentUser.netScore) != 0)
-            currentUser.netScore = Number.parseInt(currentUser.netScore) + Number.parseInt(lessonDetails.netScore);
+        if (Number.parseInt(currentUser.netLessonScore) != 0)
+            currentUser.netLessonScore = Number.parseInt(currentUser.netLessonScore) + Number.parseInt(lessonDetails.netLessonScore);
         else
-            currentUser.netScore = Number.parseInt(lessonDetails.netScore);
+            currentUser.netLessonScore = Number.parseInt(lessonDetails.netLessonScore);
 
-        console.log(currentUser.avgWPM, currentUser.netScore);
+        // console.log(currentUser.avgLessonWPM, currentUser.netLessonScore);
 
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving lesson progress`, err); return; }
             console.log(`Saved lesson progress`);
+        });
+    }
+
+    else if (randomId) {
+        // Save details for Custom Paragraph
+        let randomDetails = {
+            paragraph: para,
+            paraType: 'random',
+            time: new Date(),
+            grossSpeed: grossSpeed,
+            netSpeed: netSpeed,
+            accuracy: accuracy,
+            stars: calcStars(),
+            netRandomScore: calcScore()
+        };
+
+        // Search for existing Random Paragraph in user's database
+        let existingRandom = await currentUser.random.find(function (value, index) {
+            return para === value.paragraph;
+        });
+
+        if (existingRandom) {
+            if (existingRandom.stars <= randomDetails.stars) {
+                currentUser.randomStars += randomDetails.stars - existingRandom.stars;
+                existingRandom.time = new Date();
+                existingRandom.grossSpeed = randomDetails.grossSpeed;
+                existingRandom.netSpeed = randomDetails.netSpeed;
+                existingRandom.accuracy = randomDetails.accuracy;
+                existingRandom.level = randomDetails.level;
+                existingRandom.stars = randomDetails.stars;
+            }
+            else if (existingRandom.accuracy <= randomDetails.accuracy) {
+                currentUser.randomStars += randomDetails.stars - existingRandom.stars;
+                existingRandom.time = new Date();
+                existingRandom.grossSpeed = randomDetails.grossSpeed;
+                existingRandom.netSpeed = randomDetails.netSpeed;
+                existingRandom.accuracy = randomDetails.accuracy;
+                existingRandom.level = randomDetails.level;
+                existingRandom.stars = randomDetails.stars;
+            }
+            console.log('Changed existing Random Paragraph');
+        }
+        else {
+            currentUser.random.push(randomDetails);
+            currentUser.randomStars += randomDetails.stars;
+            console.log('Pushed Random Paragraph', randomDetails);
+        }
+
+        if (Number.parseInt(currentUser.avgRandomWPM) != 0)
+            currentUser.avgRandomWPM = (Number.parseInt(currentUser.avgRandomWPM) + Number.parseInt(randomDetails.grossSpeed)) / 2.0;
+        else
+            currentUser.avgRandomWPM = Number.parseInt(randomDetails.grossSpeed);
+
+        if (Number.parseInt(currentUser.netRandomScore) != 0)
+            currentUser.netRandomScore = Number.parseInt(currentUser.netRandomScore) + Number.parseInt(randomDetails.netRandomScore);
+        else
+            currentUser.netRandomScore = Number.parseInt(randomDetails.netRandomScore);
+
+        // console.log(currentUser.avgRandomWPM, currentUser.netRandomScore);
+
+        await currentUser.save(function (err, user) {
+            if (err) { console.log(`Error while saving random paragraph progress`, err); return; }
+            console.log(`Saved random paragraph progress`);
         });
     }
 
@@ -315,6 +381,7 @@ let correct = function (key, index) {
 
 module.exports.getUserLessonInfo = async function (req, res) {
     if (lessonId) {
+        // Return details for completed Lesson
         if (req.xhr) {
             let existingLesson = await currentUser.lessons.find(function (value, index) {
                 return value.lesson == lessonId;
@@ -322,15 +389,45 @@ module.exports.getUserLessonInfo = async function (req, res) {
 
             lessonId = undefined;
 
-            res.status(200).json({
-                data: {
-                    grossSpeed: existingLesson.grossSpeed,
-                    netSpeed: existingLesson.netSpeed,
-                    accuracy: existingLesson.accuracy,
-                    stars: existingLesson.stars
-                },
-                message: 'Lesson data sent'
+            if (existingLesson) {
+                res.status(200).json({
+                    data: {
+                        grossSpeed: existingLesson.grossSpeed,
+                        netSpeed: existingLesson.netSpeed,
+                        accuracy: existingLesson.accuracy,
+                        stars: existingLesson.stars
+                    },
+                    message: 'Lesson data sent'
+                });
+            }
+            else {
+                console.log('Previous Lesson might not be saved.');
+            }
+        }
+    }
+    else if (randomId) {
+        // Return details for completed Custom Paragraph
+        if (req.xhr) {
+            let existingRandom = await currentUser.random.find(function (value, index) {
+                return para === value.paragraph;
             });
+
+            randomId = undefined;
+
+            if (existingRandom) {
+                res.status(200).json({
+                    data: {
+                        grossSpeed: existingRandom.grossSpeed,
+                        netSpeed: existingRandom.netSpeed,
+                        accuracy: existingRandom.accuracy,
+                        stars: existingRandom.stars
+                    },
+                    message: 'Random Paragraph data sent'
+                });
+            }
+            else {
+                console.log('Previous Random Paragraph might not be saved');
+            }
         }
     }
 }

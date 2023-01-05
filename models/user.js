@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const randomSchema = require('./randomSchema');
 
 const challengeSchema = new mongoose.Schema({
     challenge: {
@@ -68,18 +69,37 @@ const userSchema = new mongoose.Schema({
     //Lessons
     lessons: {
         type: [lessonSchema]
-    },    
-    avgWPM: {
+    },
+    avgLessonWPM: {
         type: Number,
         required: true
     },
-    netScore: {
-        type: Number, 
+    netLessonScore: {
+        type: Number,
+        required: true
+    },
+    lessonStars: {
+        type: Number,
         required: true
     },
     //Challenges
     challenges: {
         type: [challengeSchema]
+    },
+    random: {
+        type: [randomSchema]
+    },
+    avgRandomWPM: {
+        type: Number,
+        required: true
+    },
+    netRandomScore: {
+        type: Number,
+        required: true
+    },
+    randomStars: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true
