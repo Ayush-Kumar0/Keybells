@@ -5,9 +5,11 @@ const passport = require('passport');
 
 //For a user
 router.get('/', passport.checkAuthentication, userController.home);
-router.get('/profile', passport.checkAuthentication, userController.profile)
+router.get('/profile', passport.checkAuthentication, userController.profile);
+router.get('/custom', passport.checkAuthentication, userController.custom);
 router.get('/challenges', passport.checkAuthentication, userController.challenges);
 router.get('/ranking', passport.checkAuthentication, userController.ranking);
+
 
 //For typing page
 router.use('/type', require('./type'));

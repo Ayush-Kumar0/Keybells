@@ -1,17 +1,17 @@
 let boxes = document.getElementsByClassName('box');
 // console.log(boxes);
 
-let totalStars=0, progress=0;
+let totalStars = 0, progress = 0;
 
-async function completeHome(index){
+async function completeHome(index) {
     let box = boxes[index];
-    
+
     // Adding links to each level
     // let level = box.children.item(index).innerHTML.trim();
     let level = index + 1;
     box.parentElement.setAttribute(`href`, `/user/type?which=lesson&level=${level}`);
 
-    
+
     // Adding click and hover events
     box.addEventListener('mouseover', function (event) {
         box.classList.add('boxHover');
@@ -32,7 +32,7 @@ async function completeHome(index){
         data: {
             level: Number.parseInt(level)
         },
-        success:async (result, status, xhr) => {
+        success: async (result, status, xhr) => {
             // console.log(result.data);
             countStars = result.data.stars;
             glowStars(box, countStars);
@@ -50,7 +50,7 @@ async function completeHome(index){
     });
 }
 
-for (let i = 0; i < boxes.length;i++)
+for (let i = 0; i < boxes.length; i++)
     completeHome(i);
 
 
@@ -67,21 +67,21 @@ function glowStars(box, stars) {
 
 function displayStar() {
     let ele = document.getElementById('stars');
-    
-    ele.innerText += ' : ' + totalStars;
+
+    ele.innerText = 'Stars : ' + totalStars;
 }
 
 
 function displayProgress() {
     let ele = document.getElementById('progress');
 
-    let progress = 1.0 * totalStars /( boxes.length * 5) * 100;
+    let progress = 1.0 * totalStars / (boxes.length * 5) * 100;
     progress = progress.toFixed(2);
-    ele.innerText += ' : ' + progress+'%';
+    ele.innerText = 'Progress : ' + progress + '%';
 }
 
 
-function displayScoreAndWPM(){
+function displayScoreAndWPM() {
     $.ajax({
         type: 'post',
         url: '/user/getScoreAndWPM',
@@ -90,8 +90,8 @@ function displayScoreAndWPM(){
             let eleScore = document.getElementById('score');
             let eleWPM = document.getElementById('avgwpm');
 
-            eleScore.innerText += ' : ' + result.data.score;
-            eleWPM.innerText += ' : ' + result.data.avgWPM;
+            eleScore.innerText = 'Score : ' + result.data.score;
+            eleWPM.innerText = 'Average Speed : ' + result.data.avgWPM;
         },
         error: function (xhr, status, err) {
             console.log(`Error while sending score and wpm request`);

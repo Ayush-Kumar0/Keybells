@@ -5,23 +5,25 @@ body {
   min-width: 750px;
 }
 
-.iconn{
-  color:black;
+.iconn {
+  color: black;
 }
 
 
-.txt{
+.txt {
   line-height: 270px;
   text-align: center;
   font-family: "Montserrat-Bold";
 }
-.txt2{
-  padding:20px;
+
+.txt2 {
+  padding: 20px;
   font-family: "Montserrat-Bold";
 }
-.aside{
-  margin:20px;
-  height:50px;
+
+.aside {
+  margin: 20px;
+  height: 50px;
   text-align: center;
   font-family: "Montserrat-Bold";
   display: flex;
@@ -29,35 +31,39 @@ body {
   justify-content: center;
 }
 
-.aside h4{
+.aside h4 {
   margin: 0px;
 }
-.asidee{
+
+.asidee {
   background-color: #f4eeee;
   /* margin-top:20px; */
   /* margin-bottom:20px; */
+  visibility: hidden;
 }
 
 
 
 .asidee {
   position: fixed;
-  width: 35%;
-  min-width: 300px;
-  height: 100vh;
-  padding-top: 76px;
+  /* width: 35%; */
+  /* min-width: 300px; */
+  /* height: 100vh; */
+  /* padding-top: 76px; */
   margin-top: 0px;
   margin-bottom: 0px;
   right: 0%;
+  top: 76px;
   background-color: palegreen;
   border-left: rgb(68, 68, 68) solid 0.5px;
+  border-bottom: rgb(68, 68, 68) solid 0.5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.navv{
-  position: fixed;
+.navv {
+  /* position: fixed; */
   width: 100%;
   z-index: 100;
 }
@@ -65,16 +71,17 @@ body {
 
 /* Main section on left where headings and levels */
 .main-section {
- width: 65%;
- display: flex;
- flex-direction: row;
- flex-wrap: wrap;
- position: absolute;
- margin-top: 76px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* position: absolute; */
+  position: relative;
+  /* margin-top: 76px; */
 }
 
 /* All lessons of all types */
-.levels{
+.levels {
   width: 100%;
   padding: 0px 30px 30px 40px;
   display: flex;
@@ -85,13 +92,13 @@ body {
 
   /* background-image: url("../images/profile_home/img4.png"); */
   /* background-image: linear-gradient(to bottom,#E3AF66,#808080,#E69900,#D426BD,#4D4D4D,#E62B09,#FFB319); */
-  background-image: linear-gradient(to bottom,#E3AF66,#FFB319,#e62a09);
+  background-image: linear-gradient(to bottom, #E3AF66, #FFB319, #e62a09);
   background-color: #cccccc;
   background-size: cover;
 }
 
 /* Lessons of each type */
-.levels div{
+.levels div {
   display: flex;
   /* flex-direction: row; */
   position: relative;
@@ -99,13 +106,13 @@ body {
   justify-content: left;
 }
 
-.levels div a{
+.levels div a {
   text-decoration: none;
   color: rgb(53, 53, 53);
 }
 
 /* Levels in each type of lesson */
-.box{
+.box {
   background-color: rgb(73 187 145);
   width: 130px;
   height: 130px;
@@ -117,46 +124,70 @@ body {
   box-shadow: lightgrey 3px 3px 0px 2px;
 }
 
-.boxHover{
+.boxHover {
   box-shadow: lightgrey 3px 3px 0px 2px;
   filter: brightness(150%);
 }
 
 /* Class when box div is clicked */
-.boxClicked{
+.boxClicked {
   box-shadow: lightgrey 1px 1px 0px 2px;
 }
 
-.levels h3{
+.levels h3 {
   margin-top: 50px;
 }
-.levels>h3:first-child{
+
+.levels>h3:first-child {
   margin-top: 10px;
 }
 
-.box h1{
+.box h1 {
   text-align: center;
 }
 
-.stars-container{
+.stars-container {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
 }
-.stars-container div{
+
+.stars-container div {
   display: inline-block;
 }
 
-.stars{
+.stars {
   font-size: 1.2em;
 }
 
-.one,.five{
+.one,
+.five {
   margin-top: 5px;
 }
-.two,.four{
+
+.two,
+.four {
   margin-top: 10px;
 }
-.three{
+
+.three {
   margin-top: 14px;
+}
+
+#hideAsidee {
+  position: fixed;
+  top: 76px;
+  right: 0px;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  background-color: palegreen;
+  border-radius: 5px;
+}
+
+#hideAsidee img {
+  height: 25px;
 }

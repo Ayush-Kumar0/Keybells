@@ -4,7 +4,7 @@ let currentUser;
 
 // Typing page rendering, TODO: Change later
 // let para = `Oops, Seems your database doesn't have any paragraphs !`;
-let para = `Oops, Seems`;
+let para = `Oops, Seems there is no paragraph.`;
 let paraLength = para.length;
 let lessonId, lessonLvl;
 
@@ -30,6 +30,13 @@ module.exports.lesson = function (req, res, next) {
 module.exports.challenge = function (req, res, next) {
     para = "This paragraph comes from challenges collection";
     console.log(para);
+}
+
+module.exports.setCustomParagraph = function (paragraph, next) {
+    para = paragraph;
+    paraLength = para.length;
+    console.log(para.substring(0, 15));
+    next();
 }
 
 
@@ -62,8 +69,9 @@ let accuracy, grossSpeed, netSpeed;
 module.exports.typeRefresh = function (req, res) {
     prevIndex = -1;
     timer = [];
-    totalTimeToWritePara= wrongCount = accuracy = grossSpeed = netSpeed = 0;
-    res.redirect('back');
+    totalTimeToWritePara = wrongCount = accuracy = grossSpeed = netSpeed = 0;
+    // res.redirect('back');
+    res.status(200).send({});
 }
 
 
@@ -76,7 +84,7 @@ async function paraFinish() {
     totalTimeToWritePara = totalTimeToWritePara / 1000 / 60.0;
     if (totalTimeToWritePara < 0)
         totalTimeToWritePara = Infinity;
-    
+
     if (wrongCount < 0)
         wrongCount = 0;
 
@@ -96,7 +104,7 @@ async function paraFinish() {
         netSpeed = Number.parseInt(0);
 
     // console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
-    
+
     if (lessonId) {
         let lessonDetails = {
             lesson: lessonId,
@@ -119,13 +127,13 @@ async function paraFinish() {
 
         //Saving the lesson progress
 
-        let existingLesson = await currentUser.lessons.find(function (value, index) { 
+        let existingLesson = await currentUser.lessons.find(function (value, index) {
             return value.lesson == lessonId;
         });
 
         //Update if user is attempting a lesson again
         if (existingLesson) {
-            if(existingLesson.stars<=lessonDetails.stars){
+            if (existingLesson.stars <= lessonDetails.stars) {
                 existingLesson.grossSpeed = lessonDetails.grossSpeed;
                 existingLesson.netSpeed = lessonDetails.netSpeed;
                 existingLesson.accuracy = lessonDetails.accuracy;
@@ -146,20 +154,20 @@ async function paraFinish() {
             currentUser.lessons.push(lessonDetails);
         }
 
-        if(Number.parseInt(currentUser.avgWPM)!=0)
+        if (Number.parseInt(currentUser.avgWPM) != 0)
             currentUser.avgWPM = (Number.parseInt(currentUser.avgWPM) + Number.parseInt(lessonDetails.grossSpeed)) / 2.0;
         else
             currentUser.avgWPM = Number.parseInt(lessonDetails.grossSpeed);
-            
-        if(Number.parseInt(currentUser.netScore)!=0)
+
+        if (Number.parseInt(currentUser.netScore) != 0)
             currentUser.netScore = Number.parseInt(currentUser.netScore) + Number.parseInt(lessonDetails.netScore);
         else
-            currentUser.netScore =Number.parseInt(lessonDetails.netScore);
+            currentUser.netScore = Number.parseInt(lessonDetails.netScore);
 
-        console.log(currentUser.avgWPM,currentUser.netScore);
+        console.log(currentUser.avgWPM, currentUser.netScore);
 
         await currentUser.save(function (err, user) {
-            if (err) { console.log(`Error while saving lesson progress`,err); return; }
+            if (err) { console.log(`Error while saving lesson progress`, err); return; }
             console.log(`Saved lesson progress`);
         });
     }
@@ -191,20 +199,20 @@ module.exports.typePause = function (req, res) {
 
 module.exports.typeBackspace = function (req, res) {
     if (req.xhr) {
-        if (req.body.prevCorrect && wrongCount>=1){
+        if (req.body.prevCorrect && wrongCount >= 1) {
             wrongCount--;
             wasBackspacePressed = false;
         }
-        else if(wrongCount>=2){
+        else if (wrongCount >= 2) {
             wrongCount -= 2;
             wasBackspacePressed = true;
         }
-        prevIndex = Number.parseInt(req.body.indexDone)-1;
+        prevIndex = Number.parseInt(req.body.indexDone) - 1;
         res.status(200).json({
             data: {
                 index: prevIndex
             },
-            message:'backspace handled'
+            message: 'backspace handled'
         });
         if (prevIndex < -1)
             prevIndex = -1;
@@ -214,29 +222,29 @@ module.exports.typeBackspace = function (req, res) {
 module.exports.typeChanges = async function (req, res) {
 
     if (req.xhr) {
-        
-            prevIndex++;
 
-            let c = correct(req.body.keyPressed, req.body.indexPressed);
-            if (c == false)
-                wrongCount++;
+        prevIndex++;
 
-            if (prevIndex == 0) {
-                timer.push(Date.now());
-            }
-            if (prevIndex == paraLength - 1) {
-                timer.push(Date.now());
-                await paraFinish();
-            }
+        let c = correct(req.body.keyPressed, req.body.indexPressed);
+        if (c == false)
+            wrongCount++;
 
-            res.status(200).json({
-                data: {
-                    'indexDone': prevIndex,
-                    'correct': c
-                },
-                message: "Typed character catched"
-            });
+        if (prevIndex == 0) {
+            timer.push(Date.now());
         }
+        if (prevIndex == paraLength - 1) {
+            timer.push(Date.now());
+            await paraFinish();
+        }
+
+        res.status(200).json({
+            data: {
+                'indexDone': prevIndex,
+                'correct': c
+            },
+            message: "Typed character catched"
+        });
+    }
 }
 
 
@@ -305,20 +313,24 @@ let correct = function (key, index) {
 }
 
 
-module.exports.getUserLessonInfo =async function (req, res) {
-    if (req.xhr) {
-        let existingLesson = await currentUser.lessons.find(function (value, index) { 
-            return value.lesson == lessonId;
-        });
+module.exports.getUserLessonInfo = async function (req, res) {
+    if (lessonId) {
+        if (req.xhr) {
+            let existingLesson = await currentUser.lessons.find(function (value, index) {
+                return value.lesson == lessonId;
+            });
 
-        res.status(200).json({
-            data: {
-                grossSpeed: existingLesson.grossSpeed,
-                netSpeed: existingLesson.netSpeed,
-                accuracy: existingLesson.accuracy,
-                stars: existingLesson.stars
-            },
-            message:'Lesson data sent'
-        });
+            lessonId = undefined;
+
+            res.status(200).json({
+                data: {
+                    grossSpeed: existingLesson.grossSpeed,
+                    netSpeed: existingLesson.netSpeed,
+                    accuracy: existingLesson.accuracy,
+                    stars: existingLesson.stars
+                },
+                message: 'Lesson data sent'
+            });
+        }
     }
 }

@@ -49,9 +49,9 @@ module.exports.home = function (req, res) {
 module.exports.countStars = async function (req, res) {
     if (req.xhr) {
         let stars = 0;
-        User.findById(req.user.id, function (err,user) {
+        User.findById(req.user.id, function (err, user) {
             if (user) {
-                for (let i = 0; i < user.lessons.length; i++){
+                for (let i = 0; i < user.lessons.length; i++) {
                     if (user.lessons[i].level == req.query.level) {
                         stars = user.lessons[i].stars;
                         // console.log(stars);
@@ -70,7 +70,7 @@ module.exports.countStars = async function (req, res) {
     }
 }
 
-module.exports.getScoreAndWPM =async function (req, res) {
+module.exports.getScoreAndWPM = async function (req, res) {
     if (req.xhr) {
         User.findById(req.user.id, function (err, user) {
             if (err) { console.log(`Error while sending netScore and avgWPM`); return; }
@@ -93,6 +93,9 @@ module.exports.getScoreAndWPM =async function (req, res) {
 
 module.exports.profile = function (req, res) {
     res.render('profile');
+}
+module.exports.custom = function (req, res) {
+    res.render('custom');
 }
 module.exports.challenges = function (req, res) {
     res.render('challenges');
@@ -123,7 +126,7 @@ module.exports.create = function (req, res) {
             newUser.email = req.body.email;
             newUser.avgWPM = Number.parseInt(0);
             newUser.netScore = Number.parseInt(0);
-            
+
             newUser.setPassword((req.body.password).toString());
 
             newUser.save(function (err, user) {

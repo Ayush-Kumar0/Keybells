@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;700&display=swap');
 
 
-body{
+body {
     margin: 0px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -29,26 +29,30 @@ body{
     flex-direction: column;
     min-width: 310px;
 }
+
 @media only screen and (max-width: 600px) {
-    #input-login{
+    #input-login {
         width: 90%;
     }
-  }
+}
+
 @media only screen and (max-width: 800px) {
-    #input-login{
+    #input-login {
         width: 60%;
     }
-  }
+}
+
 @media only screen and (max-width: 1000px) {
-    #input-login{
+    #input-login {
         width: 50%;
     }
-  }
+}
+
 @media only screen and (max-width: 1300px) {
-    #input-login{
+    #input-login {
         width: 50%;
     }
-  }
+}
 
 
 .input-border-login {
@@ -59,7 +63,7 @@ body{
     font-size: 20px;
     color: #212930;
     border: none;
-    transition: all 0.8s;    
+    transition: all 0.8s;
     outline: none;
     padding-left: 20px;
 }
@@ -79,7 +83,7 @@ body{
     /* text-shadow: 1px 1px; */
     margin-top: 25px;
     margin-bottom: 2px;
-    font-family:  'Open sans',sans-serif;
+    font-family: 'Open sans', sans-serif;
 }
 
 #signup-option-login {
@@ -94,25 +98,26 @@ body{
     margin-top: -25px;
 }
 
-#signup-option-login a{
+#signup-option-login a {
     text-decoration: none;
     color: purple;
     font-family: 'Roboto', sans-serif;
 }
-#signup-option-login a:hover{
+
+/* #signup-option-login a:hover{
     color: rgb(92, 2, 92);
     text-shadow:4px 3px 10px rgb(82, 2, 92);
-}
+} */
 
 
-.google-login{
+.google-login {
     margin-top: 2px !important;
 }
 
-a{
+a {
     text-decoration: none;
 }
-  
+
 .buttons {
     background-image: linear-gradient(to right, #1CD8D2 0%, #67ecfd 51%, #1CD8D2 100%);
     margin: 10px;
@@ -126,23 +131,24 @@ a{
     border-radius: 10px;
     display: block;
     border: none;
-  }
+}
 
 .buttons:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
+    /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
-    cursor:pointer;
+    cursor: pointer;
 }
- 
 
-.input-border-login:focus{
+
+.input-border-login:focus {
     box-shadow: -3px 2px 7px 5px rgb(105, 109, 109);
-    transform: translate3d(2px,1px,1px);
+    /* transform: translate3d(2px, 1px, 1px); */
     transition: all ease-in 100ms;
 }
 
-.input-border-login:hover::placeholder{
+/* .input-border-login:hover::placeholder {
     transform: translateX(5px);
     transition: all ease-out 200ms;
-}
+} */

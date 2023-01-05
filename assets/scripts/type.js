@@ -36,9 +36,9 @@ window.onload = event => {
 
 //TODO: Use queue for checking valid typing , queue contails the keydown events
 async function keydownHandler(event) {
-    if (i >= envelopeLetters.length-1)
+    if (i >= envelopeLetters.length - 1)
         return;
-    
+
     // event.preventDefault();
     if (event.key == 'CapsLock')
         return;
@@ -58,7 +58,7 @@ async function keydownHandler(event) {
                         return true;
                 }
             },
-            success: (result, status, xhr)=>{
+            success: (result, status, xhr) => {
                 i = Number.parseInt(result.data.index); //i represents till which index typing has been done
                 console.log(result);
                 if (i >= -1) {
@@ -130,11 +130,11 @@ function popupAction() {
         data: '',
         success: (result, status, xhr) => {
             console.log(result.data);
-            popup.children.item(0).innerHTML ='Gross Speed : '+ result.data.grossSpeed;
-            popup.children.item(1).innerHTML ='Net Speed : '+ result.data.netSpeed;
-            popup.children.item(2).innerHTML ='Accuracy : '+ result.data.accuracy.toFixed();
+            popup.children.item(0).innerHTML = 'Gross Speed : ' + result.data.grossSpeed;
+            popup.children.item(1).innerHTML = 'Net Speed : ' + result.data.netSpeed;
+            popup.children.item(2).innerHTML = 'Accuracy : ' + result.data.accuracy.toFixed();
             popup.children.item(3).innerHTML = 'Stars : ' + result.data.stars;
-            
+
             popup.classList.add('animate');
             let blurStyle = document.createElement('style');
             blurStyle.innerText = ` body> *:not(.popup, #nav){ filter: blur(5px); } `;
@@ -142,14 +142,14 @@ function popupAction() {
             document.head.appendChild(blurStyle);
         },
         error: (xhr, status, err) => {
-            console.log(`Some error while sending AJAX request to get UserLessonInfo : `, error);
+            console.log(`Some error while sending AJAX request to get UserLessonInfo : `, err);
         }
     });
 }
 
 let pause = false; // Checks if typing action is paused
 window.addEventListener('keydown', (event) => {
-    if (pause == false){
+    if (pause == false) {
         keydownHandler(event);
     }
 });
@@ -163,15 +163,15 @@ function highlightDone(n, correct) {
         return;
 
     // console.log("highlightDone: ", nthLetter);
-    if (correct === true){
+    if (correct === true) {
         nthLetter.classList.toggle('done'); //Make it done
-        let audio= new Audio(`/music/key2.ogg`);
+        let audio = new Audio(`/music/key2.ogg`);
         audio.loop = false;
         audio.play();
     }
-    else{
+    else {
         nthLetter.classList.toggle('wrongDone'); //Incorrect key pressed
-        let audio= new Audio(`/music/key1.ogg`);
+        let audio = new Audio(`/music/key1.ogg`);
         audio.loop = false;
         audio.play();
     }
@@ -185,7 +185,7 @@ function dehighlightDone(n) {
     let nthLetter = envelopeLetters.at(n);
     if (!nthLetter)
         return;
-    
+
     if (nthLetter.classList.contains('done'))
         nthLetter.classList.toggle('done');
     if (nthLetter.classList.contains('wrongDone'))
@@ -210,7 +210,7 @@ function dehighlightNext(n) {
         return;
 
     // console.log("highlightNext: ", nthLetter);
-    if(nthLetter.classList.contains('next'))
+    if (nthLetter.classList.contains('next'))
         nthLetter.classList.toggle('next'); //Make it next
 }
 

@@ -1,10 +1,11 @@
 const port = 8000;
 const express = require('express');
+const dotenv = require('dotenv').config();
 const fs = require('fs');
 // const expressLayouts = require('express-ejs-layouts');
 
 
-const app= express();
+const app = express();
 const key = fs.readFileSync('C:/Users/Ayush Kumar/Desktop/key.pem');
 const cert = fs.readFileSync('C:/Users/Ayush Kumar/Desktop/cert.pem');
 const https = require('https');

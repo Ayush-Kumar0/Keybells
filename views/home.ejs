@@ -30,6 +30,7 @@
 
     <!-- External Scripts -->
     <script defer src="/scripts/home.js"></script>
+    <script defer src="/scripts/aside.js"></script>
   </head>
 
   <body>
@@ -37,14 +38,17 @@
     <!-- Navigation bar -->
     <section class="navv">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Typing_Sikh_Lo</a>
+        <a class="navbar-brand" href="/">Keybells</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="/user">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/user">Lessons <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/custom">Custom</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/user/challenges">Challenges</a>
@@ -73,172 +77,172 @@
     <section class="main-section">
       <!-- Div for custom para, random para and levels -->
 
-        <!-- Custom and Random paragraphs -->
-        <!-- <div class="custAndRand">
+      <!-- Custom and Random paragraphs -->
+      <!-- <div class="custAndRand">
           <div class="custom"></div>
           <div class="random"></div>
         </div> -->
 
 
 
-        <!-- Levels -->
-        <div class="levels">
+      <!-- Levels -->
+      <div class="levels">
 
-          <h3>Alphabet</h3>
-          <div class="alphabet">
-            <% for(let i=0;i<locals['alphabet'];i++){ %>
+        <h3>Alphabet</h3>
+        <div class="alphabet">
+          <% for(let i=0;i<locals['alphabet'];i++){ %>
 
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
                 </div>
-              </a>
+              </div>
+            </a>
 
-              <% } %>
-          </div>
-
-          <h3>Advanced Level 1 (Goal 30 WPM)</h3>
-          <div class="advanced-level1">
-            <% for(let i=locals['alphabet'];i<locals['alphabet']+locals['advanced-level1'];i++){ %>
-
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
-                </div>
-              </a>
-
-              <% } %>
-          </div>
-
-          <h3>The Shift Key</h3>
-          <div class="shift">
-            <% for(let i=locals['alphabet']+locals['advanced-level1'];i<locals['alphabet']+locals['advanced-level1']+locals['shift'];i++){ %>
-
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
-                </div>
-              </a>
-
-              <% } %>
-          </div>
-
-          <h3>Advanced Level 2 (Goal 35 WPM)</h3>
-          <div class="advanced-level2">
-            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2'];i++){ %>
-
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
-                </div>
-              </a>
-
-              <% } %>
-          </div>
-
-          <h3>The Numbers</h3>
-          <div class="numbers">
-            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers'];i++){ %>
-
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
-                </div>
-              </a>
-
-              <% } %>
-          </div>
-
-          <h3>Advanced Level 3 (Goal 45 WPM)</h3>
-          <div class="advanced-level3">
-            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3'];i++){ %>
-
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
-                </div>
-              </a>
-
-              <% } %>
-          </div>
-
-          <h3>The Symbols</h3>
-          <div class="symbols">
-            <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3']+locals['symbols'];i++){ %>
-
-              <a>
-                <div class="box">
-                  <h1>
-                    <%= i+1 %>
-                  </h1>
-                  <div class="stars-container">
-                    <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
-                    <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
-                  </div>
-                </div>
-              </a>
-
-              <% } %>
-          </div>
-
+            <% } %>
         </div>
+
+        <h3>Advanced Level 1 (Goal 30 WPM)</h3>
+        <div class="advanced-level1">
+          <% for(let i=locals['alphabet'];i<locals['alphabet']+locals['advanced-level1'];i++){ %>
+
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                </div>
+              </div>
+            </a>
+
+            <% } %>
+        </div>
+
+        <h3>The Shift Key</h3>
+        <div class="shift">
+          <% for(let i=locals['alphabet']+locals['advanced-level1'];i<locals['alphabet']+locals['advanced-level1']+locals['shift'];i++){ %>
+
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                </div>
+              </div>
+            </a>
+
+            <% } %>
+        </div>
+
+        <h3>Advanced Level 2 (Goal 35 WPM)</h3>
+        <div class="advanced-level2">
+          <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2'];i++){ %>
+
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                </div>
+              </div>
+            </a>
+
+            <% } %>
+        </div>
+
+        <h3>The Numbers</h3>
+        <div class="numbers">
+          <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers'];i++){ %>
+
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                </div>
+              </div>
+            </a>
+
+            <% } %>
+        </div>
+
+        <h3>Advanced Level 3 (Goal 45 WPM)</h3>
+        <div class="advanced-level3">
+          <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3'];i++){ %>
+
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                </div>
+              </div>
+            </a>
+
+            <% } %>
+        </div>
+
+        <h3>The Symbols</h3>
+        <div class="symbols">
+          <% for(let i=locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3'];i<locals['alphabet']+locals['advanced-level1']+locals['shift']+locals['advanced-level2']+locals['numbers']+locals['advanced-level3']+locals['symbols'];i++){ %>
+
+            <a>
+              <div class="box">
+                <h1>
+                  <%= i+1 %>
+                </h1>
+                <div class="stars-container">
+                  <div class="one"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="two"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="three"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="four"><i class="stars fas fa-star fa-3x"></i></div>
+                  <div class="five"><i class="stars fas fa-star fa-3x"></i></div>
+                </div>
+              </div>
+            </a>
+
+            <% } %>
+        </div>
+
+      </div>
 
 
 
@@ -269,7 +273,13 @@
       </div>
 
     </section>
-        
+
+    <!-- Button to show/hide aside -->
+    <div id="hideAsidee">
+      <img src="/images/eye-slash-solid.svg">
+      Progress
+    </div>
+
 
   </body>
 
