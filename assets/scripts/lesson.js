@@ -1,5 +1,5 @@
 window.onload = function (event) {
-    localStorage.setItem(`previousPage`, '/user');
+    localStorage.setItem(`previousPage`, '/user/lesson');
 }
 
 let boxes = document.getElementsByClassName('box');
@@ -32,7 +32,7 @@ async function completeHome(index) {
     let countStars = 0;
     await $.ajax({
         type: 'get',
-        url: '/user/countLessonStars',
+        url: '/user/lesson/countLessonStars',
         data: {
             level: Number.parseInt(level)
         },
@@ -88,7 +88,7 @@ function displayProgress() {
 function displayScoreAndWPM() {
     $.ajax({
         type: 'post',
-        url: '/user/getScoreAndWPM',
+        url: '/user/lesson/getScoreAndWPM',
         data: {},
         success: function (result, status, xhr) {
             let eleScore = document.getElementById('score');

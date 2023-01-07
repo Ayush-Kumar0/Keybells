@@ -1,24 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user_controller');
-const customController = require('../controllers/custom_controller');
 const passport = require('passport');
 
 //For a user
-router.get('/', passport.checkAuthentication, userController.home);
-router.get('/profile', passport.checkAuthentication, userController.profile);
-router.get('/custom', passport.checkAuthentication, userController.custom);
-router.get('/challenges', passport.checkAuthentication, userController.challenges);
-router.get('/ranking', passport.checkAuthentication, userController.ranking);
+//Change later
+router.get('/', passport.checkAuthentication, require('../controllers/lesson_controller').lessonLinks);
 
+//For a profile
+router.use('/profile', require('./profile'));
+
+//For a lesson
+router.use('/lesson', require('./lesson'));
+
+//For a custom
+router.use('/custom', require('./custom'));
+
+//For challenges
+router.use('/challenges', require('./challenges'));
+
+//For rankings
+router.use('/ranking', require('./ranking'));
 
 //For typing page
 router.use('/type', require('./type'));
 
-router.get('/countLessonStars', passport.checkAuthentication, userController.countStars);
-router.post('/getScoreAndWPM', passport.checkAuthentication, userController.getScoreAndWPM);
-
-router.get('/getRandomInfo', passport.checkAuthentication, customController.asideeInfo);
 
 // Sign-up
 router.post('/create', userController.create);

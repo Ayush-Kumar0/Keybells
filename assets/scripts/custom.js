@@ -10,7 +10,7 @@ window.onload = function (event) {
 window.onload = async function (event) {
     await $.ajax({
         type: 'get',
-        url: '/user/getRandomInfo',
+        url: '/user/custom/getRandomInfo',
         data: {},
         success: await function (result) {
             // console.log(result);

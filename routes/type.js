@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const typeController = require('../controllers/type_controller');
-const customParagraphController = require('../controllers/custom_paragraph_controller');
+const paragraphGenerator = require('../controllers/paragraph_generator');
 const passport = require('passport');
 
 
@@ -25,8 +25,8 @@ router.post('/getUserLessonInfo', passport.checkAuthentication, typeController.g
 
 
 // Random paragraphs
-router.get('/generateParagraph', passport.checkAuthentication, customParagraphController.generateParagraph, typeController.type);
-router.get('/generateFacts', passport.checkAuthentication, customParagraphController.generateFacts, typeController.type);
+router.get('/generateParagraph', passport.checkAuthentication, paragraphGenerator.generateParagraph, typeController.type);
+router.get('/generateFacts', passport.checkAuthentication, paragraphGenerator.generateFacts, typeController.type);
 
 
 

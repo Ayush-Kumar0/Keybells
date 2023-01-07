@@ -1,5 +1,9 @@
 const User = require('../models/user');
 
+module.exports.custom = function (req, res) {
+    res.render('custom');
+}
+
 module.exports.asideeInfo = async function (req, res) {
     if (req.xhr) {
         User.findById(req.user.id, function (err, user) {

@@ -1,5 +1,4 @@
-const { request } = require("express");
-const typeController = require('../controllers/type_controller');
+const typeController = require('./type_controller');
 
 module.exports.generateParagraph = async function (req, res, next) {
     console.log(req.query);
