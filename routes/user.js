@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user_controller');
+const customController = require('../controllers/custom_controller');
 const passport = require('passport');
 
 //For a user
@@ -16,6 +17,8 @@ router.use('/type', require('./type'));
 
 router.get('/countLessonStars', passport.checkAuthentication, userController.countStars);
 router.post('/getScoreAndWPM', passport.checkAuthentication, userController.getScoreAndWPM);
+
+router.get('/getRandomInfo', passport.checkAuthentication, customController.asideeInfo);
 
 // Sign-up
 router.post('/create', userController.create);

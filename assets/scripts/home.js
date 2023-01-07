@@ -72,7 +72,7 @@ function glowStars(box, stars) {
 function displayStar() {
     let ele = document.getElementById('stars');
 
-    ele.innerText = 'Stars : ' + totalStars;
+    ele.innerText = 'Lesson Stars : ' + totalStars;
 }
 
 
@@ -94,7 +94,7 @@ function displayScoreAndWPM() {
             let eleScore = document.getElementById('score');
             let eleWPM = document.getElementById('avgwpm');
 
-            eleScore.innerText = 'Score : ' + result.data.score;
+            eleScore.innerText = 'Lesson Score : ' + result.data.score;
             eleWPM.innerText = 'Average Speed : ' + result.data.avgWPM;
         },
         error: function (xhr, status, err) {
