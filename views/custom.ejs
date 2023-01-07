@@ -30,7 +30,6 @@
 
 
         <!-- External Scripts -->
-        <script defer src="/scripts/lesson.js"></script>
         <script defer src="/scripts/custom.js"></script>
         <script defer src="/scripts/aside.js"></script>
         <script defer src="/scripts/clearLocalStorage.js"></script>
@@ -83,7 +82,7 @@
             <!-- Custom and Random paragraphs -->
             <div class="custAndRand">
                 <form action="/user/type/generateParagraph" method="get">
-                    <input type="submit" value="Generate Paragraph" /><br>
+                    <input type="submit" id="genPara" value="Generate Paragraph" /><br>
                     <div>
                         <div class="category">
                             Word Length:
@@ -103,11 +102,11 @@
                         </div>
                         <div>
                             <label for="min-word-count">Min</label>
-                            <input type="number" name="minCount" min="5" max="500" value="15" />
+                            <input type="number" name="minCount" min="10" max="500" value="15" />
                         </div>
                         <div>
                             <label for="max-word-count">Max</label>
-                            <input type="number" name="maxCount" min="5" max="500" value="20" />
+                            <input type="number" name="maxCount" min="10" max="500" value="20" />
                         </div>
                     </div>
                 </form>
@@ -117,7 +116,7 @@
 
             <div class="facts">
                 <form action="/user/type/generateFacts" method="get">
-                    <input type="submit" value="Generate Facts"><br>
+                    <input type="submit" id="genFacts" value="Generate Facts"><br>
                     <div>
                         <label for="count">Count:</label>
                         <input type="number" name="count" min="1" max="15" value="3" />
@@ -156,6 +155,32 @@
             <img src="/images/eye-slash-solid.svg">
             Progress
         </div>
+
+        <section class="history">
+            <div>
+                <h4>History :</h4>
+            </div>
+            <table>
+                <thead>
+                    <th>Sr.No.</th>
+                    <th>Paragraph</th>
+                    <th>Score</th>
+                    <th>Stars</th>
+                    <th>Speed</th>
+                    <th>Accuracy</th>
+                    <th>Time</th>
+                </thead>
+                <!-- <tr>
+                    <td>1</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt voluptatum blanditiis aliquam aliquid saepe quia ad fugiat maiores fuga quo.</td>
+                    <td>350</td>
+                    <td>4</td>
+                    <td>45</td>
+                    <td>98%</td>
+                    <td>4/1/2022</td>
+                </tr> -->
+            </table>
+        </section>
 
 
     </body>

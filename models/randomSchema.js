@@ -21,6 +21,9 @@ const randomSchema = new mongoose.Schema({
     },
     stars: {
         type: Number
+    },
+    score: {
+        type: Number
     }
 });
 

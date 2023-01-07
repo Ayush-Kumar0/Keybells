@@ -8,6 +8,7 @@ router.get('/', passport.checkAuthentication, customController.custom);
 
 
 router.get('/getRandomInfo', passport.checkAuthentication, customController.asideeInfo);
+router.get('/getAllRandomParagraphs', passport.checkAuthentication, customController.getAllRandomParagraphs);
 
 
 module.exports = router;

@@ -1,10 +1,10 @@
 const User = require('../models/user');
 const Lesson = require('../models/lessons');
-let currentUser;
+var currentUser;
 
 // Typing page rendering, TODO: Change later
 // let para = `Oops, Seems your database doesn't have any paragraphs !`;
-let para = `Oops, Seems there is no paragraph.`;
+var para = `Oops, Seems there is no paragraph.`;
 let paraLength = para.length;
 let lessonId, lessonLvl;
 let randomId;
@@ -34,7 +34,8 @@ module.exports.challenge = function (req, res, next) {
 }
 
 module.exports.setCustomParagraph = function (paragraph, next) {
-    para = paragraph;
+    if (paragraph)
+        para = paragraph;
     paraLength = para.length;
     randomId = 'random paragraph available';
     next();
@@ -62,9 +63,9 @@ module.exports.type = function (req, res) {
 let prevIndex = -1;
 let wasBackspacePressed = false;
 //Setting timers for users typing activity
-let timer = [], wrongCount = 0;
-let totalTimeToWritePara = 0;
-let accuracy = 0, grossSpeed = 0, netSpeed = 0;
+var timer = [], wrongCount = 0;
+var totalTimeToWritePara = 0;
+var accuracy = 0, grossSpeed = 0, netSpeed = 0;
 
 // Reset everything on typing page
 module.exports.typeRefresh = function (req, res) {
@@ -78,11 +79,14 @@ module.exports.typeRefresh = function (req, res) {
 //When user finishes typing the paragraph
 async function paraFinish() {
     // console.log(currentUser);
-    for (let i = 0; i < timer.length; i += 2) {
+    let i = 0;
+    for (i = 0; i < timer.length; i += 2) {
+        if (Number.isNaN(timer[i + 1]) || Number.isNaN(timer[i]))
+            break;
         totalTimeToWritePara += timer[i + 1] - timer[i];
     }
     totalTimeToWritePara = totalTimeToWritePara / 1000 / 60.0;
-    if (totalTimeToWritePara < 0)
+    if (totalTimeToWritePara < 0 || Number.isNaN(totalTimeToWritePara))
         totalTimeToWritePara = Infinity;
 
     if (wrongCount < 0)
@@ -122,7 +126,7 @@ async function paraFinish() {
             accuracy: accuracy,
             level: lessonLvl,
             stars: calcStars(),
-            netLessonScore: calcScore()
+            score: calcScore()
         };
 
         //Saving the lesson progress
@@ -163,9 +167,9 @@ async function paraFinish() {
             currentUser.avgLessonWPM = Number.parseInt(lessonDetails.grossSpeed);
 
         if (Number.parseInt(currentUser.netLessonScore) != 0)
-            currentUser.netLessonScore = Number.parseInt(currentUser.netLessonScore) + Number.parseInt(lessonDetails.netLessonScore);
+            currentUser.netLessonScore = Number.parseInt(currentUser.netLessonScore) + Number.parseInt(lessonDetails.score);
         else
-            currentUser.netLessonScore = Number.parseInt(lessonDetails.netLessonScore);
+            currentUser.netLessonScore = Number.parseInt(lessonDetails.score);
 
         // console.log(currentUser.avgLessonWPM, currentUser.netLessonScore);
 
@@ -185,7 +189,7 @@ async function paraFinish() {
             netSpeed: netSpeed,
             accuracy: accuracy,
             stars: calcStars(),
-            netRandomScore: calcScore()
+            score: calcScore()
         };
 
         // Search for existing Random Paragraph in user's database
@@ -202,6 +206,7 @@ async function paraFinish() {
                 existingRandom.accuracy = randomDetails.accuracy;
                 existingRandom.level = randomDetails.level;
                 existingRandom.stars = randomDetails.stars;
+                existingRandom.score = randomDetails.score;
             }
             else if (existingRandom.accuracy <= randomDetails.accuracy) {
                 currentUser.randomStars += randomDetails.stars - existingRandom.stars;
@@ -211,6 +216,7 @@ async function paraFinish() {
                 existingRandom.accuracy = randomDetails.accuracy;
                 existingRandom.level = randomDetails.level;
                 existingRandom.stars = randomDetails.stars;
+                existingRandom.score = randomDetails.score;
             }
             console.log('Changed existing Random Paragraph');
         }
@@ -226,9 +232,9 @@ async function paraFinish() {
             currentUser.avgRandomWPM = Number.parseInt(randomDetails.grossSpeed);
 
         if (Number.parseInt(currentUser.netRandomScore) != 0)
-            currentUser.netRandomScore = Number.parseInt(currentUser.netRandomScore) + Number.parseInt(randomDetails.netRandomScore);
+            currentUser.netRandomScore = Number.parseInt(currentUser.netRandomScore) + Number.parseInt(randomDetails.score);
         else
-            currentUser.netRandomScore = Number.parseInt(randomDetails.netRandomScore);
+            currentUser.netRandomScore = Number.parseInt(randomDetails.score);
 
         // console.log(currentUser.avgRandomWPM, currentUser.netRandomScore);
 
@@ -246,11 +252,11 @@ async function paraFinish() {
 
 let pause = false;
 module.exports.typeToggler = function (req, res, next) {
+    timer.push(Date.now());
     if (pause == true)
         pause = false;
     else
         pause = true;
-    timer.push(Date.now());
     next();
 }
 module.exports.typePause = function (req, res) {
@@ -347,7 +353,7 @@ let correct = function (key, index) {
         key = key.split(' ');
         key = key[key.length - 1];
         if (key.length == 1) {
-            let ascii = key.charCodeAt(0);
+            // let ascii = key.charCodeAt(0);
             // console.log(ascii);
 
             // //Capital Letter

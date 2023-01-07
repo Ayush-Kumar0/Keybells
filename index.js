@@ -1,14 +1,13 @@
-const port = 8000;
 const express = require('express');
 const dotenv = require('dotenv').config();
 const fs = require('fs');
+const port = process.env.PORT || 8000;
 // const expressLayouts = require('express-ejs-layouts');
 
 
 const app = express();
-const key = fs.readFileSync('C:/Users/Ayush Kumar/Desktop/key.pem');
-const cert = fs.readFileSync('C:/Users/Ayush Kumar/Desktop/cert.pem');
 const https = require('https');
+const http = require('http');
 
 
 const mongoose = require('mongoose');
@@ -31,13 +30,13 @@ app.use(cookieParser());
 
 //Storing cookie using mongo-store
 app.use(session({
-    name: 'Swiftkey_Cookie',
+    name: 'Keybells session',
     //TODO: change this secret key in the end
     secret: 'dkfewiohg9295',
     saveUninitialized: false,
     resave: false,
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000 //24 hours
+        maxAge: 7 * 24 * 60 * 60 * 1000 //7 days
     },
     store: new mongoStore(
         {
@@ -79,12 +78,24 @@ app.set('views', './views');
 app.use('/', require('./routes'));
 
 
-const server = https.createServer({ key: key, cert: cert }, app);
+if (process.env.KEY_PATH && process.env.CERT_PATH) {
+    const key = fs.readFileSync(process.env.KEY_PATH);
+    const cert = fs.readFileSync(process.env.CERT_PATH);
+    const serverHTTPS = https.createServer({ key: key, cert: cert }, app);
 
-//Connecting the server
-server.listen(port, 'localhost', function (err) {
+    //Connecting the server
+    serverHTTPS.listen(port, 'localhost', function (err) {
+        if (err) {
+            return console.log(`Error while connecting to HTTPs server on port : ${port}`);
+        }
+        console.log(`HTTPs Server running on port : ${port}`);
+    });
+}
+const serverHTTP = http.createServer(app);
+const port2 = process.env.PORT2 || 8001;
+serverHTTP.listen(port2, 'localhost', function (err) {
     if (err) {
-        return console.log(`Error while connecting to server on port : ${port}`);
+        return console.log(`Error while connecting to HTTP server on port : ${port2}`);
     }
-    console.log(`Server running on port : ${port}`);
+    console.log(`HTTP Server running on port : ${port2}`);
 });

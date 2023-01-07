@@ -24,3 +24,20 @@ module.exports.asideeInfo = async function (req, res) {
         });
     }
 }
+
+module.exports.getAllRandomParagraphs = async function (req, res) {
+    if (req.xhr) {
+        User.findById(req.user.id, function (err, user) {
+            if (err || !user) { res.json({}); return; }
+            else {
+                res.json({
+                    data: {
+                        random: user.random
+                    },
+                    message: 'All Custom Paragraphs Sent'
+                });
+                return;
+            }
+        });
+    }
+}
