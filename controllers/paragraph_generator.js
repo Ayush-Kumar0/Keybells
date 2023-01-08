@@ -73,3 +73,15 @@ module.exports.generateFacts = async function (req, res, next) {
         return res.redirect('back');
     }
 }
+
+module.exports.renderHistoryPara = async function (req, res, next) {
+    // console.log(req.query);
+    let random = await req.user.random.find((value, index) => {
+        return value._id == req.query.id;
+    });
+    // console.log(random);
+
+    let para = random.paragraph
+    typeController.setCustomParagraph(para, next);
+    return;
+}

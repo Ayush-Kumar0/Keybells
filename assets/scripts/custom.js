@@ -4,6 +4,7 @@ const mainHeight = totalHeight - navHeight;
 document.getElementsByClassName('main-section')[0].style.height = `${mainHeight}px`;
 
 var storedCustomParagraphs = [];
+var shownParagraphs = [];
 
 window.onload = async function (event) {
     localStorage.setItem(`previousPage`, '/user/custom');
@@ -98,6 +99,7 @@ async function fetchCustomParagraphs() {
 }
 
 async function renderHistory(page) {
+    shownParagraphs = [];
     if (storedCustomParagraphs.length > 0) {
         document.getElementsByClassName('history')[0].style.display = 'flex';
         // Every page contains maximum 20 lists
@@ -105,11 +107,16 @@ async function renderHistory(page) {
 
         for (let i = page; i < page + 20 && i < storedCustomParagraphs.length; i++) {
             let obj = storedCustomParagraphs[i];
+            shownParagraphs.push(obj._id);
             // console.log(obj);
 
+            let para = firstKWords(obj.paragraph, 9);
+            if (para != obj.paragraph)
+                para += ' ...';
+
             const trow = document.createElement('tr');
-            trow.innerHTML = `<td>${i + 1}</td>
-                        <td>${obj.paragraph}</td>
+            trow.innerHTML = `<td><a class="serials">${i + 1}<img src="/images/custom/circle-play-solid.png" /></a></td>
+                        <td>${para}</td >
                         <td>${obj.score}</td>
                         <td>${obj.stars}</td>
                         <td>${obj.netSpeed}wpm</td>
@@ -117,6 +124,9 @@ async function renderHistory(page) {
                         <td>${formatTime(obj.time)}</td>`;
             table.appendChild(trow);
         }
+
+        // Add onclick event listeners to Sr.No. to render history paragraphs
+        await addLinks();
     }
 }
 
@@ -134,5 +144,25 @@ function formatTime(date) {
         hour %= 12;
         ampm = 'pm';
     }
+    if (min < 10) {
+        min = '0' + min;
+    }
     return '' + dat + '/' + mon + '/' + year + '<br>' + hour + ':' + min + ampm;
+}
+
+function firstKWords(st, k) {
+    k = Number.parseInt(k);
+    let ans = '';
+    let words = st.split(" ");
+    for (let i = 0; i < k && i < words.length; i++) {
+        ans += words[i] + ' ';
+    }
+    ans = ans.trim();
+    return ans;
+}
+
+async function addLinks() {
+    for (let i = 0; i < 20 && i < shownParagraphs.length; i++) {
+        document.getElementsByClassName('serials')[i].setAttribute('href', `/user/type/renderHistoryPara?id=${shownParagraphs[i]}`);
+    }
 }

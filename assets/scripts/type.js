@@ -1,4 +1,6 @@
-let i = -1; // Indicates till which letter(index) typing has been done
+import { scroller } from "./scrollTextContent.js";
+
+var i = -1; // Indicates till which letter(index) typing has been done
 let key = "";
 
 const envelope = document.getElementsByClassName('envelope')[0];
@@ -10,8 +12,9 @@ const right = [`Y`, `U`, `I`, `O`, `P`, `H`, `J`, `K`, `L`, `N`, `M`];
 
 let envelopeLetters = []; //Stores all the div of letters in type.ejs
 
-window.onload = event => {
-    $.ajax({
+window.onload = async event => {
+    // To refresh the page as new
+    await $.ajax({
         url: '/user/type/refresh',
         success: function () {
             i = -1;
@@ -29,7 +32,7 @@ window.onload = event => {
         error: function (xhr, status, error) {
             console.log("Error:", error);
         }
-    })
+    });
 };
 
 
@@ -102,7 +105,7 @@ async function keydownHandler(event) {
                     'indexPressed': (i + 1)
                 },
                 success: (result, status, xhr) => {
-                    console.log(result);
+                    // console.log(result);
                     i = Number(result.data.indexDone);
                     highlightDone(i, result.data.correct);
                     highlightNext(i + 1);
@@ -148,10 +151,13 @@ function popupAction() {
 }
 
 let pause = false; // Checks if typing action is paused
-window.addEventListener('keydown', (event) => {
+window.addEventListener('keydown', async (event) => {
     if (pause == false) {
-        keydownHandler(event);
+        await keydownHandler(event);
     }
+
+    // To initialize variables for text scrolling purpose
+    scroller();
 });
 
 

@@ -27,6 +27,7 @@ router.post('/getUserLessonInfo', passport.checkAuthentication, typeController.g
 // Random paragraphs
 router.get('/generateParagraph', passport.checkAuthentication, paragraphGenerator.generateParagraph, typeController.type);
 router.get('/generateFacts', passport.checkAuthentication, paragraphGenerator.generateFacts, typeController.type);
+router.get('/renderHistoryPara', passport.checkAuthentication, paragraphGenerator.renderHistoryPara, typeController.type);
 
 
 

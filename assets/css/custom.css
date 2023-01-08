@@ -107,6 +107,7 @@ th {
 td {
     box-sizing: border-box;
     font-size: 24px;
+    height: 100px;
 }
 
 .history {
@@ -179,4 +180,23 @@ td {
 
 td:nth-child(2) {
     text-align: left;
+}
+
+/* For history links */
+.serials {
+    text-decoration: none;
+    font-size: larger;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.serials:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.serials img {
+    height: 30px;
 }

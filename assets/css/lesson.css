@@ -185,7 +185,7 @@ body {
   text-align: center;
   justify-content: center;
   background-color: palegreen;
-  border-radius: 5px;
+  border-radius: 0px 0px 0px 5px;
 }
 
 #hideAsidee img {
