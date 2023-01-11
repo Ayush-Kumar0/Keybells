@@ -1,0 +1,131 @@
+/* Main section on left where headings and levels */
+.main-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* position: absolute; */
+    position: relative;
+    /* margin-top: 76px; */
+    background-color: #d9bf9a;
+}
+
+/* All lessons of all types */
+.levels {
+    width: 100%;
+    padding: 30px 30px 30px 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: absolute;
+    justify-content: space-between;
+
+    /* background-image: url("../images/profile_home/img4.png"); */
+    /* background-image: linear-gradient(to bottom,#E3AF66,#808080,#E69900,#D426BD,#4D4D4D,#E62B09,#FFB319); */
+    background-color: #d9bf9a;
+    background-size: cover;
+}
+
+/* Lessons of each type */
+.levels div {
+    display: flex;
+    /* flex-direction: row; */
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.levels div a {
+    text-decoration: none;
+    color: rgb(53, 53, 53);
+}
+
+/* Levels in each type of lesson */
+.box,
+.add {
+    background-color: rgb(73 187 145);
+    width: 130px;
+    height: 130px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 15px;
+    box-shadow: lightgrey 3px 3px 0px 2px;
+}
+
+.boxHover {
+    box-shadow: lightgrey 3px 3px 0px 2px;
+    filter: brightness(150%);
+}
+
+/* Class when box div is clicked */
+.boxClicked {
+    box-shadow: lightgrey 1px 1px 0px 2px;
+}
+
+.levels h3 {
+    margin-top: 50px;
+}
+
+.levels>h3:first-child {
+    margin-top: 10px;
+}
+
+.box p {
+    text-align: center;
+    width: 100%;
+    padding-top: 6px;
+    padding-left: 2px;
+    padding-right: 8px;
+    overflow: hidden;
+}
+
+.box h1 {
+    text-align: center;
+}
+
+.stars-container {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stars-container div {
+    display: inline-block;
+}
+
+.stars {
+    font-size: 1.2em;
+}
+
+.one,
+.five {
+    margin-top: 5px;
+}
+
+.two,
+.four {
+    margin-top: 10px;
+}
+
+.three {
+    margin-top: 14px;
+}
+
+.add {
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    background-color: cadetblue;
+    border: 1px solid lavenderblush;
+}
+
+.add img {
+    width: 80px;
+    height: 80px;
+}
+
+.add:hover {
+    background-color: seagreen;
+}

@@ -21,10 +21,13 @@ module.exports.create = function (req, res) {
             newUser.email = req.body.email;
             newUser.avgLessonWPM = Number.parseInt(0);
             newUser.netLessonScore = Number.parseInt(0);
+            newUser.lessonStars = Number.parseInt(0);
             newUser.avgRandomWPM = Number.parseInt(0);
             newUser.netRandomScore = Number.parseInt(0);
-            newUser.lessonStars = Number.parseInt(0);
             newUser.randomStars = Number.parseInt(0);
+            newUser.avgMyParasWPM = Number.parseInt(0);
+            newUser.netMyParasScore = Number.parseInt(0);
+            newUser.myParasStars = Number.parseInt(0);
 
             newUser.setPassword((req.body.password).toString());
 

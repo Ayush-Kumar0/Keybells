@@ -16,6 +16,9 @@ router.use('/lesson', require('./lesson'));
 //For a custom
 router.use('/custom', require('./custom'));
 
+//For user's Paragraphs
+router.use('/myParas', require('./myParas'));
+
 //For challenges
 router.use('/challenges', require('./challenges'));
 

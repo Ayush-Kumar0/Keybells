@@ -15,10 +15,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- External CSS -->
         <link rel="stylesheet" href="/css/asideAndHideAside.css" type="text/css">
-        <link rel="stylesheet" href="/css/lesson.css" type="text/css">
         <link rel="stylesheet" href="/css/navbar.css" type="text/css">
         <link rel="stylesheet" href="/css/history.css" type="text/css">
-        <link rel="stylesheet" href="/css/custom.css" type="text/css">
+        <link rel="stylesheet" href="/css/myParas.css" type="text/css">
 
         <!-- Font Awesome -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -32,7 +31,7 @@
 
 
         <!-- External Scripts -->
-        <script defer src="/scripts/custom.js"></script>
+        <script defer src="/scripts/myParas.js"></script>
         <script defer src="/scripts/aside.js"></script>
         <script defer src="/scripts/clearLocalStorage.js"></script>
     </head>
@@ -51,10 +50,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/user/lesson">Lessons <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/user/custom">Custom</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="/user/myParas">My Paragraphs</a>
                         </li>
                         <li class="nav-item">
@@ -82,51 +81,49 @@
 
         <!-- Levels section -->
         <section class="main-section">
-            <!-- Div for custom para, random para and levels -->
+            <div class="levels">
+                <div class="alphabet">
+                    <a>
+                        <div class="add">
+                            <img src="/images/myParas/plus-solid.svg" alt="Add">
+                        </div>
+                    </a>
+                </div>
+                <div class="alphabet">
+                    <% for(let i=0;i<locals.paras.length;i++){ %>
 
-            <!-- Custom and Random paragraphs -->
-            <div class="custAndRand">
-                <form action="/user/type/generateParagraph" method="get">
-                    <input type="submit" id="genPara" value="Generate Paragraph" /><br>
-                    <div>
-                        <div class="category">
-                            Word Length:
-                        </div>
-                        <div>
-                            <label for="min-word-length">Min</label>
-                            <input type="number" name="minLength" min="1" max="15" value="1" />
-                        </div>
-                        <div>
-                            <label for="max-word-length">Max</label>
-                            <input type="number" name="maxLength" min="1" max="15" value="15" /><br>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="category">
-                            Words Count:
-                        </div>
-                        <div>
-                            <label for="min-word-count">Min</label>
-                            <input type="number" name="minCount" min="10" max="500" value="15" />
-                        </div>
-                        <div>
-                            <label for="max-word-count">Max</label>
-                            <input type="number" name="maxCount" min="10" max="500" value="20" />
-                        </div>
-                    </div>
-                </form>
-            </div>
+                        <a href="/user/type?which=myParas&id=<%= locals.paras[i]._id %>">
+                            <div class="box">
+                                <h1>
+                                    <%= i+1 %>
+                                </h1>
+                                <div class="stars-container">
+                                    <div class="one" <% if (locals.paras[i].stars>=1) { %>
+                                        <%- `style="color:gold;" ` %>
+                                            <% } %> ><i class="stars fas fa-star fa-3x"></i>
+                                    </div>
+                                    <div class="two" <% if (locals.paras[i].stars>=2) { %>
+                                        <%- `style="color:gold;" ` %>
+                                            <% } %> ><i class="stars fas fa-star fa-3x"></i>
+                                    </div>
+                                    <div class="three" <% if (locals.paras[i].stars>=3) { %>
+                                        <%- `style="color:gold;" ` %>
+                                            <% } %> ><i class="stars fas fa-star fa-3x"></i>
+                                    </div>
+                                    <div class="four" <% if (locals.paras[i].stars>=4) { %>
+                                        <%- `style="color:gold;" ` %>
+                                            <% } %> ><i class="stars fas fa-star fa-3x"></i>
+                                    </div>
+                                    <div class="five" <% if (locals.paras[i].stars>=5) { %>
+                                        <%- `style="color:gold;" ` %>
+                                            <% } %> ><i class="stars fas fa-star fa-3x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
 
-            <hr>
-
-            <div class="facts">
-                <form action="/user/type/generateFacts" method="get">
-                    <input type="submit" id="genFacts" value="Generate Facts"><br>
-                    <div>
-                        <label for="count">Count:</label>
-                        <input type="number" name="count" min="1" max="15" value="3" />
-                    </div>
-                </form>
+                        <% } %>
+                </div>
             </div>
         </section>
 
@@ -136,21 +133,25 @@
 
             <div class="aside">
                 <!-- <i class="iconn fas fa-star fa-3x"></i> -->
-                <h4 class="" id="score">Custom Score</h4>
+                <h4 class="" id="score">Score: <%= locals.score %>
+                </h4>
             </div>
 
             <div class="aside">
                 <!-- <i class="iconn fas fa-star fa-3x"></i> -->
-                <h4 class="" id="stars">Custom Stars</h4>
+                <h4 class="" id="stars">Stars: <%= locals.stars %>
+                </h4>
             </div>
 
             <div class="aside">
                 <!-- <i class="iconn fas fa-star fa-3x"></i> -->
-                <h4 class="" id="avgwpm">Average Speed</h4>
+                <h4 class="" id="avgwpm">Average Speed: <%= locals.avgSpeed %>
+                </h4>
             </div>
 
             <div class="aside">
-                <h4 class="" id="tried">Tried Count</h4>
+                <h4 class="" id="tried">Total: <%= locals.paras.length %>
+                </h4>
             </div>
 
         </section>

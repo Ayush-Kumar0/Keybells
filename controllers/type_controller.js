@@ -8,11 +8,12 @@ var para = `Oops, Seems there is no paragraph.`;
 let paraLength = para.length;
 let lessonId, lessonLvl;
 let randomId;
+let myParasId;
 
-module.exports.lesson = function (req, res, next) {
+module.exports.lesson = async function (req, res, next) {
     let error = () => res.status(404).end('Page not found');
 
-    Lesson.findOne({ level: req.query.level }, function (err, lesson) {
+    Lesson.findOne({ level: req.query.level }, await function (err, lesson) {
         if (err) { console.log(`Error while finding the lesson.`); error(); }
         if (lesson) {
             para = lesson.paragraph;
@@ -28,9 +29,28 @@ module.exports.lesson = function (req, res, next) {
     });
 }
 
-module.exports.challenge = function (req, res, next) {
+module.exports.challenge = async function (req, res, next) {
     para = "This paragraph comes from challenges collection";
     console.log(para);
+}
+
+module.exports.myParas = async function (req, res, next) {
+    let error = () => res.status(404).end('Page not found');
+
+    const user = req.user;
+    let x = await user.myParas.find(async (value, index) => {
+        return value._id == req.query.id;
+    });
+    if (!x)
+        error();
+    else {
+        para = x.paragraph;
+        paraLength = para.length;
+        myParasId = x._id;
+        // console.log(myParasId);
+        next();
+        return;
+    }
 }
 
 module.exports.setCustomParagraph = function (paragraph, next) {
@@ -107,15 +127,22 @@ async function paraFinish() {
     if (netSpeed < 0)
         netSpeed = Number.parseInt(0);
 
-    console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
+    // console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
 
     // Function to calculate number of stars for typing
-    function calcStars() {
-        return 2;
-    }
-    function calcScore() {
-        return 1;
-    }
+    let score = 0, stars = 0;
+    const MIN = 0, MAX = 120;
+    const factor = 2500.0 / MAX;
+    grossSpeed = Number.parseInt(grossSpeed);
+    accuracy = Number.parseFloat(accuracy);
+
+    score = grossSpeed * factor * accuracy / 100.0 * 1.1;
+    if (score > 2500)
+        score = 2500;
+    stars = Number.parseFloat(score) / 500;
+    score = score.toFixed(0);
+    stars = stars.toFixed(0);
+    // console.log(score, stars);
 
     if (lessonId) {
         // Save details in Lesson
@@ -125,8 +152,8 @@ async function paraFinish() {
             netSpeed: netSpeed,
             accuracy: accuracy,
             level: lessonLvl,
-            stars: calcStars(),
-            score: calcScore()
+            stars: stars,
+            score: score
         };
 
         //Saving the lesson progress
@@ -188,8 +215,8 @@ async function paraFinish() {
             grossSpeed: grossSpeed,
             netSpeed: netSpeed,
             accuracy: accuracy,
-            stars: calcStars(),
-            score: calcScore()
+            stars: stars,
+            score: score
         };
 
         // Search for existing Random Paragraph in user's database
@@ -241,6 +268,71 @@ async function paraFinish() {
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving random paragraph progress`, err); return; }
             console.log(`Saved random paragraph progress`);
+        });
+    }
+
+    else if (myParasId) {
+        // Save details for Users Added Paragraph
+        let myParasDetails = {
+            paragraph: para,
+            paraType: 'myParas',
+            time: new Date(),
+            grossSpeed: grossSpeed,
+            netSpeed: netSpeed,
+            accuracy: accuracy,
+            stars: stars,
+            score: score
+        };
+
+        // Search for existing Random Paragraph in user's database
+        let existingMyParas = await currentUser.myParas.find(function (value, index) {
+            return myParasId === value._id;
+        });
+
+        if (existingMyParas) {
+            if (existingMyParas.stars <= myParasDetails.stars) {
+                currentUser.myParasStars += myParasDetails.stars - existingMyParas.stars;
+                existingMyParas.time = new Date();
+                existingMyParas.grossSpeed = myParasDetails.grossSpeed;
+                existingMyParas.netSpeed = myParasDetails.netSpeed;
+                existingMyParas.accuracy = myParasDetails.accuracy;
+                existingMyParas.level = myParasDetails.level;
+                existingMyParas.stars = myParasDetails.stars;
+                existingMyParas.score = myParasDetails.score;
+            }
+            else if (existingMyParas.accuracy <= myParasDetails.accuracy) {
+                currentUser.myParasStars += myParasDetails.stars - existingMyParas.stars;
+                existingMyParas.time = new Date();
+                existingMyParas.grossSpeed = myParasDetails.grossSpeed;
+                existingMyParas.netSpeed = myParasDetails.netSpeed;
+                existingMyParas.accuracy = myParasDetails.accuracy;
+                existingMyParas.level = myParasDetails.level;
+                existingMyParas.stars = myParasDetails.stars;
+                existingMyParas.score = myParasDetails.score;
+            }
+            console.log('Changed existing User Added Paragraph');
+        }
+        else {
+            currentUser.myParas.push(myParasDetails);
+            currentUser.myParasStars += myParasDetails.stars;
+            console.log('Pushed Users Added Paragraph', myParasDetails);
+        }
+
+        if (Number.parseInt(currentUser.avgMyParasWPM) != 0) {
+            currentUser.avgMyParasWPM = (Number.parseInt(currentUser.avgMyParasWPM) + Number.parseInt(myParasDetails.grossSpeed)) / 2.0;
+        }
+        else {
+            currentUser.avgMyParasWPM = Number.parseInt(myParasDetails.grossSpeed);
+        }
+
+        if (Number.parseInt(currentUser.netMyParasScore) != 0)
+            currentUser.netMyParasScore = Number.parseInt(currentUser.netMyParasScore) + Number.parseInt(myParasDetails.score);
+        else
+            currentUser.netMyParasScore = Number.parseInt(myParasDetails.score);
+
+        await currentUser.save(function (err, user) {
+            if (err) { console.log(`Error while saving user added paragraph progress`, err); return; }
+            console.log(`Saved user added paragraph progress`);
         });
     }
 
@@ -433,6 +525,32 @@ module.exports.getUserLessonInfo = async function (req, res) {
             }
             else {
                 console.log('Previous Random Paragraph might not be saved');
+            }
+        }
+    }
+    else if (myParasId) {
+        // Return details for completed Users Added Paragraph
+        if (req.xhr) {
+            let existingMyParas = await currentUser.myParas.find(function (value, index) {
+                return myParasId === value._id;
+            });
+
+
+            myParasId = undefined;
+
+            if (existingMyParas) {
+                res.status(200).json({
+                    data: {
+                        grossSpeed: existingMyParas.grossSpeed,
+                        netSpeed: existingMyParas.netSpeed,
+                        accuracy: existingMyParas.accuracy,
+                        stars: existingMyParas.stars
+                    },
+                    message: 'Users Added Paragraph data sent'
+                });
+            }
+            else {
+                console.log('Previous Users Added Paragraph might not be saved');
             }
         }
     }

@@ -37,7 +37,10 @@ passport.use(new googleStrategy({
                     lessonStars: 0,
                     avgRandomWPM: 0,
                     netRandomScore: 0,
-                    randomStars: 0
+                    randomStars: 0,
+                    avgMyParasWPM: 0,
+                    netMyParasScore: 0,
+                    myParasStars: 0
                 },
                     // User.setPassword(crypto.randomBytes(20).toString('hex')),
                     function (err, user) {

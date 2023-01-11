@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const randomSchema = require('./randomSchema');
+const myParasSchema = require('./myParasSchema');
 
 const challengeSchema = new mongoose.Schema({
     challenge: {
@@ -98,6 +99,21 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     randomStars: {
+        type: Number,
+        required: true
+    },
+    myParas: {
+        type: [myParasSchema]
+    },
+    avgMyParasWPM: {
+        type: Number,
+        required: true
+    },
+    netMyParasScore: {
+        type: Number,
+        required: true
+    },
+    myParasStars: {
         type: Number,
         required: true
     }

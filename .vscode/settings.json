@@ -1,1 +1,6 @@
-{}
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "iostream": "cpp"
+    }
+}
