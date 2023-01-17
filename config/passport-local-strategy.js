@@ -14,6 +14,7 @@ passport.use(new localStrategy(
             if (err) { return console.log(`Error while finding the user`); }
 
             if (!user || user.checkPassword(password) == false) {
+                req.flash('error', 'Invalid Email/Password');
                 return done(null, false);
             }
 

@@ -34,6 +34,10 @@
         <script defer src="/scripts/myParas.js"></script>
         <script defer src="/scripts/aside.js"></script>
         <script defer src="/scripts/clearLocalStorage.js"></script>
+
+        <!-- Noty Requirements -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     </head>
 
     <body>
@@ -119,6 +123,9 @@
                                             <% } %> ><i class="stars fas fa-star fa-3x"></i>
                                     </div>
                                 </div>
+                                <div class="delete">
+                                    <button onclick="deletePara()"><img src="/images/myParas/delete.svg" alt="delete"></button>
+                                </div>
                             </div>
                         </a>
 
@@ -126,6 +133,33 @@
                 </div>
             </div>
         </section>
+
+
+        <div class="addPara">
+            <img src="/images/myParas/close-sharp.svg" alt="Close">
+            <div class="fileDiv">
+                <form action="/user/myParas/addByFile" method="post">
+                    <div>
+                        <input type="file" name="submitted-file" id="">
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit File">
+                    </div>
+                </form>
+            </div>
+            <h3>OR</h3>
+            <div class="textDiv">
+                <form action="/user/myParas/addByText" method="post">
+                    <div>
+                        <textarea name="submitted-text" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <input type="reset" value="Reset">
+                        <input type="submit" value="Submit Text">
+                    </div>
+                </form>
+            </div>
+        </div>
 
 
         <!-- Aside section -->
@@ -189,6 +223,27 @@
         </section>
 
 
+
+        <script>
+            <% if (locals.flash.success && locals.flash.success.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'success',
+                    text: '<%= locals.flash.success %>',
+                    timeout: 1500
+                }).show();
+            <% } %>
+            <% if (locals.flash.error && locals.flash.error.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'error',
+                    text: '<%= locals.flash.error %>',
+                    timeout: 1500
+                }).show();
+            <% } %>
+        </script>
     </body>
 
 </html>

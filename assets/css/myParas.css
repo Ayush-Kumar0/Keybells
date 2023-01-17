@@ -61,7 +61,7 @@
 
 /* Class when box div is clicked */
 .boxClicked {
-    box-shadow: lightgrey 1px 1px 0px 2px;
+    /* box-shadow: lightgrey 1px 1px 0px 2px; */
 }
 
 .levels h3 {
@@ -129,3 +129,95 @@
 .add:hover {
     background-color: seagreen;
 }
+
+img[alt="delete"] {
+    height: 32px;
+}
+
+.delete button {
+    height: 32px;
+    background: transparent;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+img[alt="delete"]:hover {
+    cursor: url('/images/myParas/cursor.svg');
+}
+
+
+/* For Adding Paragraphs */
+
+.addPara {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80vw;
+    height: 80vh;
+    margin-top: -40vh;
+    margin-left: -40vw;
+    z-index: 1000;
+
+    border: solid 1px black;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.makeVisible {
+    display: flex;
+}
+
+.addPara form {
+    display: block;
+}
+
+.fileDiv {
+    width: 100%;
+    padding: 1%;
+}
+
+.fileDiv>form {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.textDiv {
+    width: 100%;
+    padding: 1%;
+}
+
+.textDiv>form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.addPara img[alt="Close"] {
+    width: 40px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-right: -20px;
+    margin-top: -20px;
+    background-color: #ffd0d0;
+    border-radius: 20px;
+}
+
+.addPara img[alt="Close"]:hover {
+    box-shadow: 0px 0px 20px 0px #f06666;
+    filter: brightness(120%);
+    cursor: pointer;
+}
+
+textarea {}

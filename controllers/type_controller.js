@@ -38,16 +38,30 @@ module.exports.myParas = async function (req, res, next) {
     let error = () => res.status(404).end('Page not found');
 
     const user = req.user;
-    let x = await user.myParas.find(async (value, index) => {
-        return value._id == req.query.id;
-    });
-    if (!x)
+    // let x = await user.myParas.find((value, index) => {
+    //     return String.valueOf(value.id) == String.valueOf(req.query.id);
+    // });
+    let x;
+    await (async function () {
+        for (let i = 0; i < user.myParas.length; i++) {
+            if (user.myParas[i].id == req.query.id) {
+                x = user.myParas[i];
+                // console.log(x);
+                return (new Promise((resolve, reject) => {
+                    resolve(null);
+                }).then((value) => { return value; }));
+            }
+        }
+    })();
+    // console.log(x);
+
+    if (!x || !x.paragraph)
         error();
     else {
         para = x.paragraph;
         paraLength = para.length;
         myParasId = x._id;
-        // console.log(myParasId);
+        // console.log(req.query, myParasId);
         next();
         return;
     }

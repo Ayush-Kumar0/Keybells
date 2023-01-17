@@ -3,6 +3,7 @@ const User = require('../models/user');
 module.exports.create = function (req, res) {
     if (req.body.password != req.body.confirm_password) {
         console.log(`Passwords don't match`);
+        req.flash('error', 'Unmatched Passwords')
         return res.redirect('back');
     }
 
@@ -34,11 +35,13 @@ module.exports.create = function (req, res) {
             newUser.save(function (err, user) {
                 if (err) { console.log(`Error while creating user`); return res.redirect('back'); }
                 console.log(`Created new user`);
+                req.flash('success', 'Logged Up Successfully');
                 return res.redirect('/sign-in');
             });
         }
         else {
             console.log(`Already a user`);
+            req.flash('warning', 'Account already exists');
             return res.redirect('/sign-in');
         }
 
@@ -47,6 +50,8 @@ module.exports.create = function (req, res) {
 
 
 module.exports.createSession = function (req, res) {
+    req.flash('success', 'Logged In Successfully');
+
     res.redirect('/user');
 }
 
@@ -54,6 +59,7 @@ module.exports.createSession = function (req, res) {
 module.exports.destroySession = function (req, res) {
     req.logout(function () {
         currentUser = undefined;
+        req.flash('success', 'Logged Out Successfully');
         console.log(`User signed-out`);
         res.redirect('/');
     })

@@ -2,6 +2,9 @@
 
     <head>
         <link rel="stylesheet" type="text/css" href="css/login.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     </head>
 
     <body>
@@ -21,10 +24,41 @@
                 <div id="login-signup-pass">
                     <p id="signup-option-login">Don't have an account ? <a href="/sign-up">sign up</a></p>
                 </div>
-                
+
             </div>
 
         </div>
+
+
+        <script>
+            <% if (locals.flash.success && locals.flash.success.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'success',
+                    text: '<%= locals.flash.success %>',
+                    timeout: 1500
+                }).show();
+            <% } %>
+            <% if (locals.flash.error && locals.flash.error.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'error',
+                    text: '<%= locals.flash.error %>',
+                    timeout: 1500
+                }).show();
+            <% } %>
+            <% if (locals.flash.warning && locals.flash.warning.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'warning',
+                    text: '<%= locals.flash.warning %>',
+                    timeout: 1500
+                }).show();
+            <% } %>
+        </script>
     </body>
 
 </html>

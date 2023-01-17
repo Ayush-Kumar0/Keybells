@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const myParasSchema = new mongoose.Schema({
     paragraph: {
-        type: String,
+        type: String
     },
     paraType: {
         type: String,

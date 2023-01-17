@@ -3,6 +3,8 @@
     <head>
         <link rel="stylesheet" type="text/css" href="css/welcome.css">
         <script defer src="scripts/welcome.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     </head>
 
     <body>
@@ -44,6 +46,26 @@
             </div>
         </div>
 
+        <script>
+            <% if (locals.flash.success && locals.flash.success.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'success',
+                    text: '<%= locals.flash.success %>',
+                    timeout: 1500
+                }).show();
+            <% } %>
+            <% if (locals.flash.error && locals.flash.error.length > 0) { %>
+                new Noty({
+                    theme: 'relax',
+                    layout: 'topRight',
+                    type: 'error',
+                    text: '<%= locals.flash.error %> ',
+                    timeout: 1500
+                }).show();
+            <% } %>
+        </script>
     </body>
 
 </html>

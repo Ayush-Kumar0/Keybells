@@ -19,9 +19,14 @@ const Challenge = require('./models/challenges');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
+
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const passportGoogle = require('./config/passport-google-oauth2-strategy');
+
+const connectFlash = require('connect-flash');
+const noty = require('noty');
+const middlewares = require('./config/middlewares');
 
 
 //Cookies
@@ -70,7 +75,9 @@ app.set('views', './views');
 
 
 
-
+//Storing flash messages in session cookie
+app.use(connectFlash());
+app.use(middlewares.flash);
 
 
 

@@ -33,6 +33,10 @@
     <script defer src="/scripts/lesson.js"></script>
     <script defer src="/scripts/aside.js"></script>
     <script defer src="/scripts/clearLocalStorage.js"></script>
+
+    <!-- Noty requirements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
   </head>
 
   <body>
@@ -286,6 +290,28 @@
     </div>
 
 
+
+
+    <script>
+      <% if (locals.flash.success && locals.flash.success.length > 0) { %>
+        new Noty({
+          theme: 'relax',
+          layout: 'topRight',
+          type: 'success',
+          text: '<%= locals.flash.success %>',
+          timeout: 1500
+        }).show();
+      <% } %>
+      <% if (locals.flash.error && locals.flash.error.length > 0) { %>
+        new Noty({
+          theme: 'relax',
+          layout: 'topRight',
+          type: 'error',
+          text: '<%= locals.flash.error %>',
+          timeout: 1500
+        }).show();
+      <% } %>
+    </script>
   </body>
 
 </html>

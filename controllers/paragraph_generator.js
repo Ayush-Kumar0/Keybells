@@ -28,7 +28,7 @@ module.exports.generateParagraph = async function (req, res, next) {
                     let len = data.length;
                     numberOfWords -= len;
                     await Array.from(data).forEach(async element => {
-                        await words.push(element.word.trim());
+                        await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
                     });
                 })
                 .catch(err => {
@@ -60,7 +60,7 @@ module.exports.generateFacts = async function (req, res, next) {
                     return res2.json();
                 })
                 .then(data => {
-                    facts.push(data.text.trim());
+                    facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
                 }).catch(err => {
                     return res.status(404).redirect('back');
                 });
