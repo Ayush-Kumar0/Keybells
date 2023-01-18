@@ -96,8 +96,8 @@
                 <div class="alphabet">
                     <% for(let i=0;i<locals.paras.length;i++){ %>
 
-                        <a href="/user/type?which=myParas&id=<%= locals.paras[i]._id %>">
-                            <div class="box">
+                        <div class="box">
+                            <a href="/user/type?which=myParas&id=<%= locals.paras[i]._id %>">
                                 <h1>
                                     <%= i+1 %>
                                 </h1>
@@ -123,11 +123,11 @@
                                             <% } %> ><i class="stars fas fa-star fa-3x"></i>
                                     </div>
                                 </div>
-                                <div class="delete">
-                                    <button onclick="deletePara()"><img src="/images/myParas/delete.svg" alt="delete"></button>
-                                </div>
+                            </a>
+                            <div class="delete">
+                                <button onclick="deletePara(this,'<%= locals.paras[i]._id %>')"><img src="/images/myParas/delete.svg" alt="delete"></button>
                             </div>
-                        </a>
+                        </div>
 
                         <% } %>
                 </div>
@@ -138,24 +138,24 @@
         <div class="addPara">
             <img src="/images/myParas/close-sharp.svg" alt="Close">
             <div class="fileDiv">
-                <form action="/user/myParas/addByFile" method="post">
+                <form action="/user/myParas/addByFile" method="post" enctype="multipart/form-data">
                     <div>
-                        <input type="file" name="submitted-file" id="">
+                        <input type="file" name="submitted-file" accept="text/plain, .txt" id="" required>
                     </div>
                     <div>
-                        <input type="submit" value="Submit File">
+                        <input class="button" type="submit" value="Submit File">
                     </div>
                 </form>
             </div>
             <h3>OR</h3>
             <div class="textDiv">
                 <form action="/user/myParas/addByText" method="post">
-                    <div>
-                        <textarea name="submitted-text" id="" cols="30" rows="10"></textarea>
+                    <div class="textAreaDiv">
+                        <textarea name="submitted-text" placeholder="Write your paragraph here..." rows="5"></textarea>
                     </div>
                     <div>
-                        <input type="reset" value="Reset">
-                        <input type="submit" value="Submit Text">
+                        <input class="button" type="reset" value="Reset">
+                        <input class="button" type="submit" value="Submit Text">
                     </div>
                 </form>
             </div>

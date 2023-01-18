@@ -13,7 +13,7 @@ async function completeHome(index) {
     // Adding links to each level
     // let level = box.children.item(index).innerHTML.trim();
     let level = index + 1;
-    box.parentElement.setAttribute(`href`, `/user/type?which=lesson&level=${level}`);
+    box.children.item(0).setAttribute(`href`, `/user/type?which=lesson&level=${level}`);
 
 
     // Adding click and hover events
@@ -60,7 +60,7 @@ for (let i = 0; i < boxes.length; i++)
 
 
 function glowStars(box, stars) {
-    let starsContainer = box.children.item(1);
+    let starsContainer = box.children.item(0).children.item(1);
 
     for (let i = 0; i < stars; i++) {
         let star = starsContainer.children.item(i);

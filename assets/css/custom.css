@@ -28,11 +28,14 @@ body {
     border-radius: 15px;
     box-shadow: lightgrey 3px 3px 0px 2px;
     font-size: x-large;
+
+    transition: all 0.2s ease-in-out;
 }
 
 .custAndRand input[type="submit"]:hover,
 .facts input[type="submit"]:hover {
     filter: brightness(150%);
+    cursor: pointer;
 }
 
 .custAndRand,

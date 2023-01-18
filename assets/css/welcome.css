@@ -13,8 +13,8 @@ a {
     display: flex;
     /* background-image: url("../images/profile_home/img4.png"); */
     /* background-image: url("../images/background_image/bg1.jpg"); */
-    background-image: linear-gradient(45deg,#ff9100 80%,#dada2b);
-    background-size:contain;
+    background-image: linear-gradient(45deg, #ff9100 80%, #dada2b);
+    background-size: contain;
     filter: brightness(110%);
     /* padding-bottom: 100px; */
     flex-direction: column;
@@ -32,7 +32,8 @@ a {
     transform: rotateY(180deg);
 }
 
-#upper-div-welcome, #lower-div-welcome {
+#upper-div-welcome,
+#lower-div-welcome {
     margin-top: 30px;
     width: 90%;
     display: flex;
@@ -55,7 +56,8 @@ a {
     width: 25%;
     margin: 10px;
 }
-.image-welcome img{
+
+.image-welcome img {
     height: 400px;
 }
 
@@ -87,6 +89,7 @@ a {
     justify-content: center;
     flex-direction: column;
 }
+
 a[href="/sign-in"] {
     margin-top: 17px;
 }
@@ -97,22 +100,23 @@ a[href="/sign-in"] {
     padding: 15px 45px;
     text-align: center;
     text-transform: uppercase;
-    transition: 0.1s;
+    transition: all 0.2s ease-in-out;
     background-size: 200% auto;
     color: white;
     box-shadow: 0 0 10px #696969;
     border-radius: 10px;
     display: block;
     border: none;
-  }
-
-.buttons:hover {
-    background-position: right center; /* change the direction of the change here */
-    color: #fff;
-    text-decoration: none;
-    cursor:pointer;
 }
 
-.visible{
+.buttons:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.visible {
     display: none;
 }

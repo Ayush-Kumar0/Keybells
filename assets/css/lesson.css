@@ -68,6 +68,7 @@ body {
 .levels div a {
   text-decoration: none;
   color: rgb(53, 53, 53);
+  height: 100%;
 }
 
 /* Levels in each type of lesson */
@@ -81,6 +82,8 @@ body {
 
   border-radius: 15px;
   box-shadow: lightgrey 3px 3px 0px 2px;
+
+  transition: all 0.2s ease-in-out;
 }
 
 .boxHover {

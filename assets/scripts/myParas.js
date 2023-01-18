@@ -21,28 +21,28 @@ var boxes = document.getElementsByClassName('box');
 async function completeMyParas(index) {
     let box = boxes[index];
     // Adding click and hover events
-    box.addEventListener('mouseover', function (event) {
+    const mouseOverEvent = function (event) {
         box.classList.add('boxHover');
-    });
+    }
+    box.addEventListener('mouseover', mouseOverEvent);
     box.addEventListener('mouseout', function (event) {
         box.classList.remove('boxHover');
     });
-    box.addEventListener('click', function (event) {
-        // box.classList.remove('boxHover');
-        box.classList.add('boxClicked');
+
+    $(`img[alt="delete"]`).mouseover(function (event) {
+        event.target.src = '/images/myParas/delete-hover.svg';
+        box.removeEventListener('mouseover', mouseOverEvent);
+        box.classList.remove('boxHover');
+    });
+    $(`img[alt="delete"]`).mouseout(function (event) {
+        event.target.src = '/images/myParas/delete.svg';
+        box.addEventListener('mouseover', mouseOverEvent);
     });
 }
 
 
-$(`img[alt="delete"]`).mouseover(function (event) {
-    event.target.src = '/images/myParas/delete-hover.svg';
-});
-$(`img[alt="delete"]`).mouseout(function (event) {
-    event.target.src = '/images/myParas/delete.svg';
-});
-
 var blurStyle = document.createElement('style');
-blurStyle.innerText = ` body> *:not(.addPara){ filter: blur(4px); } `;
+blurStyle.innerText = ` body> *:not(.addPara){ filter: blur(0px) brightness(40%) opacity(100%); } `;
 
 async function popupOpen(event) {
     document.getElementsByClassName('addPara')[0].classList.add('makeVisible');
@@ -56,6 +56,21 @@ async function popupClose(event) {
     document.head.removeChild(blurStyle);
 }
 
-async function deletePara(event) {
-    document.location.reload();
+
+async function deletePara(event, id) {
+    //Ajax request to delete the paragraph
+    $.ajax({
+        type: 'post',
+        url: `/user/myParas/deleteMyPara`,
+        data: {
+            id: id
+        },
+        success: (result, status, xhr) => {
+            if (result.data && result.data.deleted) {
+                //Reload the page after it has been deleted successfully
+                window.location.reload();
+            }
+        },
+        error: (xhr, status, err) => { }
+    });
 }

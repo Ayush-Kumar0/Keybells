@@ -17,11 +17,6 @@ module.exports.myParas = function (req, res) {
     res.render('myParas', options);
 }
 
-module.exports.addByFile = async function (req, res) {
-    console.log(req.body);
-    res.redirect('back');
-}
-
 module.exports.addByText = async function (req, res) {
     // console.log(req.body);
     let submittedText = req.body['submitted-text'];
@@ -57,5 +52,54 @@ module.exports.addByText = async function (req, res) {
                 return res.redirect('/user/myParas');
             }
         });
+    }
+}
+
+
+module.exports.addByFile = async function (req, res) {
+    console.log(req.rawHeaders);
+    res.redirect('back');
+}
+
+
+module.exports.deleteMyPara = async function (req, res) {
+    if (req.xhr) {
+        // console.log(req.body);
+        const currentUser = req.user;
+        let ind = -1;
+        let foundPara = await currentUser.myParas.find((value, index) => {
+            if (value.id == req.body.id) {
+                ind = index;
+                return true;
+            }
+            else
+                return false;
+        });
+
+        if (ind == -1) {
+            req.flash('error', `Couldn't delete Paragraph`);
+            await res.json({
+                data: {
+                    deleted: false
+                }
+            });
+        }
+        else {
+            await currentUser.myParas.splice(ind, 1);
+            await currentUser.save(function (err, user) {
+                if (err) { console.log('Error while deleting myPara', err); return; }
+                else {
+                    console.log('Deleted myPara');
+                }
+            });
+
+            req.flash('success', 'Paragraph deleted');
+
+            await res.json({
+                data: {
+                    deleted: true
+                }
+            });
+        }
     }
 }
