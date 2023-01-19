@@ -52,6 +52,7 @@
 
     border-radius: 15px;
     box-shadow: lightgrey 3px 3px 0px 2px;
+    transition: all 0.2s ease-in-out;
 }
 
 .boxHover {
@@ -161,6 +162,7 @@ img[alt="delete"] {
 
 img[alt="delete"]:hover {
     /* cursor: url('/images/myParas/cursor.svg') 0 0, auto; */
+    transition: all 0.2s ease-in-out;
 }
 
 

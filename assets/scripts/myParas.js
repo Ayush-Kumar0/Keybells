@@ -74,3 +74,19 @@ async function deletePara(event, id) {
         error: (xhr, status, err) => { }
     });
 }
+
+$(`input[value="Submit File"]`).click(function (event) {
+    event.preventDefault();
+    let size = $(`input[name="submitted-file"]`)[0].files.item(0).size / 1024 / 1024;  //In megabytes
+    if (size > 50) {
+        $.ajax({
+            type: 'post',
+            url: '/user/myParas/fileTooBig',
+            data: {},
+            success: (result, status, xhr) => {
+                document.location.reload();
+            },
+            error: (xhr, status, err) => { }
+        });
+    }
+});
