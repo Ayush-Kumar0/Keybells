@@ -34,8 +34,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* position: absolute; */
-  position: relative;
+  /* position: relative; */
   /* margin-top: 76px; */
 }
 

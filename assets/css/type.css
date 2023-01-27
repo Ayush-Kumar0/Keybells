@@ -61,11 +61,11 @@ body {
     /* TODO: Change height later */
     height: 50vh;
     width: 80vw;
-    overflow-y: scroll;
+    overflow-y: hidden;
     background-color: rgb(47 47 47);
     color: rgb(250, 244, 244);
-    font-family:  Courier, monospace;
-    font-weight:500;
+    font-family: Courier, monospace;
+    font-weight: 500;
     padding: 7px;
     box-sizing: border-box;
 }
@@ -135,27 +135,46 @@ body {
 
 /* You can add other properties below */
 
-.row1,.row2,.row3,.row4,.row5{
+.row1,
+.row2,
+.row3,
+.row4,
+.row5 {
     width: 100%;
     display: flex;
     flex-direction: row;
     /*display: inline-block;*/
     border: 1px solid black;
 }
-.row1 span,.row2 span,.row3 span,.row4 span,.row5 span{
+
+.row1 span,
+.row2 span,
+.row3 span,
+.row4 span,
+.row5 span {
     width: 10%;
-    border: 1px solid rgb(157, 148, 148); /*just remove this border for other layout*/
+    border: 1px solid rgb(157, 148, 148);
+    /*just remove this border for other layout*/
     background-color: rgb(47 47 47);
     text-align: center;
     margin: 2px 2px;
     box-shadow: 2px rgb(47 47 47);
 }
-.row2 span,.row3 span,.row4 span,.row5 span{
+
+.row2 span,
+.row3 span,
+.row4 span,
+.row5 span {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.row1 span div,.row2 span div,.row3 span div,.row4 span div,.row5 span div{
+
+.row1 span div,
+.row2 span div,
+.row3 span div,
+.row4 span div,
+.row5 span div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -165,41 +184,54 @@ body {
     font-weight: 800;
     font-size: 20px;
 }
-#backspace{
+
+#backspace {
     width: 20%;
 }
-#tab{
+
+#tab {
     width: 15%;
 }
-#tab div{
+
+#tab div {
     display: flex;
     flex-direction: column-reverse;
 }
-#l-control,#r-control{
+
+#l-control,
+#r-control {
     width: 20%;
     height: 35px;
 }
-#l-option,#r-option{
+
+#l-option,
+#r-option {
     width: 17%;
 }
-#space{
+
+#space {
     width: 40%;
 }
-#caps-lock{
+
+#caps-lock {
     width: 19%;
 }
-#l-shift,#r-shift{
+
+#l-shift,
+#r-shift {
     width: 23%;
 }
-#enter{
+
+#enter {
     width: 19%;
 }
+
 /*.row1 span div{
     height: auto;
     border: 1px solid black;    
 }*/
 
-.fade-in-down{
+.fade-in-down {
     /* height: 290px;
     width: 500px; */
     /* height: 100%;
@@ -214,7 +246,7 @@ body {
     /* top: -50%;
     left: -50%; */
     top: 0%;
-    transform:translateY(-50%);
+    transform: translateY(-50%);
     scale: 0;
     border: 8px solid rgb(243, 255, 10);
     /* border: 8px solid rgb(100 86 86); */
@@ -229,29 +261,31 @@ body {
 
     z-index: 2;
 }
+
 @keyframes fade {
     0% {
-       transform:translateY(-50%);
-       scale: 0;
+        transform: translateY(-50%);
+        scale: 0;
     }
-    100% {
-       transform:translateY(0%);
-       backdrop-filter: blur(40px);
-       scale: 1;
-    }
- }
 
-.popup{
+    100% {
+        transform: translateY(0%);
+        backdrop-filter: blur(40px);
+        scale: 1;
+    }
+}
+
+.popup {
     position: absolute;
     width: 50%;
     height: 50%;
     top: 0%;
     left: 0%;
-    transform: translate(50%,50%);
+    transform: translate(50%, 50%);
     z-index: 2;
 }
 
-.animate{
+.animate {
     animation: fade 1s forwards;
 }
 

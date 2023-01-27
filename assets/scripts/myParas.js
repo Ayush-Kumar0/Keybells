@@ -86,7 +86,11 @@ $(`input[value="Submit File"]`).click(function (event) {
             success: (result, status, xhr) => {
                 document.location.reload();
             },
-            error: (xhr, status, err) => { }
+            error: (xhr, status, err) => {
+                document.location.reload();
+            }
         });
     }
+    else
+        $(`.fileDiv>form`).submit();
 });

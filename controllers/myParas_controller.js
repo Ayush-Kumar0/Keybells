@@ -67,6 +67,7 @@ module.exports.addByFile = async function (req, res) {
 
     let fileText = '';
     let compatible = true;
+
     await req.on('data', (data) => {
         try {
             if (data.length > 5000) {
