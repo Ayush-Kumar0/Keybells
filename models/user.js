@@ -43,6 +43,10 @@ const lessonSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
     //Login fields
+    username: {
+        type: String,
+        unique: true
+    },
     email: {
         type: String,
         required: true,
@@ -58,7 +62,11 @@ const userSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        require: true
+        required: true
+    },
+    lastTenSpeeds: {
+        type: Array,
+        required: true
     },
     //Other fields
     rank: {
@@ -87,6 +95,7 @@ const userSchema = new mongoose.Schema({
     challenges: {
         type: [challengeSchema]
     },
+    // Random Paragraphs
     random: {
         type: [randomSchema]
     },
@@ -102,6 +111,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    // My Paragraphs
     myParas: {
         type: [myParasSchema]
     },
@@ -133,6 +143,10 @@ userSchema.methods.checkPassword = function (pass) {
     password = crypto.pbkdf2Sync(pass.toString('hex'), (this.salt).toString('hex'), 1000, 64, `sha512`).toString(`hex`);
     return this.password == password;
 };
+
+userSchema.methods.setUsername = function (email) {
+    this.username = email.substring(0, email.indexOf('@'));
+}
 
 
 const User = mongoose.model('users', userSchema);

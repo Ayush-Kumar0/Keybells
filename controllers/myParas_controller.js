@@ -7,7 +7,8 @@ module.exports.myParas = function (req, res) {
         paras: [],
         score: '?',
         stars: '?',
-        avgSpeed: '?'
+        avgSpeed: '?',
+        username: req.user.username
     }
     const user = req.user;
     options.paras = user.myParas.reverse();

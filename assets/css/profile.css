@@ -40,10 +40,16 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    word-wrap: initial;
 }
 
 .content {
     background-color: whitesmoke;
+}
+
+.about {
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .125);
 }
 
 .row {
@@ -71,4 +77,29 @@ body {
 
 .part2 {
     margin-top: 0px;
+}
+
+.part3,
+.content2 {
+    padding: 0px;
+}
+
+@media screen {
+    .row2 {
+        padding-left: 0px;
+        padding-right: 0px;
+        flex-direction: row;
+    }
+}
+
+@media (min-width:768px) {
+    .part3 {
+        width: 100%;
+        flex-basis: 31%;
+    }
+
+    .card-columns {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
 }

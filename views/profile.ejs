@@ -24,6 +24,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
         <script defer src="/scripts/clearLocalStorage.js"></script>
+
+        <!-- Noty Requirements -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     </head>
 
     <body>
@@ -53,26 +57,29 @@
 
                     </ul>
                 </div>
-                <ul>
-                    <li class="nav-item dropdown">
+                <% if (!locals.isGuest) { %>
+                    <ul>
+                        <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/user/profile">Profile</a>
-                            <a class="dropdown-item" href="/user/sign-out">Sign Out</a>
-                        </div>
-                    </li>
-                </ul>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/user/profile?username=<%= locals.username %> ">Profile</a>
+                                <a class="dropdown-item" href="/user/sign-out">Sign Out</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <% } %>
             </nav>
         </section>
 
 
+        <!-- First row -->
         <div class="row">
 
             <!-- Sidebar on left -->
-            <div class="col-md-4 mt-1">
+            <div class="col-md-5 mt-1">
                 <div class="card text-center sidebar">
                     <div class="card-body">
                         <img src="/images/profile_home/test1.jpg" class="rounded-circle" width="150">
@@ -88,52 +95,52 @@
             </div>
 
             <!-- About on right side -->
-            <div class="col-md-8 mt-1 part2">
-                <div class="card-mb-3 content">
+            <div class="col-md-7 mt-1 part2">
+                <div class="card-mb-3 content about">
                     <h1 class="m-3 pt-3">About</h1>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
-                                <h5>Full name</h5>
+                            <div class="col-md-5">
+                                <h5>Full Name</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
-                                Giant ka naam
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Years of Experience</h5>
-                            </div>
-                            <div class="col-md-9 text-secondary">
-                                puchhna hoga giant se vrna 0
+                            <div class="col-md-7 text-secondary">
+                                <%= locals.user.FullName %>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-3">
-                                <h5>Number of games played</h5>
+                            <div class="col-md-5">
+                                <h5>Overall Typing Speed</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
-                                numberrrrr of games daalna h
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Levels unlocked</h5>
-                            </div>
-                            <div class="col-md-9 text-secondary">
-                                bla bla bla
+                            <div class="col-md-7 text-secondary">
+                                <%= locals.user.OverallTypingSpeed %> WPM
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-3">
-                                <h5>Average wpm</h5>
+                            <div class="col-md-5">
+                                <h5>Using Since</h5>
                             </div>
-                            <div class="col-md-9 text-secondary">
-                                bla bla bla
+                            <div class="col-md-7 text-secondary">
+                                <%= locals.user.UsingSince %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h5>Overall Stars</h5>
+                            </div>
+                            <div class="col-md-7 text-secondary">
+                                <%= locals.user.OverallStars %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h5>Overall Score</h5>
+                            </div>
+                            <div class="col-md-7 text-secondary">
+                                <%= locals.user.OverallScore %>
                             </div>
                         </div>
                     </div>
@@ -143,6 +150,169 @@
             </div>
 
         </div>
+
+        <!-- Second row for lessons, custom and My paragraphs -->
+        <div class="row card-columns d-flex flex-row justify-content-center flex-md-fill m-3 pt-3">
+            <!-- Lessons -->
+            <div class="card col-md-4 mt-1 part2 content part3">
+                <div class="card-body card-mb-3 content2">
+                    <h2 class="m-2 pt-1">Lessons</h2>
+                    <div class="card-body">
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Speed</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.LessonSpeed %> WPM
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Score</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.LessonScore %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Stars</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.LessonStars %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Progress</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.Progress %>%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-mb-3 content">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customs -->
+            <div class="card col-md-4 mt-1 part2 content part3">
+                <div class="card-body card-mb-3 content2">
+                    <h2 class="m-2 pt-1">Custom</h2>
+                    <div class="card-body">
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Speed</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.CustomSpeed %> WPM
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Score</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.CustomScore %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Stars</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.CustomStars %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Tried Count</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.TriedCount %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-mb-3 content">
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Paragraphs -->
+            <div class="card col-md-4 mt-1 part2 content part3">
+                <div class="card-body card-mb-3 content2">
+                    <h2 class="m-2 pt-1">My Paragraphs</h2>
+                    <div class="card-body">
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Speed</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.MyParaSpeed %> WPM
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Score</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.MyParaScore %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Stars</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.MyParaStars %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row row2">
+                            <div class="col-6">
+                                <h5>Total</h5>
+                            </div>
+                            <div class="col-6 text-secondary">
+                                <%= locals.user.Total %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-mb-3 content">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+
+
+    <script>
+        <% if (locals.flash.success && locals.flash.success.length > 0) { %>
+            new Noty({
+                theme: 'relax',
+                layout: 'topRight',
+                type: 'success',
+                text: '<%= locals.flash.success %>',
+                timeout: 1500
+            }).show();
+        <% } %>
+        <% if (locals.flash.error && locals.flash.error.length > 0) { %>
+            new Noty({
+                theme: 'relax',
+                layout: 'topRight',
+                type: 'error',
+                text: '<%= locals.flash.error %>',
+                timeout: 1500
+            }).show();
+        <% } %>
+    </script>
 
 </html>

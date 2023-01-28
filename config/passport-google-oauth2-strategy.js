@@ -16,7 +16,7 @@ passport.use(new googleStrategy({
         User.findOne({ email: profile.emails[0].value }).exec(function (err, user) {
             if (err) { console.log('Error while finding the profile: ', err); return done(err); }
             // console.log(accessToken, refreshToken);
-            console.log(profile);
+            // console.log(profile);
 
             if (user) {
                 // If found, set this user as req.user
@@ -27,11 +27,14 @@ passport.use(new googleStrategy({
                 // If not found, create the user and set it as req.user
                 let password = crypto.randomBytes(8).toString('hex');
                 let salt = crypto.randomBytes(20).toString('hex');
+                let email = profile.emails[0].value.toString();
                 User.create({
                     name: profile.displayName,
+                    username: email.substring(0, email.indexOf('@')),
                     email: profile.emails[0].value,
                     salt: salt,
                     password: crypto.pbkdf2Sync(password.toString('hex'), salt, 1000, 64, `sha512`).toString(`hex`),
+                    lastTenSpeeds: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     avgLessonWPM: 0,
                     netLessonScore: 0,
                     lessonStars: 0,

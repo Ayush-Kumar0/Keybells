@@ -31,7 +31,7 @@ module.exports.lesson = async function (req, res, next) {
 
 module.exports.challenge = async function (req, res, next) {
     para = "This paragraph comes from challenges collection";
-    console.log(para);
+    // console.log(para);
 }
 
 module.exports.myParas = async function (req, res, next) {
@@ -213,6 +213,7 @@ async function paraFinish() {
             currentUser.netLessonScore = Number.parseInt(lessonDetails.score);
 
         // console.log(currentUser.avgLessonWPM, currentUser.netLessonScore);
+        await saveSpeedInQueue(lessonDetails.grossSpeed);
 
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving lesson progress`, err); return; }
@@ -264,7 +265,7 @@ async function paraFinish() {
         else {
             currentUser.random.push(randomDetails);
             currentUser.randomStars += randomDetails.stars;
-            console.log('Pushed Random Paragraph', randomDetails);
+            // console.log('Pushed Random Paragraph', randomDetails);
         }
 
         if (Number.parseInt(currentUser.avgRandomWPM) != 0)
@@ -278,6 +279,7 @@ async function paraFinish() {
             currentUser.netRandomScore = Number.parseInt(randomDetails.score);
 
         // console.log(currentUser.avgRandomWPM, currentUser.netRandomScore);
+        await saveSpeedInQueue(lessonDetails.grossSpeed);
 
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving random paragraph progress`, err); return; }
@@ -329,7 +331,7 @@ async function paraFinish() {
         else {
             currentUser.myParas.push(myParasDetails);
             currentUser.myParasStars += myParasDetails.stars;
-            console.log('Pushed Users Added Paragraph', myParasDetails);
+            // console.log('Pushed Users Added Paragraph', myParasDetails);
         }
 
         if (Number.parseInt(currentUser.avgMyParasWPM) != 0) {
@@ -343,6 +345,8 @@ async function paraFinish() {
             currentUser.netMyParasScore = Number.parseInt(currentUser.netMyParasScore) + Number.parseInt(myParasDetails.score);
         else
             currentUser.netMyParasScore = Number.parseInt(myParasDetails.score);
+
+        await saveSpeedInQueue(lessonDetails.grossSpeed);
 
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving user added paragraph progress`, err); return; }
@@ -567,5 +571,17 @@ module.exports.getUserLessonInfo = async function (req, res) {
                 console.log('Previous Users Added Paragraph might not be saved');
             }
         }
+    }
+}
+
+
+
+
+const saveSpeedInQueue = async function (speed) {
+    if (speed && !Number.isNaN(speed) && Number.parseFloat(speed) > 0) {
+        let lastTenSpeeds = currentUser.lastTenSpeeds;
+        lastTenSpeeds.splice(0, 1)
+        lastTenSpeeds.push(Number.parseFloat(speed).toFixed(0));
+        currentUser.lastTenSpeeds = lastTenSpeeds;
     }
 }

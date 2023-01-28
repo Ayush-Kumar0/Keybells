@@ -6,6 +6,7 @@ module.exports.lessonLinks = function (req, res) {
 
     let options = {
         title: "Home",
+        username: req.user.username,
         'alphabet': 0,
         'advanced-level1': 0,
         'shift': 0,

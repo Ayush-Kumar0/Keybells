@@ -1,7 +1,10 @@
 const User = require('../models/user');
 
 module.exports.custom = function (req, res) {
-    res.render('custom');
+    let options = {
+        username: req.user.username
+    };
+    res.render('custom', options);
 }
 
 module.exports.asideeInfo = async function (req, res) {

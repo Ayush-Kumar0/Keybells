@@ -1,3 +1,6 @@
 module.exports.challenges = function (req, res) {
-    res.render('challenges');
+    let options = {
+        username: req.user.username
+    };
+    res.render('challenges', options);
 }

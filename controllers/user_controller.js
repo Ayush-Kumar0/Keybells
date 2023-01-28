@@ -29,11 +29,17 @@ module.exports.create = function (req, res) {
             newUser.avgMyParasWPM = Number.parseInt(0);
             newUser.netMyParasScore = Number.parseInt(0);
             newUser.myParasStars = Number.parseInt(0);
+            newUser.lastTenSpeeds = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
             newUser.setPassword((req.body.password).toString());
+            newUser.setUsername(req.body.email.toString());
+            console.log(newUser);
 
             newUser.save(function (err, user) {
-                if (err) { console.log(`Error while creating user`); return res.redirect('back'); }
+                if (err) {
+                    req.flash('error', 'Error while creating account');
+                    console.log(`Error while creating user`, err); return res.redirect('back');
+                }
                 console.log(`Created new user`);
                 req.flash('success', 'Logged Up Successfully');
                 return res.redirect('/sign-in');
