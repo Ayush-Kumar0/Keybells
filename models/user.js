@@ -113,7 +113,8 @@ const userSchema = new mongoose.Schema({
     },
     // My Paragraphs
     myParas: {
-        type: [myParasSchema]
+        type: [myParasSchema],
+        sparse: true
     },
     avgMyParasWPM: {
         type: Number,

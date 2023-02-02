@@ -279,7 +279,7 @@ async function paraFinish() {
             currentUser.netRandomScore = Number.parseInt(randomDetails.score);
 
         // console.log(currentUser.avgRandomWPM, currentUser.netRandomScore);
-        await saveSpeedInQueue(lessonDetails.grossSpeed);
+        await saveSpeedInQueue(randomDetails.grossSpeed);
 
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving random paragraph progress`, err); return; }
@@ -346,7 +346,7 @@ async function paraFinish() {
         else
             currentUser.netMyParasScore = Number.parseInt(myParasDetails.score);
 
-        await saveSpeedInQueue(lessonDetails.grossSpeed);
+        await saveSpeedInQueue(myParasDetails.grossSpeed);
 
         await currentUser.save(function (err, user) {
             if (err) { console.log(`Error while saving user added paragraph progress`, err); return; }

@@ -33,7 +33,6 @@ module.exports.create = function (req, res) {
 
             newUser.setPassword((req.body.password).toString());
             newUser.setUsername(req.body.email.toString());
-            console.log(newUser);
 
             newUser.save(function (err, user) {
                 if (err) {

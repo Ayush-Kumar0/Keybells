@@ -162,18 +162,24 @@ module.exports.deleteMyPara = async function (req, res) {
         }
         else {
             await currentUser.myParas.splice(ind, 1);
-            await currentUser.save(function (err, user) {
-                if (err) { console.log('Error while deleting myPara', err); return; }
+            await currentUser.save(async function (err, user) {
+                if (err) {
+                    console.log('Error while deleting myPara', err);
+                    req.flash('error', `Could't delete Paragraph`);
+                    await res.json({
+                        data: {
+                            deleted: false
+                        }
+                    });
+                }
                 else {
                     console.log('Deleted myPara');
-                }
-            });
-
-            req.flash('success', 'Paragraph deleted');
-
-            await res.json({
-                data: {
-                    deleted: true
+                    req.flash('success', 'Paragraph deleted');
+                    await res.json({
+                        data: {
+                            deleted: true
+                        }
+                    });
                 }
             });
         }

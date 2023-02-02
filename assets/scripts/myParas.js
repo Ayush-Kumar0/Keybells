@@ -66,10 +66,8 @@ async function deletePara(event, id) {
             id: id
         },
         success: (result, status, xhr) => {
-            if (result.data && result.data.deleted) {
-                //Reload the page after it has been deleted successfully
-                window.location.reload();
-            }
+            //Reload the page after it has been deleted successfully
+            window.location.reload();
         },
         error: (xhr, status, err) => { }
     });
