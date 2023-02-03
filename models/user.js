@@ -79,6 +79,9 @@ const userSchema = new mongoose.Schema({
     lessons: {
         type: [lessonSchema]
     },
+    unlockedLessons: {
+        type: Number
+    },
     avgLessonWPM: {
         type: Number,
         required: true

@@ -13,7 +13,7 @@ let myParasId;
 module.exports.lesson = async function (req, res, next) {
     let error = () => res.status(404).end('Page not found');
 
-    Lesson.findOne({ level: req.query.level }, await function (err, lesson) {
+    Lesson.findOne({ _id: req.query.id }, await function (err, lesson) {
         if (err) { console.log(`Error while finding the lesson.`); error(); }
         if (lesson) {
             para = lesson.paragraph;
@@ -200,6 +200,7 @@ async function paraFinish() {
         else {
             currentUser.lessons.push(lessonDetails);
             currentUser.lessonStars += lessonDetails.stars;
+            currentUser.unlockedLessons = currentUser.unlockedLessons + 1;
         }
 
         if (Number.parseInt(currentUser.avgLessonWPM) != 0)

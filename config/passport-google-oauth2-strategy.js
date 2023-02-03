@@ -38,6 +38,7 @@ passport.use(new googleStrategy({
                     avgLessonWPM: 0,
                     netLessonScore: 0,
                     lessonStars: 0,
+                    unlockedLessons: 1,
                     avgRandomWPM: 0,
                     netRandomScore: 0,
                     randomStars: 0,

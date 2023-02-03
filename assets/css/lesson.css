@@ -82,7 +82,12 @@ body {
   border-radius: 15px;
   box-shadow: lightgrey 3px 3px 0px 2px;
 
+  filter: brightness(70%);
   transition: all 0.2s ease-in-out;
+}
+
+.boxFilter {
+  filter: brightness(100%);
 }
 
 .boxHover {
@@ -133,4 +138,20 @@ body {
 
 .three {
   margin-top: 14px;
+}
+
+/* For locked lessons */
+.locked {
+  filter: blur(0px) brightness(70%);
+}
+
+.lock {
+  width: 65px;
+  margin: auto;
+}
+
+.lockDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -30,6 +30,7 @@ module.exports.create = function (req, res) {
             newUser.netMyParasScore = Number.parseInt(0);
             newUser.myParasStars = Number.parseInt(0);
             newUser.lastTenSpeeds = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            newUser.unlockedLessons = 1;
 
             newUser.setPassword((req.body.password).toString());
             newUser.setUsername(req.body.email.toString());
