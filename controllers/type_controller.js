@@ -6,7 +6,7 @@ var currentUser;
 // let para = `Oops, Seems your database doesn't have any paragraphs !`;
 var para = `Oops, Seems there is no paragraph.`;
 let paraLength = para.length;
-let lessonId, lessonLvl;
+let lessonId, lessonSpeed = null;
 let randomId;
 let myParasId;
 
@@ -19,7 +19,8 @@ module.exports.lesson = async function (req, res, next) {
             para = lesson.paragraph;
             paraLength = para.length;
             lessonId = lesson.id; //Storing the id of the lesson
-            lessonLvl = req.query.level;
+            lessonSpeed = lesson.speed;
+            console.log(lessonSpeed); //
             return next();
         }
         else {
@@ -116,7 +117,7 @@ async function paraFinish() {
     let i = 0;
     for (i = 0; i < timer.length; i += 2) {
         if (Number.isNaN(timer[i + 1]) || Number.isNaN(timer[i]))
-            break;
+            continue;
         totalTimeToWritePara += timer[i + 1] - timer[i];
     }
     totalTimeToWritePara = totalTimeToWritePara / 1000 / 60.0;
@@ -139,13 +140,17 @@ async function paraFinish() {
     grossSpeed = Number.parseInt(grossSpeed);
     netSpeed = Number.parseInt(netSpeed);
     if (netSpeed < 0)
-        netSpeed = Number.parseInt(0);
+        netSpeed = Number.parseInt(grossSpeed / 2);
 
     // console.log(totalTimeToWritePara, grossSpeed, netSpeed, accuracy, wrongCount);
 
     // Function to calculate number of stars for typing
     let score = 0, stars = 0;
-    const MIN = 0, MAX = 120;
+    let MIN = 0, MAX = 100;
+    if (lessonSpeed) {
+        MAX = lessonSpeed;
+        lessonSpeed = null;
+    }
     const factor = 2500.0 / MAX;
     grossSpeed = Number.parseInt(grossSpeed);
     accuracy = Number.parseFloat(accuracy);
@@ -165,7 +170,6 @@ async function paraFinish() {
             grossSpeed: grossSpeed,
             netSpeed: netSpeed,
             accuracy: accuracy,
-            level: lessonLvl,
             stars: stars,
             score: score
         };

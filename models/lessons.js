@@ -10,8 +10,9 @@ const lessonsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    level: {
-        type: Number
+    speed: {
+        type: Number,
+        required: true
     }
 });
 

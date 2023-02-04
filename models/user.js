@@ -35,9 +35,6 @@ const lessonSchema = new mongoose.Schema({
     },
     stars: {
         type: Number
-    },
-    level: {
-        type: Number,
     }
 });
 
