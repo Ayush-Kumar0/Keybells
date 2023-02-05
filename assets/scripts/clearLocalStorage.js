@@ -1,4 +1,6 @@
 const signout = document.querySelector(`a[href="/user/sign-out"]`);
-signout.addEventListener('click', function (event) {
-    localStorage.clear();
-});
+if (signout) {
+    signout.addEventListener('click', function (event) {
+        localStorage.clear();
+    });
+}

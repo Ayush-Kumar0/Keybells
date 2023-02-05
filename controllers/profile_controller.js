@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const Lesson = require('../models/lessons');
-const db = require('../config/mongoose');
+
+const fs = require('fs');
+const { google } = require('googleapis');
 
 module.exports.profile = async function (req, res) {
     let userDetails = {
@@ -41,7 +43,7 @@ module.exports.profile = async function (req, res) {
                         sumOfSpeeds = sumOfSpeeds + Number.parseFloat(user.lastTenSpeeds[i]);
                     }
                 }
-                userDetails.OverallTypingSpeed = count == 0 ? 0.0 : (sumOfSpeeds / count).toFixed(0);
+                userDetails.OverallTypingSpeed = count == 0 ? 0 : (sumOfSpeeds / count).toFixed(0);
                 let creationDate = new Date(user.createdAt);
                 function formatTime(date) {
                     date = new Date(date);
@@ -101,11 +103,74 @@ module.exports.profile = async function (req, res) {
                 userDetails.Progress = Number.parseInt(user.lessonStars) * 1.0 / count;
                 let options = {
                     username: req.query.username,
-                    isGuest: req.user == undefined,
+                    isGuest: req.user == undefined || req.user.username != req.query.username,
                     user: userDetails
                 };
                 return res.render('profile', options);
             });
         }
     });
+}
+
+
+module.exports.changeAvatar = async function (req, res) {
+    if (!req.files || !req.files.avatar) {
+        req.flash('error', 'No files were Uploaded');
+    }
+    else {
+        let avatar = req.files.avatar;
+        if (avatar.mimetype != 'image/png' && avatar.mimetype != 'image/jpg' && avatar.mimetype != 'image/svg') {
+            req.flash('error', 'Incorrect Image format');
+        }
+        else {
+            // Upload a temporary file to server
+            const avatarName = avatar.name.substring(0, avatar.name.lastIndexOf('.')) + '-' + (Date.now()) + avatar.name.substring(avatar.name.lastIndexOf('.'));
+            // console.log(avatarName);
+            const uploadPath = __dirname + `/../uploads/users/avatars/` + avatarName;
+            await avatar.mv(uploadPath);
+
+            // Uploading file to Drive
+            const GDCredPath = process.env.GDCred;
+            const Scopes = [`https://www.googleapis.com/auth/drive`];
+            const auth = new google.auth.GoogleAuth({ keyFile: GDCredPath, scopes: Scopes });
+
+            await createAndUploadFile(auth);
+
+            // Upload file to Drive
+            async function createAndUploadFile(auth) {
+                // Create auto autherization handler object
+                const driveService = google.drive({ version: 'v3', auth });
+                // create file metadata
+                let fileMetaData = {
+                    'name': avatarName,
+                    'parents': [`1use1uwpBJAH7EDQJAmNmoXYmOdnxRzvP`] // Folder: Drive/KeybellsUploads/users/avatars
+                };
+                // create file data stream
+                let media = {
+                    mimeType: 'image/png, image/jpg, image/svg',
+                    body: fs.createReadStream(uploadPath)
+                };
+                // Get drive's response
+                let driveRes = await driveService.files.create({
+                    resource: fileMetaData,
+                    media: media,
+                    fields: `id`
+                });
+
+                // Handle the response
+                if (driveRes.status == 200) {
+                    req.flash('succes', 'Avatar changed');
+                }
+                else {
+                    req.flash('error', 'Error occured while uploading');
+                }
+                // console.log(driveRes);
+
+                // Delete temporary file on server
+                if (fs.existsSync(uploadPath))
+                    fs.unlinkSync(uploadPath);
+            }
+        }
+    }
+    res.redirect('back');
 }

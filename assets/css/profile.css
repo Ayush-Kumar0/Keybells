@@ -27,14 +27,42 @@ body {
     height: 100%;
 }
 
+#avatarDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+}
+
 .sidebar a {
     margin-left: 10px;
     display: block;
     color: white;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
     font-size: 30px;
     text-decoration: none;
+    width: fit-content;
+    border-radius: 50%;
 }
+
+.sidebar a img {
+    border-radius: 50%;
+}
+
+.changeImg:hover {
+    filter: brightness(50%);
+    cursor: pointer;
+}
+
+/* img[alt="camera"] {
+display: none;
+position: absolute;
+margin-left: 50%;
+margin-top: 50%;
+top: -50%;
+left: -50%;
+} */
 
 .card {
     position: relative;

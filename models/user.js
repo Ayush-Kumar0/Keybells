@@ -61,6 +61,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    avatar: {
+        type: String
+    },
     lastTenSpeeds: {
         type: Array,
         required: true

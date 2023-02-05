@@ -28,6 +28,8 @@ const connectFlash = require('connect-flash');
 const noty = require('noty');
 const middlewares = require('./config/middlewares');
 
+const fileUpload = require('express-fileupload');
+
 
 //Cookies
 app.use(express.urlencoded());
@@ -78,6 +80,9 @@ app.set('views', './views');
 //Storing flash messages in session cookie
 app.use(connectFlash());
 app.use(middlewares.flash);
+
+// Using express-fileupload
+app.use(fileUpload());
 
 
 
