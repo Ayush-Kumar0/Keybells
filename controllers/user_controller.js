@@ -31,6 +31,7 @@ module.exports.create = function (req, res) {
             newUser.myParasStars = Number.parseInt(0);
             newUser.lastTenSpeeds = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             newUser.unlockedLessons = 1;
+            newUser.avatar = '';
 
             newUser.setPassword((req.body.password).toString());
             newUser.setUsername(req.body.email.toString());

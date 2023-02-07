@@ -114,7 +114,7 @@ function glowStars(box, stars) {
 function displayStar() {
     let ele = document.getElementById('stars');
 
-    ele.innerText = 'Lesson Stars : ' + totalStars;
+    ele.innerText = 'Lesson Stars: ' + totalStars;
 }
 
 
@@ -123,7 +123,7 @@ function displayProgress() {
 
     let progress = 1.0 * totalStars / (boxes.length * 5) * 100;
     progress = progress.toFixed(2);
-    ele.innerText = 'Progress : ' + progress + '%';
+    ele.innerText = 'Progress: ' + progress + '%';
 }
 
 
@@ -136,8 +136,8 @@ async function displayScoreAndWPM() {
             let eleScore = document.getElementById('score');
             let eleWPM = document.getElementById('avgwpm');
 
-            eleScore.innerText = 'Lesson Score : ' + result.data.score;
-            eleWPM.innerText = 'Average Speed : ' + result.data.avgWPM;
+            eleScore.innerText = 'Lesson Score: ' + result.data.score;
+            eleWPM.innerText = 'Average Speed: ' + result.data.avgWPM + ' WPM';
         },
         error: function (xhr, status, err) {
             console.log(`Error while sending score and wpm request`);

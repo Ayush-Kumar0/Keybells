@@ -35,6 +35,7 @@ passport.use(new googleStrategy({
                     salt: salt,
                     password: crypto.pbkdf2Sync(password.toString('hex'), salt, 1000, 64, `sha512`).toString(`hex`),
                     lastTenSpeeds: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    avatar: '',
                     avgLessonWPM: 0,
                     netLessonScore: 0,
                     lessonStars: 0,

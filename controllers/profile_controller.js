@@ -103,9 +103,15 @@ module.exports.profile = async function (req, res) {
                 userDetails.Progress = Number.parseInt(user.lessonStars) * 1.0 / count;
                 let options = {
                     username: req.query.username,
+                    avatar: "/images/profile_home/test1.jpg",
                     isGuest: req.user == undefined || req.user.username != req.query.username,
                     user: userDetails
                 };
+
+                const oldAvatar = __dirname + `/../uploads/users/avatars/` + req.user.avatar;
+                if (req.user.avatar && fs.existsSync(oldAvatar) && fs.statSync(oldAvatar).isFile()) {
+                    options.avatar = '/users/avatars/' + req.user.avatar;
+                }
                 return res.render('profile', options);
             });
         }
@@ -123,54 +129,39 @@ module.exports.changeAvatar = async function (req, res) {
             req.flash('error', 'Incorrect Image format');
         }
         else {
-            // Upload a temporary file to server
-            const avatarName = avatar.name.substring(0, avatar.name.lastIndexOf('.')) + '-' + (Date.now()) + avatar.name.substring(avatar.name.lastIndexOf('.'));
+            const avatarName = req.user.username + '-' + (Date.now()) + avatar.name.substring(avatar.name.lastIndexOf('.'));
             // console.log(avatarName);
-            const uploadPath = __dirname + `/../uploads/users/avatars/` + avatarName;
-            await avatar.mv(uploadPath);
+            const uploadPath = __dirname + `/../uploads/users/avatars/`;
 
-            // Uploading file to Drive
-            const GDCredPath = process.env.GDCred;
-            const Scopes = [`https://www.googleapis.com/auth/drive`];
-            const auth = new google.auth.GoogleAuth({ keyFile: GDCredPath, scopes: Scopes });
-
-            await createAndUploadFile(auth);
-
-            // Upload file to Drive
-            async function createAndUploadFile(auth) {
-                // Create auto autherization handler object
-                const driveService = google.drive({ version: 'v3', auth });
-                // create file metadata
-                let fileMetaData = {
-                    'name': avatarName,
-                    'parents': [`1use1uwpBJAH7EDQJAmNmoXYmOdnxRzvP`] // Folder: Drive/KeybellsUploads/users/avatars
-                };
-                // create file data stream
-                let media = {
-                    mimeType: 'image/png, image/jpg, image/svg',
-                    body: fs.createReadStream(uploadPath)
-                };
-                // Get drive's response
-                let driveRes = await driveService.files.create({
-                    resource: fileMetaData,
-                    media: media,
-                    fields: `id`
-                });
-
-                // Handle the response
-                if (driveRes.status == 200) {
-                    req.flash('succes', 'Avatar changed');
-                }
-                else {
-                    req.flash('error', 'Error occured while uploading');
-                }
-                // console.log(driveRes);
-
-                // Delete temporary file on server
-                if (fs.existsSync(uploadPath))
-                    fs.unlinkSync(uploadPath);
+            // Deleting old avatar
+            const oldAvatar = req.user.avatar;
+            if (req.user.avatar && fs.existsSync(uploadPath + oldAvatar) && fs.statSync(uploadPath + oldAvatar).isFile()) {
+                fs.unlinkSync(uploadPath + oldAvatar);
             }
+
+            // Uploading new avatar
+            await avatar.mv(uploadPath + avatarName);
+            // Update name of avatar
+            req.user.avatar = avatarName;
+
+            // Save to database
+            await req.user.save(function (err, user) {
+                if (err) {
+                    console.log(`Error while saving avatar`, err);
+                    req.flash('error', 'Unknown error');
+                    return;
+                }
+                console.log(`Saved avatar`);
+                req.flash('success', 'Avatar changed');
+            });
         }
     }
     res.redirect('back');
+}
+
+module.exports.fileTooBig = function (req, res) {
+    if (req.xhr) {
+        req.flash('error', 'File exceeds 10MB');
+        res.redirect('back');
+    }
 }

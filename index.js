@@ -64,6 +64,7 @@ app.use(passport.session());
 
 //Static files
 app.use(express.static('./assets'));
+app.use(express.static('./uploads'));
 
 //Setting views
 app.set('view engine', 'ejs');

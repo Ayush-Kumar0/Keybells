@@ -8,7 +8,22 @@ window.onload = function (event) {
             chooseFile.click();
         }
         chooseFile.onchange = (event) => {
-            avatarForm.submit();
+            let size = $(`input[name="avatar"]`)[0].files.item(0).size / 1024 / 1024;  //In megabytes
+            if (size > 10) {
+                $.ajax({
+                    type: 'post',
+                    url: '/user/profile/fileTooBig',
+                    data: {},
+                    success: (result, status, xhr) => {
+                        document.location.reload();
+                    },
+                    error: (xhr, status, err) => {
+                        document.location.reload();
+                    }
+                });
+            }
+            else
+                avatarForm.submit();
         }
     }
 }

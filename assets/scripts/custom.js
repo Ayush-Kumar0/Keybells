@@ -18,7 +18,7 @@ window.onload = async function (event) {
             if (result.data) {
                 document.getElementById('score').innerText = `Custom Score: ${result.data.netRandomScore}`;
                 document.getElementById('stars').innerText = `Custom Stars: ${result.data.randomStars}`;
-                document.getElementById('avgwpm').innerText = `Average Speed: ${result.data.avgRandomWPM}`;
+                document.getElementById('avgwpm').innerText = `Average Speed: ${result.data.avgRandomWPM} WPM`;
                 document.getElementById('tried').innerText = `Tried Count: ${result.data.tried}`;
             }
         },

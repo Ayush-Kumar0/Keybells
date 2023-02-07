@@ -1,13 +1,10 @@
-const multer = require('multer');
-
-
 module.exports.myParas = function (req, res) {
     let options = {
         title: 'My Paragraphs',
         paras: [],
-        score: '?',
-        stars: '?',
-        avgSpeed: '?',
+        score: '0',
+        stars: '0',
+        avgSpeed: '0',
         username: req.user.username
     }
     const user = req.user;
