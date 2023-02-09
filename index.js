@@ -104,9 +104,9 @@ app.use('/', require('./routes'));
 //         console.log(`HTTPs Server running on port : ${port}`);
 //     });
 // }
-const serverHTTP = http.createServer(app);
+// const serverHTTP = http.createServer(app);
 // const port2 = process.env.PORT2 || 8001;
-serverHTTP.listen(port, function (err) {
+app.listen(port, function (err) {
     if (err) {
         return console.log(`Error while connecting to HTTP server on port : ${port}`);
     }
