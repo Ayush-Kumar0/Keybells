@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 const fs = require('fs');
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 // const expressLayouts = require('express-ejs-layouts');
 
 
@@ -32,7 +32,7 @@ const fileUpload = require('express-fileupload');
 
 
 //Cookies
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //Storing cookie using mongo-store
@@ -97,7 +97,7 @@ if (process.env.KEY_PATH && process.env.CERT_PATH) {
     const serverHTTPS = https.createServer({ key: key, cert: cert }, app);
 
     //Connecting the server
-    serverHTTPS.listen(port, 'localhost', function (err) {
+    serverHTTPS.listen(port, function (err) {
         if (err) {
             return console.log(`Error while connecting to HTTPs server on port : ${port}`);
         }
@@ -106,7 +106,7 @@ if (process.env.KEY_PATH && process.env.CERT_PATH) {
 }
 const serverHTTP = http.createServer(app);
 const port2 = process.env.PORT2 || 8001;
-serverHTTP.listen(port2, 'localhost', function (err) {
+serverHTTP.listen(port2, function (err) {
     if (err) {
         return console.log(`Error while connecting to HTTP server on port : ${port2}`);
     }
