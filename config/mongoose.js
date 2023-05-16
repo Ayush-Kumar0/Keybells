@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const dbName = process.env.DB_NAME || 'Keybells_DB';
-mongoose.connect(`mongodb://0.0.0.0:27017/${dbName}`);
+// mongoose.connect(`mongodb://0.0.0.0:27017/${dbName}`);
+mongoose.connect(process.env.MONGO_URI);
 
 const db = mongoose.connection;
 
