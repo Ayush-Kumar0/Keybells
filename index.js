@@ -91,24 +91,27 @@ app.use(fileUpload());
 app.use('/', require('./routes'));
 
 
-// if (process.env.KEY_PATH && process.env.CERT_PATH) {
-//     const key = fs.readFileSync(process.env.KEY_PATH);
-//     const cert = fs.readFileSync(process.env.CERT_PATH);
-//     const serverHTTPS = https.createServer({ key: key, cert: cert }, app);
-
-//     //Connecting the server
-//     serverHTTPS.listen(port, function (err) {
-//         if (err) {
-//             return console.log(`Error while connecting to HTTPs server on port : ${port}`);
-//         }
-//         console.log(`HTTPs Server running on port : ${port}`);
-//     });
-// }
-// const serverHTTP = http.createServer(app);
-// const port2 = process.env.PORT2 || 8001;
+// HTTP server
+const serverHTTP = http.createServer(app);
 app.listen(port, function (err) {
     if (err) {
         return console.log(`Error while connecting to HTTP server on port : ${port}`);
     }
     console.log(`HTTP Server running on port : ${port}`);
 });
+
+// HTTPs server
+// const port2 = process.env.PORT2;
+// if (process.env.KEY_PATH && process.env.CERT_PATH) {
+//     const key = fs.readFileSync(process.env.KEY_PATH);
+//     const cert = fs.readFileSync(process.env.CERT_PATH);
+//     const serverHTTPS = https.createServer({ key: key, cert: cert }, app);
+
+//     //Connecting the server
+//     serverHTTPS.listen(port2, function (err) {
+//         if (err) {
+//             return console.log(`Error while connecting to HTTPs server on port : ${port2}`);
+//         }
+//         console.log(`HTTPs Server running on port : ${port2}`);
+//     });
+// }

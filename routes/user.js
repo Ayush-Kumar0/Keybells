@@ -20,10 +20,10 @@ router.use('/custom', require('./custom'));
 router.use('/myParas', require('./myParas'));
 
 //For challenges
-router.use('/challenges', require('./challenges'));
+// router.use('/challenges', require('./challenges'));
 
 //For rankings
-router.use('/ranking', require('./ranking'));
+// router.use('/ranking', require('./ranking'));
 
 //For typing page
 router.use('/type', require('./type'));
