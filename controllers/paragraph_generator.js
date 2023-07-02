@@ -33,10 +33,10 @@ module.exports.generateParagraph = async function (req, res, next) {
                         // console.log(element.word);
                         if (element.word) {
                             let x = element.word;
-                            while (x.search('`')) {
+                            while (x.search('`') !== -1) {
                                 x.replace('`', `'`);
                             }
-                            while (x.search('’')) {
+                            while (x.search('’') !== -1) {
                                 x.replace('’', `'`);
                             }
                             await words.push(x.trim());
@@ -72,10 +72,10 @@ module.exports.generateFacts = async function (req, res, next) {
                 // console.log(data.text);
                 if (data && data.text) {
                     let x = data.text;
-                    while (x.search('`')) {
+                    while (x.search('`') !== -1) {
                         x.replace('`', `'`);
                     }
-                    while (x.search('’')) {
+                    while (x.search('’') !== -1) {
                         x.replace('’', `'`);
                     }
                     facts.push(x.trim());
