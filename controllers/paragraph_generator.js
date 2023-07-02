@@ -24,8 +24,9 @@ module.exports.generateParagraph = async function (req, res, next) {
         let errorOccured = false;
         while (words.length == 0) {
             await fetch(url)
-                .then(res2 => {
-                    return res2.json();
+                .then(async res2 => {
+                    res2 = await res2.clone().json();
+                    return res2;
                 })
                 .then(async data => {
                     if (!data) {
@@ -68,8 +69,9 @@ module.exports.generateFacts = async function (req, res, next) {
         let errorOccured = false;
         for (let i = 0; i < count; i++) {
             await fetch(url)
-                .then(res2 => {
-                    return res2.json();
+                .then(async res2 => {
+                    res2 = await res2.clone().json();
+                    return res2;
                 })
                 .then(data => {
                     if (data && data.text)
