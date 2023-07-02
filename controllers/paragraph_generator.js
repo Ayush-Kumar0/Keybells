@@ -41,8 +41,11 @@ module.exports.generateParagraph = async function (req, res, next) {
                     }
                 })
                 .catch(err => {
+                    errorOccured = true;
                     return res.status(404).redirect('back');
                 });
+            if (errorOccured)
+                break;
         }
         if (!errorOccured)
             await typeController.setCustomParagraph(words.join(' ') + '.', next);
@@ -76,8 +79,11 @@ module.exports.generateFacts = async function (req, res, next) {
                     //     return res.status(404).redirect('back');
                     // }
                 }).catch(err => {
+                    errorOccured = true;
                     return res.status(404).redirect('back');
                 });
+            if (errorOccured)
+                break;
         }
         // console.log(facts);
         if (!errorOccured)
