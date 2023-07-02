@@ -29,15 +29,16 @@ module.exports.generateParagraph = async function (req, res, next) {
                 })
                 .then(async data => {
                     if (!data) {
-                        errorOccured = true;
-                        return res.status(404).redirect('back');
+                        // errorOccured = true;
+                        // return res.status(404).redirect('back');
+                    } else {
+                        let len = data.length;
+                        numberOfWords -= len;
+                        await Array.from(data).forEach(async element => {
+                            if (element.word)
+                                await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                        });
                     }
-                    let len = data.length;
-                    numberOfWords -= len;
-                    await Array.from(data).forEach(async element => {
-                        if (element.word)
-                            await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
-                    });
                 })
                 .catch(err => {
                     return res.status(404).redirect('back');
@@ -70,10 +71,10 @@ module.exports.generateFacts = async function (req, res, next) {
                 .then(data => {
                     if (data && data.text)
                         facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
-                    else {
-                        errorOccured = true;
-                        return res.status(404).redirect('back');
-                    }
+                    // else {
+                    //     errorOccured = true;
+                    //     return res.status(404).redirect('back');
+                    // }
                 }).catch(err => {
                     return res.status(404).redirect('back');
                 });
