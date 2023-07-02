@@ -25,10 +25,13 @@ module.exports.generateParagraph = async function (req, res, next) {
                     return res2.json();
                 })
                 .then(async data => {
+                    if (!data)
+                        return res.status(404).redirect('back');
                     let len = data.length;
                     numberOfWords -= len;
                     await Array.from(data).forEach(async element => {
-                        await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                        if (element.word)
+                            await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
                     });
                 })
                 .catch(err => {
@@ -60,7 +63,10 @@ module.exports.generateFacts = async function (req, res, next) {
                     return res2.json();
                 })
                 .then(data => {
-                    facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                    if (data && data.text)
+                        facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                    else
+                        return res.status(404).redirect('back');
                 }).catch(err => {
                     return res.status(404).redirect('back');
                 });
