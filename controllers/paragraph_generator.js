@@ -13,7 +13,7 @@ module.exports.generateParagraph = async function (req, res, next) {
     if (1 <= minLength && minLength <= maxLength && maxLength <= 15 && 10 <= minCount && minCount <= maxCount && maxCount <= 500) {
         // If the request is valid
         let numberOfWords = Number.parseInt((Math.random() * (maxCount - minCount)).toFixed(0)) + Number.parseInt(minCount);
-        console.log(numberOfWords);
+        // console.log(numberOfWords);
         const API_KEY = process.env.WORDNIK_API;
 
         let words = [];
@@ -30,9 +30,17 @@ module.exports.generateParagraph = async function (req, res, next) {
                     let len = data.length;
                     numberOfWords -= len;
                     await Array.from(data).forEach(async element => {
-                        console.log(element.word);
-                        if (element.word)
-                            await words.push(element.word.toString().replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                        // console.log(element.word);
+                        if (element.word) {
+                            let x = element.word;
+                            while (x.search('`')) {
+                                x.replace('`', `'`);
+                            }
+                            while (x.search('’')) {
+                                x.replace('’', `'`);
+                            }
+                            await words.push(x.trim());
+                        }
                     });
                 }
             } catch (e) {
@@ -54,22 +62,30 @@ module.exports.generateFacts = async function (req, res, next) {
     count = Number.parseInt(count);
 
     if (count >= 1 && count <= 15) {
-        console.log(count);
+        // console.log(count);
         const url = process.env.USELESS_FACTS_URL || `https://uselessfacts.jsph.pl/random.json?language=en`;
         let facts = [];
         for (let i = 0; i < count; i++) {
             try {
                 let res2 = await fetch(url);
                 let data = await res2.clone().json();
-                console.log(data.text);
-                if (data && data.text)
-                    facts.push(data.text.toString().replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                // console.log(data.text);
+                if (data && data.text) {
+                    let x = data.text;
+                    while (x.search('`')) {
+                        x.replace('`', `'`);
+                    }
+                    while (x.search('’')) {
+                        x.replace('’', `'`);
+                    }
+                    facts.push(x.trim());
+                }
             } catch (e) {
                 console.log(e);
                 return res.status(500).redirect('back');
             }
         }
-        console.log(facts);
+        // console.log(facts);
         await typeController.setCustomParagraph(facts.join(" "), next);
         return;
     }
