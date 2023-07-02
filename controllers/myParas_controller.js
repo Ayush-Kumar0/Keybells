@@ -32,8 +32,10 @@ module.exports.addByText = async function (req, res) {
             return res.redirect('back');
         }
         else {
+            while (submittedText.search('\r\n') !== -1)
+                submittedText = submittedText.replace('\r\n', ' ');
             let myParasDetails = {
-                paragraph: submittedText.replaceAll('\r\n', ' ').trim(),
+                paragraph: submittedText.trim(),
                 paraType: 'myParas',
                 time: new Date(),
                 grossSpeed: 0,
@@ -85,7 +87,12 @@ module.exports.addByFile = async function (req, res) {
             content.splice(0, 4);
             content.pop();
             content.pop();
-            fileText = content.join(' ').replaceAll('\t', ' ').replaceAll(/\s+/g, ' ').trim();
+            fileText = content.join(' ');
+            while (fileText.search('\t') !== -1)
+                fileText = fileText.replace('\t', ' ');
+            while (fileText.search(/\s+/g) !== -1)
+                fileText = fileText.replace(/\s+/g, ' ');
+            fileText = fileText.trim();
         }
         catch (err) {
             console.log('Error while file conversion');
