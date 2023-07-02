@@ -30,8 +30,9 @@ module.exports.generateParagraph = async function (req, res, next) {
                     let len = data.length;
                     numberOfWords -= len;
                     await Array.from(data).forEach(async element => {
+                        console.log(element.word);
                         if (element.word)
-                            await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                            await words.push(element.word.toString().replaceAll('`', `'`).replaceAll('’', `'`).trim());
                     });
                 }
             } catch (e) {
@@ -60,8 +61,9 @@ module.exports.generateFacts = async function (req, res, next) {
             try {
                 let res2 = await fetch(url);
                 let data = await res2.clone().json();
+                console.log(data.text);
                 if (data && data.text)
-                    facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                    facts.push(data.text.toString().replaceAll('`', `'`).replaceAll('’', `'`).trim());
             } catch (e) {
                 console.log(e);
                 return res.status(500).redirect('back');
