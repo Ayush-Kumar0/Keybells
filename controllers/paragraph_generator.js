@@ -23,38 +23,28 @@ module.exports.generateParagraph = async function (req, res, next) {
         // console.log(numberOfWords);
         let errorOccured = false;
         while (words.length == 0) {
-            await fetch(url)
-                .then(async res2 => {
-                    res2 = await res2.clone().json();
-                    return res2;
-                })
-                .then(async data => {
-                    if (!data) {
-                        // errorOccured = true;
-                        // return res.status(404).redirect('back');
-                    } else {
-                        let len = data.length;
-                        numberOfWords -= len;
-                        await Array.from(data).forEach(async element => {
-                            if (element.word)
-                                await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
-                        });
-                    }
-                })
-                .catch(err => {
-                    errorOccured = true;
-                    return res.status(404).redirect('back');
-                });
-            if (errorOccured)
-                break;
+            let res2 = await fetch(url);
+            let data = await res2.clone().json();
+            try {
+                if (data) {
+                    let len = data.length;
+                    numberOfWords -= len;
+                    await Array.from(data).forEach(async element => {
+                        if (element.word)
+                            await words.push(element.word.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+                    });
+                }
+            } catch (e) {
+                console.log(e);
+                return res.status(500).redirect('back');
+            }
         }
-        if (!errorOccured)
-            await typeController.setCustomParagraph(words.join(' ') + '.', next);
+        await typeController.setCustomParagraph(words.join(' ') + '.', next);
         return;
     }
     else {
         // Wrong inputs
-        return res.status(404).redirect('back');
+        return res.status(400).redirect('back');
     }
 }
 
@@ -66,34 +56,23 @@ module.exports.generateFacts = async function (req, res, next) {
         console.log(count);
         const url = process.env.USELESS_FACTS_URL || `https://uselessfacts.jsph.pl/random.json?language=en`;
         let facts = [];
-        let errorOccured = false;
         for (let i = 0; i < count; i++) {
-            await fetch(url)
-                .then(async res2 => {
-                    res2 = await res2.clone().json();
-                    return res2;
-                })
-                .then(data => {
-                    if (data && data.text)
-                        facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
-                    // else {
-                    //     errorOccured = true;
-                    //     return res.status(404).redirect('back');
-                    // }
-                }).catch(err => {
-                    errorOccured = true;
-                    return res.status(404).redirect('back');
-                });
-            if (errorOccured)
-                break;
+            try {
+                let res2 = await fetch(url);
+                let data = await res2.clone().json();
+                if (data && data.text)
+                    facts.push(data.text.replaceAll('`', `'`).replaceAll('’', `'`).trim());
+            } catch (e) {
+                console.log(e);
+                return res.status(500).redirect('back');
+            }
         }
-        // console.log(facts);
-        if (!errorOccured)
-            await typeController.setCustomParagraph(facts.join(" "), next);
+        console.log(facts);
+        await typeController.setCustomParagraph(facts.join(" "), next);
         return;
     }
     else {
-        return res.redirect('back');
+        return res.status(400).redirect('back');
     }
 }
 
